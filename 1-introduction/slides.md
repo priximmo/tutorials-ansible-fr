@@ -64,14 +64,17 @@
 # ANSIBLE : introduction
 
 
+<br>
 * installation :
 		* via les sources
 		* via les paquets
 		* via librairie python (pip)
 
+<br>
 * système de templating = jinja2 (python)
 		* équivalent à erb pour puppet (ruby)
 
+<br>
 * modules sur de nombreux outils communs :
 		* postgres
 		* vmware
@@ -83,4 +86,5 @@
 		* mysql
 		...
 
+<br>
 * également utilisable pour récupérer les données de vos serveurs
