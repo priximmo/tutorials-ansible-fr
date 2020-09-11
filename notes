@@ -24,4 +24,39 @@
 # Let's Go !! #################################################
 
 
-https://docs.ansible.com/ansible/latest/reference_appendices/config.html#ansible-configuration-settings
+- status : changed / failed / success
+
+- cli_config module
+
+
+- hosts: development
+
+  become: yes
+
+  gather_facts: no
+
+  pre_tasks:
+
+  - name: 'install python'
+
+    raw: 'sudo apt-get -y install python'
+
+gather_facts to no
+
+
+- mitogen
+
+
+- démo cache
+
+
+- awx
+
+
+
+
+- gather fact 
+
+ ansible -i "node2," all -m setup -a "filter=ansible_distribution*"
+
+

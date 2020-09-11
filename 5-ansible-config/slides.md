@@ -11,13 +11,15 @@
     * ansible.cfg
     * cli
 
+<br>
 * et à différents endroits pour ansible.cfg (ordre inverse de prise en compte)
     * éventuellement en définissant ANSIBLE_CONFIG
     * à l'endroit de votre playbook ansible.cfg
     * ~/.ansible/ansible.cfg
     * /etc/ansible/ansible.cfg
 
-* exemple : localisation par défaut de l'inventaire
+<br>
+* exemple : 
 
 ```
 inventory       = /etc/ansible/hosts
@@ -55,6 +57,7 @@ ansible-config dump --only-changed #valeurs par défaut modifiée
 ```
 * exemple
 
+<br>
 ```
 ANSIBLE_SSH_ARGS:
   default: -C -o ControlMaster=auto -o ControlPersist=60s
@@ -102,6 +105,7 @@ callback_whitelist = profile_tasks
 pipelining = True
 ```
 
+<br>
 Principe par défaut :
   * création fichier python
   * création directory
@@ -109,6 +113,7 @@ Principe par défaut :
   * run python
   * récupération résultat
 
+<br>
 Avec pipelining :
   * génération du fichier python
   * envoi sur le python interpreter distant via stdin
@@ -148,6 +153,7 @@ ssh_args = -o ControlMaster=auto -o ControlPersist=60s -o PreferredAuthenticatio
 [defaults]
 forks = 30
 ```
+
 -------------------------------------------------------------------------------------------------------------
 
 # Fichiers de configuration : tuning
