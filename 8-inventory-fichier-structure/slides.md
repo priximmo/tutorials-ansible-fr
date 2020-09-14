@@ -158,7 +158,7 @@ all:
       children:
         enfant1:
           hosts:
-            srv[1-2]:
+            srv[1:2]:
         enfant2:
           hosts:
             srv3:
@@ -168,7 +168,7 @@ all:
               srv5:
     parent2:
       hosts:
-        srv[6-9]:
+        srv[6:]:
 ```
 
 
@@ -180,23 +180,32 @@ all:
 
 <br>
 * un peu plus vers la pratique
-		* couche commune : users
-		* serveurs web nginx
-		* bases de données
-		* applications dockerisées ou non
-    * monitoring qui semble lié à toutes les machines users
+		* couche commune > common
+		* serveurs web nginx > webserver 
+		* bases de données > dbserver
+		* applications dockerisées ou non > app / appdock
+    * monitoring qui semble lié à toutes les machines users > monitoring
 
 ```
 all:
   children:
-    users:
+    common:
       children:
+        webserver:
+          hosts:
+            srv[1:4]:
+        dbserver:
+          hosts:
+            srv[5:6]:
+        app:
+          hosts:
+            srv[7:10]:
+        appdock:
+          hosts:
+            srv[11:15]:
+    monitoring:
+      children:
+        common:
 ```
-
-
-
-* plusieurs commandes :
-		* ansible-inventory
-
 
 		
