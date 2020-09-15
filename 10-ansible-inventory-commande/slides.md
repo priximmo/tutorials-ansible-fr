@@ -12,8 +12,58 @@
 		* pour grapher
 
 <br>
-https://loncar.net/snippets/ansible-inventory-grapher/
+* export au format json par défaut (serveurs et variables d'inventaire)
 
-http://willthames.github.io/2014/04/03/an-ansible-inventory-grapher.html
+```
+ansible-inventory -i <inventory_file> --list
+ansible-inventory -i <inventory_file> --yaml
+```
 
-https://github.com/haidaraM/ansible-playbook-grapher
+* plus compact
+
+```
+ansible-inventory -i 00_inventory.yml --list --export
+```
+
+<br>
+* afficher un format compact sans variables
+
+```
+ansible-inventory -i <inventory_file> --graph
+```
+
+* avec les variables
+
+```
+ansible-inventory -i 00_inventory.yml --graph --vars
+```
+
+---------------------------------------------------------------------------------------------
+
+# ANSIBLE : Variables d'inventaire
+
+
+<br>
+* export vers un fichier
+
+```
+ansible-inventory -i <inventory_file> --output
+```
+
+<br>
+* format toml
+
+```
+pip3 install toml
+ansible-inventory -i <inventory_file> --vars --toml
+```
+
+<br>
+* grapher...
+
+```
+pip3 install ansible-inventory-grapher
+sudo apt install graphviz graphicsmagick-imagemagick-compat
+ansible-inventory-grapher -i inventory.yml all | dot -Tpng | display png:-
+```
+
