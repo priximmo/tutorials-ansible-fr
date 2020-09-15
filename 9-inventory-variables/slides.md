@@ -9,12 +9,13 @@
 <br>
 * ansible = forte précédence des variables (ordre hiérarchique)
 
-* regroupement par types :
+* regroupement par famille :
     * Configuration settings
     * Command-line options 		> VARIABLES D'INVENTAIRES 
     * Playbook keywords
     * Variables
 
+<br>
 * 22 types: 
 
 ```
