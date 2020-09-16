@@ -1,0 +1,11 @@
+all:
+  children:
+    common:
+      children:
+        webserver:
+          hosts:
+            node[2:4]:
+        dbserver:
+          hosts:
+            node[4:5]:
+

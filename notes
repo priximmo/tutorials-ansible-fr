@@ -63,3 +63,16 @@ q(uit) — quit from debugger
 - vagrant ansible
 
 
+
+	
+- import_tasks: x.yml 
+  with_items: [1,2,3] 
+ 
+This willi import x.yml one time and every imported task will now run 
+and loop over 1,2,3 
+ 
+- include_tasks: x.yml 
+  with_items: [1,2,3] 
+ 
+This will include x.yml 3 times and set the 'item' variable to 1, 2 
+and 3 respectively 
