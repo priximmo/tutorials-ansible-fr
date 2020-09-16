@@ -1,27 +1,3 @@
-# Text File
-
-###############################################################
-#  TITRE: 
-#
-#  AUTEUR:   Xavier
-#  VERSION: 
-#  CREATION:  
-#  MODIFIE: 
-#
-#  DESCRIPTION: 
-###############################################################
-
-
-
-# Variables ###################################################
-
-
-
-# Functions ###################################################
-
-
-
-# Let's Go !! #################################################
 
 
 - status : changed / failed / success
@@ -30,33 +6,60 @@
 
 
 - hosts: development
-
   become: yes
-
   gather_facts: no
-
   pre_tasks:
-
   - name: 'install python'
-
     raw: 'sudo apt-get -y install python'
-
 gather_facts to no
 
 
 - mitogen
 
-
 - démo cache
-
 
 - awx
 
-
-
-
 - gather fact 
-
  ansible -i "node2," all -m setup -a "filter=ansible_distribution*"
+
+
+- with_items
+
+- with_dicts
+
+- gather facts collect
+
+- any_errors_fatal
+
+- max fail percentage
+
+- run once
+
+- delegate to
+
+- vault
+
+- vault file
+
+- vault id
+
+- no_logs
+
+- tags
+
+- idempotent command create remove
+
+- strategy: debug
+P task/host/result/vars ->Prints the value to executed a module
+task.args[key] = value — upgrade the module arguments
+vars[args]=value — set argument value
+r(edo) — run the task again
+c(continue) — Just continue
+q(uit) — quit from debugger
+
+- ansible-lint https://medium.com/faun/linting-your-ansible-playbooks-and-make-a-continuous-integration-ci-solution-bcf8b4ea4c03
+
+- vagrant ansible
 
 

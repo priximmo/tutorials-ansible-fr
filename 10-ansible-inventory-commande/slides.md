@@ -2,7 +2,7 @@
 %author: xavki
 
 
-# ANSIBLE : Variables d'inventaire
+# ANSIBLE : ansible-inventory et graph
 
 
 
@@ -67,3 +67,4 @@ sudo apt install graphviz graphicsmagick-imagemagick-compat
 ansible-inventory-grapher -i inventory.yml all | dot -Tpng | display png:-
 ```
 
+Dépôt : https://github.com/willthames/ansible-inventory-grapher
