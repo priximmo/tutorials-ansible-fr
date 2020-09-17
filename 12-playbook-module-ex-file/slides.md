@@ -18,21 +18,29 @@ Périmètre : fichiers, répertoires, liens symboliques
 <br>
 Options courantes :
 
+<br>
 	* attribute : paramètres particuliers d'un fichier : immutabilité etc...
 								(https://fr.wikipedia.org/wiki/Chattr)
 
+<br>
 	* force : pour les liens symboliques (si le fichier source existe pas, la destination existe)
 
+<br>
 	* group/owner : propriétaire et groupe de l'élément
 
+<br>
 	* mode : sous les deux formats : "0755" ou "u=rwx,g=rx,o=rx"
 
+<br>
 	* path : localisation
 
-	* recurse : création du chemin intermédiaire si n'existe pas (yes/no)
+<br>
+	* recurse : création du chemin intermédiaire si n'existe pas (yes/no) > pour directory uniquement
 
+<br>
 	* src : pour les liens (hard ou symbolique)
 
+<br>
 	* state : type (absent / directory / file / hard / link / touch)
 			touch > créé le fichier vide
 			file > vérifie l'existence et les caractéristiques
@@ -78,6 +86,13 @@ Playbook :
 
 Rq : ansible -i inventory all -m ping
 
+----------------------------------------------------------------------------------------------------
+
+
+# ANSIBLE : Les Modules : ex File
+
+
+
 <br>
 * créer un répertoire
 
@@ -119,93 +134,92 @@ Rq : droit sudo du user vagrant
 
 Rq :attention à l'indentation
 
+----------------------------------------------------------------------------------------------------
+
+
+# ANSIBLE : Les Modules : ex File
+
+
+
 <br>
 * modification du groupe et des droits (RWX-RX-RX - 0755) | stat
 
-- name: Change file ownership, group and permissions
+```
+- name: création du répertoire /tmp/xavki
   file:
-    path: /etc/foo.conf
-    owner: foo
-    group: foo
-    mode: '0644'
-
-- name: Give insecure permissions to an existing file
-  file:
-    path: /work
+    path: /tmp/xavki/
+    state: directory
     owner: root
     group: root
-    mode: '1777'
+    mode: 0755
+  become: yes
+```
 
-- name: Create a symbolic link
-  file:
-    src: /file/to/link/to
-    dest: /path/to/symlink
-    owner: foo
-    group: foo
-    state: link
+<br>
+* récursivité (pour directory uniquement
 
-- name: Create two hard links
-  file:
-    src: '/tmp/{{ item.src }}'
-    dest: '{{ item.dest }}'
-    state: hard
-  loop:
-    - { src: x, dest: y }
-    - { src: z, dest: k }
+```
+  - name: création du répertoire /tmp/xavki
+    file:
+      path: /tmp/xavki/1/2/3/4
+      recurse: yes
+      state: directory
+      owner: root
+      group: root
+      mode: 0755
+``` 
 
-- name: Touch a file, using symbolic modes to set the permissions (equivalent to 0644)
-  file:
-    path: /etc/foo.conf
-    state: touch
-    mode: u=rw,g=r,o=r
+* touch
 
-- name: Touch the same file, but add/remove some permissions
-  file:
-    path: /etc/foo.conf
-    state: touch
-    mode: u+rw,g-wx,o-rwx
+```
+  - name: création du répertoire /tmp/xavki
+    file:
+      path: /tmp/xavki/1/2/3/4/fichier.txt
+      state: touch
+      owner: root
+      group: root
+      mode: 0755
+```
 
-- name: Touch again the same file, but dont change times this makes the task idempotent
-  file:
-    path: /etc/foo.conf
-    state: touch
-    mode: u+rw,g-wx,o-rwx
-    modification_time: preserve
-    access_time: preserve
+----------------------------------------------------------------------------------------------------
 
-- name: Create a directory if it does not exist
-  file:
-    path: /etc/some_directory
-    state: directory
-    mode: '0755'
 
-- name: Update modification and access time of given file
-  file:
-    path: /etc/some_file
-    state: file
-    modification_time: now
-    access_time: now
+# ANSIBLE : Les Modules : ex File
 
-- name: Set access time based on seconds from epoch value
-  file:
-    path: /etc/another_file
-    state: file
-    access_time: '{{ "%Y%m%d%H%M.%S" | strftime(stat_var.stat.atime) }}'
 
-- name: Recursively change ownership of a directory
-  file:
-    path: /etc/foo
-    state: directory
-    recurse: yes
-    owner: foo
-    group: foo
+<br>
+* lien symbolique = lien vers fichier (diff avec hardlink = lien vers inode)
 
-- name: Remove file (delete file)
-  file:
-    path: /etc/foo.txt
-    state: absent
+```
+  - name: création du répertoire /tmp/xavki
+    file:
+      src: /tmp/xavki/1/2/3/4/
+      dest: /tmp/symlink
+      state: link  #hard
+      owner: root
+      group: root
+      mode: 0755
+```
 
-- name: Recursively remove directory
-  file:
-    path: /etc/foo
-    state: absent
+Rq: idempotence
+
+
+<br>
+* suppression de fichier
+
+```
+  - name: dir sans idempotence
+    file:
+      path: /tmp/xavki.txt
+      state: absent
+```
+
+<br>
+* suppression de répertoire récursive
+
+```
+  - name: dir sans idempotence
+    file:
+      path: /tmp/xavki/
+      state: absent
+```
