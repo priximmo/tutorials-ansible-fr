@@ -7,11 +7,15 @@
 
 <br>
 Doc : https://docs.ansible.com/ansible/latest/modules/file_module.html
+Commande : ansible-doc file
 
+<br>
 Objectif : gestion des fichiers et répertoires
 
+<br>
 Périmètre : fichiers, répertoires, liens symboliques
 
+<br>
 Options courantes :
 
 	* attribute : paramètres particuliers d'un fichier : immutabilité etc...
@@ -34,6 +38,89 @@ Options courantes :
 			file > vérifie l'existence et les caractéristiques
 
 
+----------------------------------------------------------------------------------------------------
+
+
+# ANSIBLE : Les Modules : ex File
+
+
+<br>
+* un inventaire pour débuter :
+
+```
+all:
+  children:
+    common:
+      hosts:
+        node2:
+```
+
+<br>
+Playbook :
+
+
+* déclaration qui et où
+
+```
+- name: Je débute avec ansible
+  hosts: all
+  remote_user: vagrant
+  tasks:
+```
+
+<br>
+* le module ping (pas nécessaire) > ping ssh
+
+```
+- name: je teste ma connexion
+  ping:
+```
+
+Rq : ansible -i inventory all -m ping
+
+<br>
+* créer un répertoire
+
+```
+- name: création du répertoire /tmp/xavki
+  file:
+    path: /tmp/xavki/
+    state: directory
+```
+
+Rq: user de création > user de connexion
+
+<br>
+* changement de user > root
+
+```
+- name: création du répertoire /tmp/xavki
+  file:
+    path: /tmp/xavki/
+    state: directory
+    owner: root
+```
+
+Rq : droit sudo du user vagrant
+
+<br>
+* become = yes > différents endroits pour le faire
+		* cli > -b
+		* playbook/tasks > become: yes 
+
+```
+- name: création du répertoire /tmp/xavki
+  file:
+    path: /tmp/xavki/
+    state: directory
+    owner: root
+  become: yes
+```
+
+Rq :attention à l'indentation
+
+<br>
+* modification du groupe et des droits (RWX-RX-RX - 0755) | stat
 
 - name: Change file ownership, group and permissions
   file:
