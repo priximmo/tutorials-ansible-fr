@@ -1,0 +1,7 @@
+- name: test playbook
+  hosts: all
+  tasks:
+  - name: test
+    file:
+      path: /tmp/xavki
+      state: directory

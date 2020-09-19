@@ -76,3 +76,13 @@ and loop over 1,2,3
  
 This will include x.yml 3 times and set the 'item' variable to 1, 2 
 and 3 respectively 
+
+
+
+
+
+
+- with_file
+
+
+
