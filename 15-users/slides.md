@@ -89,10 +89,105 @@ date "+%s" -d "10/06/2040 10:00:00"
 <br>
 * ssh_key_type : rsa par défaut, type de clef ssh
 
+<br>
 * state : création ou suppression
 
+<br>
 * system : à la création définir ou non un compte system
 
+<br>
 * uid : fixer l'uid
 
+<br>
 * update_password : always/on_create > soit mettre à jour sur changement ou juste création
+
+
+-----------------------------------------------------------------------------
+
+# ANSIBLE : Module - User
+
+
+<br>
+* création d'un user avec password
+
+```
+- name: création de xavki
+  user:
+    name: xavki
+    state: present
+    password: "{{ 'password' | password_hash('sha512') }}"   
+```
+
+<br>
+* ajout au groupe sudo
+
+```
+- name: création de xavki
+  user:
+    name: xavki
+    state: present
+    groups: sudo
+    password: "{{ 'password' | password_hash('sha512') }}"   
+```*
+
+<br>
+* fixer l'uid
+
+```
+- name: création de xavki
+  user:
+    name: xavki
+    state: present
+    uid: 1200
+    groups: sudo
+    password: "{{ 'password' | password_hash('sha512') }}"   
+```
+
+-----------------------------------------------------------------------------
+
+# ANSIBLE : Module - User
+
+
+<br>
+* génération de la clef ssh
+
+```
+- name: création de xavki
+  user:
+    name: xavki
+    state: present
+    uid: 1200
+    groups: sudo
+    generate_ssh_key: yes
+    password: "{{ 'password' | password_hash('sha512') }}"   
+```
+
+<br>
+* ajout d'un register et découvrir les outputs
+
+```
+  - name: création du user xavki
+    user:
+      name: xavki
+      state: present
+      generate_ssh_key: yes
+      uid: 1200
+      groups: sudo
+      password: "{{ 'password' | password_hash('sha512') }}"
+    register: mavar
+  - name: debug
+    debug:
+      msg: "{{ mavar }}"
+```
+
+
+<br>
+* suppression d'un user
+
+
+```
+  - name: création du user xavki
+    user:
+      name: xavki
+      state: absent
+```
