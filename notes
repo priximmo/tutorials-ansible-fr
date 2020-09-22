@@ -1,4 +1,5 @@
 
+- assert
 
 - status : changed / failed / success
 
@@ -85,4 +86,20 @@ and 3 respectively
 - with_file
 
 
+https://github.com/octplane/ansible_stdout_compact_logger
+
+
+
+
+
+<br>
+- until
+
+```
+- shell: /usr/bin/foo
+  register: result
+  until: result.stdout.find("all systems go") != -1
+  retries: 5
+  delay: 10
+```
 
