@@ -8,9 +8,6 @@
 <br>
 Documentation : https://docs.ansible.com/ansible/latest/plugins/lookup/items.html
 
-* variables :
-	* variable
-
 <br>
 * la liste des boucles :
 
