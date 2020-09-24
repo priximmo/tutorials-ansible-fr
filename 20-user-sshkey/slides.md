@@ -14,12 +14,55 @@ Objectifs : générer une clef ssh et la déployer
 Attention : où suis-je ? qui suis-je ?
 
 <br>
-PARAMETRES :
+PARAMETRES : openssh_keypair
 
+<br>
+* attibutes : attributs des fichiers (non supprimable etc)
+
+<br>
+* comment : commentaire de la clef
+
+<br>
+* force : regénère la clef si elle existe déjà
+
+<br>
+* group : group propriétaire des fichiers
+
+<br>
+* mode : permisssions (cf file, 0600, u+rw)
+
+<br>
+* owner : propirétaire
+
+<br>
+* path : localisation des clefs (attention sécurité de la clef privée)
+
+<br>
+* regenerate : never / fail / partial_idempotence (si non conforme) / full_idempotence (et si non lisible) / always
+
+<br>
+* size : taille de la clef
+
+<br>
+* state : present/absent
+
+<br>
+* type : rsa / dsa / rsa1 / ecdsa / ed25519
+
+<br>
+* unsafe_writes : prévenir les corruptions de fichiers
+
+Rq : si password / clef cassé > force : yes
+
+--------------------------------------------------------------------------------------------------
+
+# ANSIBLE : SSH Key et User
 
 
 <br>
-* 
+* exemple de génération de clef
+
+``` 
 - name: mon premier playbook
   hosts: all
   remote_user: vagrant
@@ -32,7 +75,50 @@ PARAMETRES :
       state: present
       force: no
     delegate_to: localhost
+```
 
+Rq :delegate_to
+
+
+--------------------------------------------------------------------------------------------------
+
+# ANSIBLE : SSH Key et User
+
+
+<br>
+PARAMETRES : authorized_key:
+
+* comment : commentaire (écrase le commentaire d'origine)
+
+* exclusive : permet de supprimer les clefs non mentionnée (plusieurs clefs possibles)
+			* atention pas par loop (with_items...), retour à la ligne "\n"
+			* with_file fonctionne
+
+* follow : suivre les liens symboliques
+
+* key : contenu de la clef (cf lookup)
+
+* key_options : options de la clef ssh (from=<ip>...)
+
+* manage_dir : gère lui-même le répertoire (création etc...) - default yes
+
+* path : chemin alternatif vers la clef (default .ssh...)
+
+* state : present / absent
+
+* user : utilisateur de la machine cible où sera installé la clef
+
+
+
+--------------------------------------------------------------------------------------------------
+
+# ANSIBLE : SSH Key et User
+
+
+<br>
+* exemple à pour le user devops à partir de la clef générée
+
+```
   - name: création du user devops
     user:
       name: devops
@@ -54,4 +140,23 @@ PARAMETRES :
       key: "{{ lookup('file', '/tmp/xavki.pub') }}"
       state: present
     become: yes
+```
 
+--------------------------------------------------------------------------------------------------
+
+# ANSIBLE : SSH Key et User
+
+
+<br>
+* exemple mode exclusif
+
+```
+- name: Set authorized key, removing all the authorized keys already set
+  authorized_key:
+    user: root
+    key: '{{ item }}'
+    state: present
+    exclusive: True
+  with_file:
+    - public_keys/doe-jane
+```
