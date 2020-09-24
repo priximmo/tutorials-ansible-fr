@@ -127,6 +127,7 @@ date "+%s" -d "10/06/2040 10:00:00"
     name: xavki
     state: present
     groups: sudo
+    append: yes
     password: "{{ 'password' | password_hash('sha512') }}"   
 ```*
 
@@ -140,6 +141,7 @@ date "+%s" -d "10/06/2040 10:00:00"
     state: present
     uid: 1200
     groups: sudo
+    append: yes
     password: "{{ 'password' | password_hash('sha512') }}"   
 ```
 
@@ -158,6 +160,7 @@ date "+%s" -d "10/06/2040 10:00:00"
     state: present
     uid: 1200
     groups: sudo
+    append: yes
     generate_ssh_key: yes
     password: "{{ 'password' | password_hash('sha512') }}"   
 ```
@@ -173,6 +176,7 @@ date "+%s" -d "10/06/2040 10:00:00"
       generate_ssh_key: yes
       uid: 1200
       groups: sudo
+      append: yes
       password: "{{ 'password' | password_hash('sha512') }}"
     register: mavar
   - name: debug
@@ -180,6 +184,22 @@ date "+%s" -d "10/06/2040 10:00:00"
       msg: "{{ mavar }}"
 ```
 
+<br>
+* nologin avec le shell
+
+```
+  - name: création du user xavki
+    user:
+      name: xavki
+      state: present
+      shell: /sbin/nologin
+      generate_ssh_key: yes
+      uid: 1200
+      groups: sudo
+      append: yes
+      password: "{{ 'password' | password_hash('sha512') }}"
+      password_lock: yes
+```
 
 <br>
 * suppression d'un user

@@ -69,6 +69,10 @@ dropNodes(){
 startNodes(){
 	echo ""
 	docker start $(docker ps -a | grep $USER-debian | awk '{print $1}')
+  for conteneur in $(docker ps -a | grep $USER-debian | awk '{print $1}');do
+		docker exec -ti $conteneur /bin/sh -c "service ssh start"
+  done
+
 	echo ""
 }
 
