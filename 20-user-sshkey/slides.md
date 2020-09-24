@@ -74,10 +74,11 @@ Rq : si password / clef cassé > force : yes
       size: 4096
       state: present
       force: no
+    run_once: yes
     delegate_to: localhost
 ```
 
-Rq :delegate_to
+Rq : delegate_to & run_once
 
 
 --------------------------------------------------------------------------------------------------
