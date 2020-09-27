@@ -55,12 +55,18 @@ PARAMETRES :
     file:
       path: /tmp/xavki.txt
       state: touch
+```
 
+<br>
+```
   - name: test
     stat:
       path: /tmp/xavki.txt
     register: __file_exist
+```
 
+<br>
+```
   - name: lancement du reboot avec reboot
     reboot:
       msg: "Reboot via ansible"

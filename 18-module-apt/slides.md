@@ -14,7 +14,7 @@ Comamnde : apt
 PARAMETRES :
 
 <br>
-* allow_unauthenticated : autoriser l'installation de paquets non authentifié
+* allow_unauthenticated : autoriser l'installation de paquets non authentifiés
 
 <br>
 * autoclean : effacement des anciennes versions des paquets
@@ -36,6 +36,12 @@ PARAMETRES :
 
 <br>
 * force_apt_get : force l'utilisation de apt-get
+
+--------------------------------------------------------------------------------------------------------------
+ 
+# ANSIBLE : Module APT
+
+
 
 <br>
 * install_recommends : activer ou désactiver les paquets recommandés (dépend des OS)
