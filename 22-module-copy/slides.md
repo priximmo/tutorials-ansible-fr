@@ -63,6 +63,7 @@ PARAMETRES :
 
 <br>
 * src : localisation de la source
+		* attention : roles / dir files / .
 
 <br>
 * unsafe_writes : éviter la corruption de fichier
