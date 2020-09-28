@@ -108,3 +108,12 @@ Documentation: https://docs.ansible.com/ansible/latest/user_guide/playbooks_hand
   - name: Flush handlers
     meta: flush_handlers
 ```
+
+```
+- name: Check if need to restart
+  stat: 
+    path: /var/run/reboot.pending
+  register: __need_reboot
+  changed_when: __need_reboot.stat.exists
+  notify: reboot_server
+```
