@@ -60,7 +60,6 @@ Documentation: https://docs.ansible.com/ansible/latest/user_guide/playbooks_hand
       owner: root
       group: root
       mode: 0644
-      #validate: nginx -tc %s
     notify: reload_nginx 		# ajout du handlers
 ```
 

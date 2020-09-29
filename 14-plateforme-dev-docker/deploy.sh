@@ -72,7 +72,6 @@ startNodes(){
   for conteneur in $(docker ps -a | grep $USER-debian | awk '{print $1}');do
 		docker exec -ti $conteneur /bin/sh -c "service ssh start"
   done
-
 	echo ""
 }
 
@@ -85,7 +84,9 @@ createAnsible(){
 	echo "  vars:" >> $ANSIBLE_DIR/00_inventory.yml
     echo "    ansible_python_interpreter: /usr/bin/python3" >> $ANSIBLE_DIR/00_inventory.yml
   echo "  hosts:" >> $ANSIBLE_DIR/00_inventory.yml
-  for i in $(docker ps -q); do docker inspect -f "    {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}:" $i >> $ANSIBLE_DIR/00_inventory.yml;done
+  for conteneur in $(docker ps -a | grep $USER-debian | awk '{print $1}');do      
+    docker inspect -f '    {{.NetworkSettings.IPAddress }}:' $conteneur >> $ANSIBLE_DIR/00_inventory.yml
+  done
   mkdir -p $ANSIBLE_DIR/host_vars
   mkdir -p $ANSIBLE_DIR/group_vars
 	echo ""
