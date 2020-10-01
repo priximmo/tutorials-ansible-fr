@@ -1,0 +1,39 @@
+---
+
+- name: install nginx
+  apt:
+    name: nginx,curl
+    state: present
+    cache_valid_time: 3600
+    update_cache: yes
+
+- name: remove default file
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+  - "/etc/nginx/sites-available/default"
+  - "/etc/nginx/sites-enabled/default"
+
+- name: install vhost
+  template:
+    src: default_vhost.conf.j2
+    dest: /etc/nginx/sites-available/default_vhost.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload_nginx
+
+- name: création du lien symbolique
+  file:
+    src: /etc/nginx/sites-available/default_vhost.conf
+    dest: /etc/nginx/sites-enabled/default_vhost.conf
+    state: link 
+
+- name: start nginx
+  systemd:
+    name: nginx
+    state: started
+
+- name: Flush handlers
+  meta: flush_handlers
