@@ -5,10 +5,10 @@
 # ANSIBLE : Installation dépôt APT - ex : docker
 
 
-<bar>
+<br>
 Documentation : 
-	* apt_key :
-	* apt_repository : 
+	* apt_key : https://docs.ansible.com/ansible/2.5/modules/apt_key_module.html
+	* apt_repository : https://docs.ansible.com/ansible/2.5/modules/apt_repository_module.html
 
 <br>
 APT_KEY
