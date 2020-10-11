@@ -1,0 +1,6 @@
+- name: test variables
+  hosts: all
+  vars:
+    var1: "playbook variables"
+  roles:
+  - test_variables

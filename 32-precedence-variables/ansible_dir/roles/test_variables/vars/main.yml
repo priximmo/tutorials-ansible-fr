@@ -1,0 +1,4 @@
+---
+# vars file for roles/test_variables
+
+var1: "vars roles"

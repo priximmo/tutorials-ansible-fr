@@ -1,0 +1,6 @@
+---
+# tasks file for roles/test_variables
+
+- name: debug
+  debug:
+    var: var1

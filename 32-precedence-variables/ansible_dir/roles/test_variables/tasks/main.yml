@@ -1,0 +1,10 @@
+---
+# tasks file for roles/test_variables
+
+- name: set fact
+  set_fact:
+    var1: "fact roles"
+
+- name: debug
+  debug:
+    var: var1
