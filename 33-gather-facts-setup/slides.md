@@ -22,7 +22,7 @@ Documentation :
 <br>
 * ansible_facts : dictionnaire contenant tous les facts
 
-* collecté via setup (forcé ou non au gathering fact > lancement du playbook)
+* collectés via setup (forcé ou non au gathering fact > lancement du playbook)
 
 <br>
 * soit en cli 

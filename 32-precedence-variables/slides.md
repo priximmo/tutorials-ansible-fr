@@ -33,6 +33,8 @@
         extra vars (always win precedence)
 ```
 
+---------------------------------------------------------------------------------
+
 # ANSIBLE : Precedence des variables
 
 <br>
