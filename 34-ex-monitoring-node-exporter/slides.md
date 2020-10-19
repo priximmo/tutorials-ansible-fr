@@ -37,6 +37,7 @@ Source : https://github.com/prometheus/node_exporter/releases
 <br>
 LES TASKS DU ROLE
 
+0- variables
 1- check si existe
 2- création du user pour le service
 3- création d'un répertoire de conf (si nécessaire)
@@ -60,6 +61,16 @@ LES TASKS DU ROLE
 
 # ANSIBLE : Ex - Monitoring > node exporter
 
+<br>
+* les variables
+
+```
+node_exporter_version: "1.0.1"
+node_exporter_bin: /usr/local/bin/node_exporter
+node_exporter_user: node-exporter
+node_exporter_group: "{{ node_exporter_user }}"
+node_exporter_dir_conf: /etc/node_exporter
+```
 
 <br>
 * création du user qui lancera le service
