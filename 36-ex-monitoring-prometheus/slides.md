@@ -63,7 +63,7 @@ prometheus_var_config:
     - job_name: prometheus
       scrape_interval: 5m
       static_configs:
-        - targets: ['localhost:9090']
+        - targets: ['{{ inventory_hostname }}:9090']
 ```
 
 ----------------------------------------------------------------------------------------
