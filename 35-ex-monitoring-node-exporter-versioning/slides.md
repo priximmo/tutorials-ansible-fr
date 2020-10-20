@@ -40,6 +40,9 @@ Source : https://github.com/prometheus/node_exporter/releases
 		* curl (il faut qu'il tourne ???)
 		* via la conf du service | provoquer le restart si modification
 
+<br>
+* ajout d'une version dans la conf du service systemd
+
 ```
 [Unit]
 Description=Node Exporter Version {{ node_exporter_version }}
