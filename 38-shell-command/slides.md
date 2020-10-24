@@ -176,3 +176,14 @@ PARAMTRES : SHELL
     debug:
       var: __output
 ```
+
+<br>
+* exemple avec des variables d'environnement
+
+```
+  - name: test
+    shell: echo "Hello $MAVAR"
+    environment:
+      MAVAR: "xavki"
+    register: __output
+```
