@@ -23,7 +23,7 @@ PARAMETRES :
 * body_format : format du body json ou raw
 
 <br>
-* creates : créer le fichier si nécessaire
+* creates : si le fichier existe la tâche n'est pas lancée
 
 <br>
 * dest : répertoire de destination
