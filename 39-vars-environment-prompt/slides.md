@@ -82,7 +82,7 @@ Objectifs : Définir des variables d'environnement et utiliser un prompt
 
 ```
   - name: echo
-    shell: "echo {{ lookup('env', 'ENV') }}"
+    shell: "echo {{ lookup('env', 'ENV') | default('stage', True) }}"
     register: __output
   - name: print
     debug:

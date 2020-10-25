@@ -1,0 +1,31 @@
+%title: ANSIBLE
+%author: xavki
+
+
+# ANSIBLE : Inventory dynamic
+
+
+Documentation : https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html
+
+<br>
+* ansible.cfg
+
+```
+[inventory]
+# enable inventory plugins, default: 'host_list', 'script', 'auto', 'yaml', 'ini', 'toml'
+#enable_plugins = host_list, virtualbox, yaml, constructed
+```
+
+
+* fichier d'inventaire
+
+```
+plugin: nmap
+strict: false
+address: 192.168.1.0/24
+```
+
+```
+ansible-inventory -i nmap.yml --list
+ansible -i nmap.yml all -m ping
+```
