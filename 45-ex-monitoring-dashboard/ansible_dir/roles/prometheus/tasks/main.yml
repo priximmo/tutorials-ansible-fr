@@ -1,0 +1,38 @@
+---
+# tasks file for roles/monito
+
+
+- name: update and install prometheus
+  apt:
+    name: prometheus
+    state: latest
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: prometheus args
+  template:
+    src: prometheus.j2
+    dest: /etc/default/prometheus
+    mode: 0644
+    owner: root
+    group: root
+  notify: restart_prometheus
+
+- meta: flush_handlers
+
+- name: prometheus configuration file
+  template:
+    src: prometheus.yml.j2
+    dest: "{{ prometheus_dir_configuration }}/prometheus.yml"           
+    mode: 0755
+    owner: prometheus
+    group: prometheus
+  notify: reload_prometheus
+
+- name: start prometheus
+  systemd:
+    name: prometheus
+    state: started
+    enabled: yes
+
+

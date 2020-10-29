@@ -5,7 +5,13 @@
 # ANSIBLE : Inventory dynamic
 
 
-Documentation : https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html
+Documentation : 
+
+https://docs.ansible.com/ansible/latest/plugins/inventory.html
+https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html
+
+https://github.com/ansible-collections/community.general/tree/main/scripts/inventory
+
 
 <br>
 * ansible.cfg

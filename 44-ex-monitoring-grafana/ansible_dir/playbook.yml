@@ -1,0 +1,14 @@
+
+- name: install node exporter
+  hosts: all
+  become: yes
+  roles:
+  - node_exporter
+
+- name: install prometheus/grafana
+  hosts: monito
+  become: yes
+  roles:
+  - prometheus
+  - grafana
+

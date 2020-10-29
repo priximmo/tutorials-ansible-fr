@@ -1,4 +1,6 @@
 
+https://github.com/ansible/ansible-baseline
+
 - assert
 
 - status : changed / failed / success
@@ -21,23 +23,12 @@ gather_facts to no
 
 - awx
 
-- gather fact 
- ansible -i "node2," all -m setup -a "filter=ansible_distribution*"
-
-
-- with_items
 
 - with_dicts
-
-- gather facts collect
 
 - any_errors_fatal
 
 - max fail percentage
-
-- run once
-
-- delegate to
 
 - vault
 

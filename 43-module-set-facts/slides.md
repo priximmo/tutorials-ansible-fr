@@ -14,7 +14,7 @@ Documentation : https://docs.ansible.com/ansible/latest/collections/ansible/buil
 PARAMETRES
 
 <br>
-* cacheable : ajouté au cahce (défaut non)
+* cacheable : ajouté au cache (défaut non)
 
 * key_value : définition de la clef et de la valeur prise
 
