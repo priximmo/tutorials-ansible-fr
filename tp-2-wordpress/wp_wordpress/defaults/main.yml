@@ -1,0 +1,18 @@
+---
+# defaults file for roles/mysql
+
+wordpress_stacks:
+- { 
+  name: "xavkiblog", 
+  db_user: "xavki", 
+  db_password: "password", 
+  db_root_password: "root", 
+  expose_port: "8888"
+}
+- { 
+  name: "inkiblog", 
+  db_user: "inki", 
+  db_password: "password", 
+  db_root_password: "root", 
+  expose_port: "8889"
+}
