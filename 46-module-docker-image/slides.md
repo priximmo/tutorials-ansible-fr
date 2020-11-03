@@ -161,12 +161,46 @@ PARAMETRES :
 <br>
 EXEMPLES :
 
+<br>
+* pull simple d'une image
+
+```
+  - name: Pull an image
+    docker_image:
+      name: alpine
+      tag: latest
+      source: pull
+```
+
+<br>
+* retaguer une image
+
+```
+  - name: Pull an image
+    docker_image:
+      name: alpine
+      tag: latest
+      repository: myregistry/monimage:v1.0
+```
+
+<br>
+* import via un tar (docker save)
+
+```
+  - name: Pull an image
+    docker_image:
+      name: archive
+      tag: v1.0
+      load_path: /tmp/image.test.v1.0.tar
+      source: load
+```
 
 
 - name: nom du playbook
   hosts: all
   become: yes
   tasks:
+  - include_vars: /home/oki/.vault.yml
 
   - name: create directory for build
     file:
@@ -188,21 +222,18 @@ EXEMPLES :
   - name: docker login
     docker_login:
       registry_url: registry.gitlab.com
-      username: test
-      password: test
+      username: xavki
+      password: "{{ vault_token_gitlab }}"
       reauthorize: yes
-  
+
   - name: build
     docker_image:
       build:
         path: /tmp/build/
         dockerfile: Dockerfile
         pull: yes
+        cache_from:
+        - alpine:3.9
+      source: build
       name: registry.gitlab.com/xavki/testflux
       tag: v1.1
-      push: yes
-      source: build
- 
-
-
-
