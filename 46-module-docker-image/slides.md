@@ -2,95 +2,25 @@
 %author: xavki
 
 
-# ANSIBLE : Module SET_FACT
+# ANSIBLE : module docker_image
 
 
 <br>
-Documentation : https://docs.ansible.com/ansible/latest/collections/ansible/builtin/set_fact_module.html
+* Objectif : construction, build et push d'images docker
 
-* définir des facts (gather facts)
-
-<br>
-PARAMETRES
+Documentation :
+https://docs.ansible.com/ansible/latest/collections/community/general/docker_image_module.html
 
 <br>
-* cacheable : ajouté au cache (défaut non)
+Prérequis :
 
-* key_value : définition de la clef et de la valeur prise
+	* docker
 
-<br>
-
-* définir un gather fact
-
-```
-  - name: set fact
-    set_fact:
-      mavariable: "Hello tout le monde !!"
-  - name: debug
-    debug:
-      var: mavariable
-```
-
-----------------------------------------------------------------------
-
-# ANSIBLE : Module SET_FACT
+	* python3-docker ou pip3 install docker
 
 
-<br>
-* exemple avec éléments calculés
 
-```
-  vars:
-    var1: "hello"
-    var2: "je suis"
-  tasks:
-  - name: get user
-    command: "echo $USER"
-    register: __user
-  - name: date
-    set_fact:
-      mavariable: "{{ var1 }} {{ var2 }} {{ __user.stdout }} sur {{ ansible_hostname }}"
-  - name: debug
-    debug:
-      var: mavariable
-```
 
-----------------------------------------------------------------------
 
-# ANSIBLE : Module SET_FACT
 
-<br>
-* le gather fact datetime :
 
-```
-  - name: date
-    debug:
-      var: ansible_date_time
-```
-
-<br>
-* si cache (ansible.cfg)
-
-```
-#cache facts
-gathering = smart
-fact_caching = jsonfile
-fact_caching_connection = /tmp/facts_cache
-# two hours timeout
-fact_caching_timeout = 7200
-```
-
-----------------------------------------------------------------------
-
-# ANSIBLE : Module SET_FACT
-
-<br>
-* contourner le cache
-
-```
-  - name: date without cache
-    shell: "date +%Y-%m-%d"
-    register: shell_date
-  - set_fact:
-      date: "{{ shell_date.stdout }}"
-```
