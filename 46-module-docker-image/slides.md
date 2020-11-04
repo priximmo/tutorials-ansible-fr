@@ -183,10 +183,19 @@ EXEMPLES :
       repository: myregistry/monimage:v1.0
 ```
 
+------------------------------------------------------------------------------------------------------
+
+# ANSIBLE : module docker login & docker_image
+
+
 <br>
 * import via un tar (docker save)
 
 ```
+  - name: copy image
+    copy:
+      src: image.test.v1.0.tar
+      dest: /tmp/
   - name: Pull an image
     docker_image:
       name: archive
@@ -195,37 +204,47 @@ EXEMPLES :
       source: load
 ```
 
+<br>
+* build d'image via Dockerfile
 
-- name: nom du playbook
-  hosts: all
-  become: yes
-  tasks:
-  - include_vars: /home/oki/.vault.yml
-
-  - name: create directory for build
+```
+  - name: copy files
     file:
       path: /tmp/build
       state: directory
-
-  - name: copy files
+  - name: copy image
     copy:
       src: app/
       dest: /tmp/build
+  - name: build
+    docker_image:
+      name: imgbuild
+      tag: v1.0
+      source: build
+      build:
+        path: /tmp/build/app/
+        dockerfile: Dockerfile
+        cache_from:
+        - alpine:3.9
+```
 
-  - name: install requirements
-    apt:
-      name: docker.io,python3-docker
-      state: present
-      update_cache: yes
-      cache_valid_time: 3600
 
+------------------------------------------------------------------------------------------------------
+
+# ANSIBLE : module docker login & docker_image
+
+
+<br>
+* cas du build & push
+
+```
+  - include_vars: /home/oki/.vault.yml
   - name: docker login
     docker_login:
       registry_url: registry.gitlab.com
       username: xavki
       password: "{{ vault_token_gitlab }}"
       reauthorize: yes
-
   - name: build
     docker_image:
       build:
@@ -237,3 +256,4 @@ EXEMPLES :
       source: build
       name: registry.gitlab.com/xavki/testflux
       tag: v1.1
+```
