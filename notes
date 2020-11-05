@@ -1,4 +1,14 @@
 
+auditing
+https://blog.newrelic.com/engineering/ansible-auditing-tool/
+
+add_host : docker factory,/buildah
+https://blog.tomecek.net/post/building-containers-with-buildah-and-ansible/
+
+
+https://www.adaltas.com/fr/2017/10/25/de-dockerfile-a-ansible-containers/
+
+
 https://github.com/ansible/ansible-baseline
 
 - assert
