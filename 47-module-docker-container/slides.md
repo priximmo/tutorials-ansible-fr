@@ -21,47 +21,57 @@ Prérequis :
 <br>
 PARAMETRES :
 
-* capabilities : 
+* capabilities : ajout de capabilities
 
-* cap_drop :
+* cap_drop : suppression de certaines capabilities
 
-* command :
+* command : command de run du conteneur
 
-* comparisons : 
+* comparisons : règle de gestion entre les paramètres du conteneurs existants et ce que pousse ansible
 
-* env :
+* env : définition des variables d'environnement
 
-* env_file :
+* env_file : fichier de définition des variables d'environnement
 
-* exposed_ports :
+* exposed_ports : ports exposés
 
-* healthcheck : 
+----------------------------------------------------------------
 
-* image: 
-
-* links :
-
-* log_driver :
-
-* log_options :
-
-* name :
-
-* networks :
-
-* ports :
-
-* recreate : 
-
-* restart : 
-
-* state :
-
-* volumes :
-
-* volumes_from :
+# ANSIBLE : module docker_container
 
 
+* healthcheck : modalité du healthcheck
+
+* image: image source (et son tag)
+
+* links : (lien entre conteneur = réseau)
+
+* log_driver : quel log driver (syslog, docker...)
+
+* log_options : modalités de logs (log rotate etc)
+
+* name : nom du conteneur
+
+* networks : networks d'appartenance du conteneur
+
+* ports : mapping des ports avec le host (publish)
+
+* recreate : recréation ou non du conteneur systématique
+
+* restart : modalité du restart (always, on-failure...)
+
+* state : absent / present / stopped / started
+
+* volumes : montage des volumes
+
+* volumes_from : conteneurs source de volume
+
+----------------------------------------------------------------
+
+# ANSIBLE : module docker_container
+
+
+<br>
 EXEMPLES
 
 <br>
@@ -105,6 +115,11 @@ EXEMPLES
       state: started
 ```
 
+----------------------------------------------------------------
+
+# ANSIBLE : module docker_container
+
+
 <br>
 * command et detach
 
@@ -118,79 +133,128 @@ EXEMPLES
       command: sleep 10
 ```
 
+* exposition de ports
 
-    - name: Create a data container
-      docker_container:
-        name: my-test-container
-        image: python:2.7
-        command: /bin/sleep 600
-    - name: Check if container is running
-      shell: docker ps
-
-
-    - name: Running the container
-      docker_container:
-        image: web:latest
-        path: docker
-        state: running
-
+```
     - name: Start new docker container
       docker_container:
-        name: app
+        name: c1
         pull: yes
-        image: "application:{{ version }}"
+        image: "myapp:{{ version }}"
         ports:
           - 8080:8080
+```
 
-    - name: Run Docker container using simple-docker-image
-      docker_container:
-        name: simple-docker-container
-        image: simple-docker-image:latest
-        state: started
-        recreate: yes
-        detach: true
-        ports:
-          - "8888:8080"
+----------------------------------------------------------------
+
+# ANSIBLE : module docker_container
 
 
+<br>
+* exposition de ports et test :
+
+```
+  - name: build
+    docker_image:
+      build:
+        path: /tmp/build/
+        dockerfile: Dockerfile
+        pull: yes
+      name: myapp
+      tag: v1.1
+      source: build
+  - name: run
+    docker_container:
+      name: c1
+      image: myapp:v1.1
+      state: started
+      ports:
+      - 8888:8080
+  - name: wait for instance
+    uri:
+      url: "http://127.0.0.1:8888/select"
+      status_code: 200
+    register: result
+    until: result.status == 200
+    retries: 120
+    delay: 1
+```
 
 
-    - name: Create default containers
-      docker_container:
-        name: "{{ default_container_name }}{{ item }}"
-        image: "{{ default_container_image }}"
-        command: "{{ default_container_command }}"
-        state: present
-      with_sequence: count={{ create_containers }}
+----------------------------------------------------------------
+
+# ANSIBLE : module docker_container
 
 
+<br>
+* avec healthcheck :
 
+```
+  - name: run
+    docker_container:
+      name: c1
+      image: myapp:v1.3
+      state: started
+      ports:
+      - 8888:8080
+      healthcheck:
+        test: ["CMD", "curl", "http://127.0.0.1:8080"]
+        interval: 5s
+        timeout: 10s
+        retries: 3
+        start_period: 10s
+```
 
-    - name: Get a list of all running containers
-      docker_host_info:
-        containers: True
-      register: docker_info
-    - name: Stop all running containers
-      docker_container:
-        name: '{{ item.Names[0] | regex_replace("^/", "") }}'
-        state: stopped
-      loop: '{{ docker_info.containers }}'
+----------------------------------------------------------------
 
+# ANSIBLE : module docker_container
 
+<br>
+* itération de conteneurs
 
+```
+  - name: iter container
+    docker_container:
+      name: "myapp-{{ item }}"
+      image: "myapp:v1.3"
+      state: started
+    with_sequence: count=5
+```
 
-    - name: Get a list of all running containers
-      docker_host_info:
-        containers: True
-      register: docker_info
-    - name: Stop all containers running nginx image
-      docker_container:
-        name: '{{ item.Names[0] | regex_replace("^/", "") }}'
-        state: stopped
-      when: item.Image == 'nginx'
-      loop: '{{ docker_info.containers }}'
+```
+  - name: container list
+    docker_host_info:
+      containers: True
+    register: docker_info
+  - name: remove all containers
+    docker_container:
+      name: '{{ item.Names[0] | regex_replace("^/", "") }}'
+      state: absent
+    loop: '{{ docker_info.containers }}'
+```
 
+<br>
+* si une image spécifique
 
-docker run --publish=3000:3000 --rm -e "MESSAGE=cool by env" bithavoc/hello-world-env
+```
+when: item.Image == 'nginx'
+```
 
-RETURN OUTPUT
+----------------------------------------------------------------
+
+# ANSIBLE : module docker_container
+
+<br>
+* output
+
+```
+  - name: run
+    docker_container:
+      name: c1
+      image: myapp:v1.3
+      state: started
+    register: __container_infos
+  - name: print output
+    debug:
+      var: __container_infos.ansible_facts.docker_container.NetworkSettings.IPAddress
+```
