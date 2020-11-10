@@ -1,0 +1,6 @@
+- name: install docker for all
+  hosts: all
+  become: yes
+  roles:
+  - docker
+  - swarm

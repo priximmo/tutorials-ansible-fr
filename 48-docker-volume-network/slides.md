@@ -34,6 +34,9 @@ docker_volume_info – Retrieve facts about Docker volumes
 
 Source : https://docs.ansible.com/ansible/2.9/modules/list_of_all_modules.html
 
+--------------------------------------------------------------------------------------------------------
+
+# ANSIBLE : module docker_network & docker_volume
 
 <br>
 Prérequis :
@@ -84,27 +87,18 @@ PARAMETRES
 * affecter des conteneurs existants à un réseau
 
 ```
-  - name: build
-    docker_image:
-      name: myapp
-      tag: v1.1
-      source: build
-      build:
-        pull: yes
-        path: /tmp/build/
-        dockerfile: Dockerfile
-        cache_from:
-        - alpine:3.9
-  - name: run
-    docker_container:
-      name: c1
-      image: myapp:v1.1
-      state: started
   - name: create network xavki
     docker_network:
       name: xavki
       connected:
       - c1
+  - name: run
+    docker_container:
+      name: c1
+      image: myapp:v1.1
+      state: started
+      networks:
+      - name: xavki
 ```
 
 ------------------------------------------------------------------------------------------

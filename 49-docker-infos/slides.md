@@ -33,6 +33,9 @@ docker_volume – Manage Docker volumes
 docker_volume_info – Retrieve facts about Docker volumes
 ```
 
+------------------------------------------------------------------
+
+# ANSIBLE : module docker... infos
 
 <br>
 Prérequis :
@@ -40,13 +43,6 @@ Prérequis :
 	* docker
 
 	* python3-docker ou pip3 install docker
-
-<br>
-
-----------------------------------------------------------------------------------------------
-
-# ANSIBLE : module docker... infos
-
 
 <br>
 * modules de collecte d'infos
@@ -59,7 +55,7 @@ docker_volume_info
 docker_host_info
 docker_node_info
 docker_swarm_info
-``
+```
 
 <br>
 * liste des conteneurs et quelques éléments
@@ -155,6 +151,10 @@ docker_swarm_info
     debug:
       var: __network_infos
 ```
+
+----------------------------------------------------------------------------------------------
+
+# ANSIBLE : module docker... infos
 
 <br>
 * infos sur un volume
