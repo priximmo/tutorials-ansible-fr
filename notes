@@ -1,4 +1,6 @@
 
+groups['all'] | regex_replace('^ans.*([0-9]+)$', '\\1') | int is divisibleby 2 
+
 auditing
 https://blog.newrelic.com/engineering/ansible-auditing-tool/
 
