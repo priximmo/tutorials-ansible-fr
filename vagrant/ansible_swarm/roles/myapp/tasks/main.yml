@@ -1,0 +1,23 @@
+---
+# tasks file for roles/myapp
+
+- name: install jsondiff
+  apt:
+    name: python3-jsondiff
+    state: present
+
+- name: copy myapp directory
+  copy:
+    src: app/
+    dest: /tmp/app/
+  when: inventory_hostname in groups['managers']
+
+- name: deploy stack myapp
+  docker_stack:
+    state: present
+    name: myapp
+    compose:
+      - /tmp/app/docker-compose.yml
+  when: inventory_hostname in groups['managers']
+  run_once: yes
+

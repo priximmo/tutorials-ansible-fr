@@ -70,4 +70,3 @@
       traefik.http.routers.visu-public-http.entrypoints: "http"
       traefik.http.services.visu-public.loadbalancer.server.port: "8080"
   when: inventory_hostname in groups['managers'][0]
-

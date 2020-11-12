@@ -6,3 +6,13 @@
   - docker
   - swarm
   - tooling
+
+- name: install myapp
+  hosts: all
+  become: yes
+  vars:
+    nodeList: []
+  roles:
+  - myapp
+  tags:
+  - myapp

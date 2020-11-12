@@ -1,0 +1,44 @@
+---
+# tasks file for roles/remove_nodes
+
+- name: define nodeList
+  set_fact:
+    nodeList: "{{ [ hostvars[item]['ansible_hostname'] ] + nodeList }}"
+  with_items: "{{ groups['all'] }}"
+  when: inventory_hostname in groups['managers'][0]
+
+- name: print
+  debug:
+    msg: "{{ item }}"
+  when: inventory_hostname in groups['managers'][0] and item | regex_replace('^ans.*([0-9]+)$', '\\1') | int is divisibleby 2
+  with_items: "{{ nodeList }}"
+
+- name: drain node
+  docker_node:
+    hostname: "{{ item }}"
+    availability: drain
+  when: inventory_hostname in groups['managers'][0] and item | regex_replace('^ans.*([0-9]+)$', '\\1') | int is divisibleby 2
+  with_items: "{{ nodeList }}"
+
+
+- name: change role
+  docker_node:
+    hostname: "{{ item }}"
+    role: worker
+  when: inventory_hostname in groups['managers'][0] and item | regex_replace('^ans.*([0-9]+)$', '\\1') | int is divisibleby 2
+  with_items: "{{ nodeList }}"
+
+- name: stop node
+  docker_swarm:
+    state: absent
+    force: true
+  when: ansible_hostname | regex_replace('^ans.*([0-9]+)$', '\\1') | int is divisibleby 2
+
+- name: Inspect swarm
+  docker_swarm:
+    state: inspect
+  register: __swarm_info
+  
+- name: print swarm infos
+  debug:
+    var: __swarm_info
