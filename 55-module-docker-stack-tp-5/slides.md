@@ -13,7 +13,6 @@ https://docs.ansible.com/ansible/2.9/modules/docker_stack_module.html
 PARAMETRES
 
 
-
 <br>
 * prérequis :
 
@@ -35,6 +34,11 @@ PARAMETRES
   when: inventory_hostname in groups['managers']
 ```
 
+------------------------------------------------------------------------------------------
+
+# ANSIBLE : module docker_stack
+
+
 <br>
 * deploiement de la stack :
 
@@ -47,4 +51,22 @@ PARAMETRES
       - /tmp/app/docker-compose.yml
   when: inventory_hostname in groups['managers']
   run_once: yes
+```
+
+<br>
+* éventuellement définir le compose dans la tâche
+
+```
+- name: compose task
+  docker_stack:
+    state: present
+    name: mystack
+    compose:
+      - /opt/docker-compose.yml
+      - version: '3'
+        services:
+          web:
+            image: nginx:latest
+            environment:
+              ENVVAR: envvar
 ```
