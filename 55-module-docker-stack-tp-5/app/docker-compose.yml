@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  myapp:
+    build: .
+    image: myapp:v1.0
+    networks:
+    - traefik_net
+    deploy:
+      labels:
+          - "traefik.enable=true"
+          - "traefik.http.routers.myapp-myapp.rule=Host(`myapp.swarm`)"
+          - "traefik.http.routers.myapp-myapp.entrypoints=http"
+          - "traefik.http.routers.myapp-myapp.service=myapp-myapp"
+          - "traefik.http.services.myapp-myapp.loadbalancer.server.port=8080"
+networks:
+  traefik_net:
+    external: true
