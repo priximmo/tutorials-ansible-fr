@@ -33,7 +33,6 @@ Inconvénients :
 
 * être un peu initié à cette problématique
 
-* ne créé pas le répertoire roles si il n'a que des dépôts
 
 <br>
 Proposition : script bash
