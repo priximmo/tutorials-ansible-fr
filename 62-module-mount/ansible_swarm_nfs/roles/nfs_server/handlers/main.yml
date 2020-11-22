@@ -1,0 +1,6 @@
+---
+# handlers file for roles/nfs_server
+
+
+- name: __reload_nfs
+  command: "exportfs -ra"
