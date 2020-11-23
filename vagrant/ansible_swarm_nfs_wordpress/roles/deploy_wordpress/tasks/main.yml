@@ -1,0 +1,37 @@
+---
+# tasks file for roles/deploy_wordpress
+
+- name: create traefik network
+  docker_network:
+    name: wordpress
+    driver: overlay
+  when: inventory_hostname in groups['managers']
+
+- name: create volume
+  docker_volume:
+    name: wp_mysql
+    driver_options:
+      type: "nfs"
+      o: "addr=192.168.15.15,rw"
+      device: ":/exports/wp_database"  
+
+- name: install mysql
+  docker_swarm_service:
+    name: mariadb
+    image: mariadb
+    networks:
+      - "wordpress"
+    mounts:
+    - source: wp_mysql
+      target: /var/lib/mysql
+      type: volume
+    restart_config:
+      condition: any
+      delay: 30s
+      max_attempts: 5
+    env:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+  when: inventory_hostname in groups['managers'][0]

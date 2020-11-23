@@ -72,7 +72,7 @@ ansible -i "127.0.0.1," all --vault-id prod@pwd.txt  -m debug -a "msg='{{mysecre
 * deux fichiers en enrées :
 
 ```
-ansible-vault encrypt --vault-id prod@pwd.txt group_vars/all/vault-prod.yml
-ansible-vault encrypt --vault-id dev@pwd.txt group_vars/all/vault-dev.yml
-ansible-playbook -i "127.0.0.1," --vault-id dev@pwd.txt --vault-id prod@pwd-prod.txt playbook.yml
+ansible-vault encrypt --vault-id data@pwd-data.txt group_vars/all/vault-prod.yml
+ansible-vault encrypt --vault-id app@pwd-app.txt group_vars/all/vault-dev.yml
+ansible-playbook -i "127.0.0.1," --vault-id data@pwd-data.txt --vault-id app@pwd-app.txt playbook.yml
 ```
