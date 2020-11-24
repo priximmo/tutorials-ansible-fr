@@ -1,0 +1,5 @@
+deploy_wordpress_name: "xavki2"
+deploy_wordpress_url: "xavki2.swarm"
+deploy_wordpress_mariadb_user: "mariadb_xavki2"
+deploy_wordpress_mariadb_password: "monpassword"
+deploy_wordpress_container_port: "80"

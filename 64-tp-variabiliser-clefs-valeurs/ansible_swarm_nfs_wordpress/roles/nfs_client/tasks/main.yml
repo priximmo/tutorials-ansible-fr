@@ -1,0 +1,24 @@
+---
+# tasks file for roles/nfs_client
+
+- name: Ensure nfs-common installed
+  apt:
+    name: nfs-common
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: ensure directories exists
+  file:
+    path: "/mnt/{{ item }}"
+    state: directory
+  with_items: "{{ nfs_server_dir_data }}"
+
+- name: Mount an NFS volume
+  mount:
+    src: "{{ groups['nfs_server'][0] }}:/exports/{{ item }}"
+    path: /mnt/{{ item }}
+    opts: rw
+    state: mounted
+    fstype: nfs
+  with_items: "{{ nfs_server_dir_data }}"
