@@ -6,6 +6,7 @@
 
 
 <br>
+
 UNARCHIVE
 
 Documentation : 
@@ -14,27 +15,35 @@ Documentation :
 Prérequis : unzip, tar
 
 <br>
+
 PARAMETRES :
 
 <br>
+
 * attributes : attributs du fichier
 
 <br>
+
 * copy : deprecated > utiliser remote_src
 
 <br>
+
 * creates : si un répertoire ou fichier exist la tâche n'est pas lancé
 
 <br>
+
 * decrypt : (default yes) déchiffrer les fichiers vaultés
 
 <br>
+
 * dest : destination des éléments
 
 <br>
+
 * exclude : fichier ou chemin à exclure de unarchive
 
 <br>
+
 * extra_opt : options complémentaires
 
 ---------------------------------------------------------------------------------------------
@@ -44,27 +53,35 @@ PARAMETRES :
 
 
 <br>
+
 * group : groupe propriétaire
 
 <br>
+
 * keep_newer : garder le plus récent
 
 <br>
+
 * list_files : retourne la liste des fichiers de l'archive
 
 <br>
+
 * mode : permissions (0755, u+rwx,g+rx,o+rx)
 
 <br>
+
 * remote_src : passer par le host ansible pour pousser récupérer l'archive 
 
 <br>
+
 * src : no > copy du fichier vers les cibles, yes > download et pousse
 
 <br>
+
 * unsafe_writes : éviter les corruptions de fichiers
 
 <br>
+
 * validate_certs : dans le cas de https (default yes) 
 
 ---------------------------------------------------------------------------------------------
@@ -75,9 +92,11 @@ PARAMETRES :
 
 <br>
 
+
 exemple : https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.linux-amd64.tar.gz
 
 <br>
+
 * copy de la machine ansible et dezip sur la machine cible:
 
 ```
@@ -88,6 +107,7 @@ exemple : https://github.com/prometheus/node_exporter/releases/download/v1.0.1/n
 ```
 
 <br>
+
 * avec url utilisation de remote_src
 
 ```
@@ -105,15 +125,18 @@ exemple : https://github.com/prometheus/node_exporter/releases/download/v1.0.1/n
 
 
 <br>
+
 GET_URL
 
 Documentation : 
 	* https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html
 
 <br>
+
 PARAMETRES :
 
 <br>
+
 * attributes
 
 * backup : garde un backup du fichier avant (horodaté)
@@ -141,6 +164,7 @@ PARAMETRES :
 
 
 <br>
+
 * http_agent: spécifier un agent
 
 * mode : permissions (0755 ou u+rwx,g+rx,o+rx)
@@ -174,10 +198,13 @@ PARAMETRES :
 
 <br>
 
+
 <br>
+
 * exemple : https://downloads.apache.org/tomcat/tomcat-10/v10.0.0-M8/bin/
 
 <br>
+
 * avec checksum:
 
 ```

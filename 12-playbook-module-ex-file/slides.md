@@ -6,41 +6,53 @@
 
 
 <br>
+
 Doc : https://docs.ansible.com/ansible/latest/modules/file_module.html
 Commande : ansible-doc file
 
 <br>
+
 Objectif : gestion des fichiers et répertoires
 
 <br>
+
 Périmètre : fichiers, répertoires, liens symboliques
 
 <br>
+
 Options courantes :
 
 <br>
+
 	* attribute : paramètres particuliers d'un fichier : immutabilité etc...
 								(https://fr.wikipedia.org/wiki/Chattr)
 
 <br>
+
 	* force : pour les liens symboliques (si le fichier source existe pas, la destination existe)
 
 <br>
+
 	* group/owner : propriétaire et groupe de l'élément
 
 <br>
+
 	* mode : sous les deux formats : "0755" ou "u=rwx,g=rx,o=rx"
 
 <br>
+
 	* path : localisation
 
 <br>
+
 	* recurse : création du chemin intermédiaire si n'existe pas (yes/no) > pour directory uniquement
 
 <br>
+
 	* src : pour les liens (hard ou symbolique)
 
 <br>
+
 	* state : type (absent / directory / file / hard / link / touch)
 			touch > créé le fichier vide
 			file > vérifie l'existence et les caractéristiques
@@ -53,6 +65,7 @@ Options courantes :
 
 
 <br>
+
 * un inventaire pour débuter :
 
 ```
@@ -64,6 +77,7 @@ all:
 ```
 
 <br>
+
 Playbook :
 
 
@@ -77,6 +91,7 @@ Playbook :
 ```
 
 <br>
+
 * le module ping (pas nécessaire) > ping ssh
 
 ```
@@ -94,6 +109,7 @@ Rq : ansible -i inventory all -m ping
 
 
 <br>
+
 * créer un répertoire
 
 ```
@@ -106,6 +122,7 @@ Rq : ansible -i inventory all -m ping
 Rq: user de création > user de connexion
 
 <br>
+
 * changement de user > root
 
 ```
@@ -119,6 +136,7 @@ Rq: user de création > user de connexion
 Rq : droit sudo du user vagrant
 
 <br>
+
 * become = yes > différents endroits pour le faire
 		* cli > -b
 		* playbook/tasks > become: yes 
@@ -142,6 +160,7 @@ Rq :attention à l'indentation
 
 
 <br>
+
 * modification du groupe et des droits (RWX-RX-RX - 0755) | stat
 
 ```
@@ -156,6 +175,7 @@ Rq :attention à l'indentation
 ```
 
 <br>
+
 * récursivité (pour directory uniquement
 
 ```
@@ -188,6 +208,7 @@ Rq :attention à l'indentation
 
 
 <br>
+
 * lien symbolique = lien vers fichier (diff avec hardlink = lien vers inode)
 
 ```
@@ -205,6 +226,7 @@ Rq: idempotence
 
 
 <br>
+
 * suppression de fichier
 
 ```
@@ -215,6 +237,7 @@ Rq: idempotence
 ```
 
 <br>
+
 * suppression de répertoire récursive
 
 ```

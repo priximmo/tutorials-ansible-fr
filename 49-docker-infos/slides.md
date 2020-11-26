@@ -6,6 +6,7 @@
 
 
 <br>
+
 * Objectif : lister des éléments docker > réutilisation
 
 
@@ -38,6 +39,7 @@ docker_volume_info – Retrieve facts about Docker volumes
 # ANSIBLE : module docker... infos
 
 <br>
+
 Prérequis :
 
 	* docker
@@ -45,6 +47,7 @@ Prérequis :
 	* python3-docker ou pip3 install docker
 
 <br>
+
 * modules de collecte d'infos
 
 ```
@@ -58,6 +61,7 @@ docker_swarm_info
 ```
 
 <br>
+
 * liste des conteneurs et quelques éléments
 
 ```
@@ -82,6 +86,7 @@ docker_swarm_info
 
 
 <br>
+
 * infos des conteneurs
 
 ```
@@ -106,6 +111,7 @@ docker_swarm_info
 
 
 <br>
+
 * compilation des deux liste conteneurs et infos (ip)
 
 ```
@@ -137,6 +143,7 @@ docker_swarm_info
 
 
 <br>
+
 * infos sur un réseau
 
 ```
@@ -157,6 +164,7 @@ docker_swarm_info
 # ANSIBLE : module docker... infos
 
 <br>
+
 * infos sur un volume
 
 ```

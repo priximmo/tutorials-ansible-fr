@@ -6,55 +6,72 @@
 
 
 <br>
+
 Documentation : 
 	* https://docs.ansible.com/ansible/2.5/modules/lineinfile_module.html
 
 <br>
+
 PARAMETRES :
 
 <br>
+
 * attributes
 
 <br>
+
 * backrefs : pour utiliser des captures via regexp
 
 <br>
+
 * backup : réalise un backup avant modification
 
 <br>
+
 * create : si le fichier n'existe pas il est créé (default no)
 
 <br>
+
 * firstmatch : avec insertafter ou insertbefore s'exécute via la première occurence
 
 <br>
+
 * group : groupe propriétaire du fichier
 
 <br>
+
 * insertafter : insertion après la ligne recherché (default EOF > regex sans backrefs)
 
 <br>
+
 * insertbefore : idem after > mais avant la ligne
 
 <br>
+
 * line : ligne à ajouter ou remplacer (éventuellement avec la capture)
 
 <br>
+
 * mode : permissions (0755 ou u+rwx,g+rx,o+rx)
 
 <br>
+
 * owner : propriétaire du fichier
 
 <br>
+
 * path : chemin du fichier
 
 <br>
+
 * regexp : expression régulière permettant de rechercher la ligne (et éventuellement faire un capture)
 
 <br>
+
 * state : la ligne doit être présente/modifiée ou supprimée
 
 <br>
+
 * validate : commande de validation de la ligne
 
 --------------------------------------------------------------------------------------
@@ -63,6 +80,7 @@ PARAMETRES :
 
 
 <br>
+
 * cas le plus simple mais le moins courant : ajout d'une ligne
 
 ```
@@ -77,6 +95,7 @@ PARAMETRES :
 Rq: si changement de line > nlle ligne
 
 <br>
+
 * recherche d'une ligne précise et modification
 
 ```
@@ -89,6 +108,7 @@ Rq: si changement de line > nlle ligne
 ```
 
 <br>
+
 * modification avec capture
 
 ```
@@ -109,6 +129,7 @@ Rq: si 2 runs attention
 
 
 <br>
+
 * commenter une ligne avec plus ou moins de précision
 
 ```
@@ -122,6 +143,7 @@ Rq: si 2 runs attention
 ```
 
 <br>
+
 * ajout avant une ligne
 
 ```
@@ -141,6 +163,7 @@ Rq : idem after
 
 
 <br>
+
 * supprimer une ligne soit par regexp ou par line
 
 ```
@@ -153,6 +176,7 @@ Rq : idem after
 ```
 
 <br>
+
 * avec backup avant modification
 
 ```

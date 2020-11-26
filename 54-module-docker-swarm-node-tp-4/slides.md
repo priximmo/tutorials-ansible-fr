@@ -5,35 +5,44 @@
 # ANSIBLE : module docker_swarm & docker_node-> drain, remove, manipulation
 
 <br>
+
 Documentation : 
 https://docs.ansible.com/ansible/2.9/modules/docker_node_module.html#docker-node-module
 https://docs.ansible.com/ansible/2.9/modules/docker_swarm_module.html#docker-swarm-module
 
 <br>
+
 PARAMETRES
 
 <br>
+
 * availability : active / pause / drain
 		* active : le noeud peut recevoir des services
 		* pause : conserve ses services mais n'en prend pas de nouveau
 		* drain : vide le noeud
 
 <br>
+
 * docker_host : socket unix/tcp/ssh
 
 <br>
+
 * hostname : nom du noeud ou DI
 
 <br>
+
 * labels : attributs complémentaires aux noeuds k/v
 
 <br>
+
 * labels_replace : merge/replace
 
 <br>
+
 * labels_to_remove : suppression
 
 <br>
+
 * role : manager/worker
 
 ------------------------------------------------------------------------------------------------------
@@ -42,6 +51,7 @@ PARAMETRES
 
 
 <br>
+
 * astuce travail sur le hostname plutôt que le inventory_name
 
 ```
@@ -58,6 +68,7 @@ PARAMETRES
 ```
 
 <br>
+
 * exemple afficage des machines à nombre paire dans le hostname
 
 ```
@@ -74,6 +85,7 @@ PARAMETRES
 
 
 <br>
+
 * drain des noeuds
 
 ```
@@ -86,6 +98,7 @@ PARAMETRES
 ```
 
 <br>
+
 * changement de rôle pour les hostnames impaires
 
 ```
@@ -103,6 +116,7 @@ PARAMETRES
 
 
 <br>
+
 * suppression des noeuds du cluster
 
 ```
@@ -114,6 +128,7 @@ PARAMETRES
 ```
 
 <br>
+
 * inspect du cluster
 
 ```

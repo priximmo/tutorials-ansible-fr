@@ -12,21 +12,27 @@ Equivalent ? scp
 
 
 <br>
+
 PARAMETRES :
 
 <br>
+
 * dest : destination du fichier récupérer (sur la machine ansible)
 
 <br>
+
 * fail_on_missing : erreur si le fichier manque (défaut yes)
 
 <br>
+
 * flat : écraser/force la destination (attention si plusieurs hosts)
 
 <br>
+
 * src: fichier récupéré de la machine target
 
 <br>
+
 * validate_checksum : validation de la récupération via la checksum
 
 ----------------------------------------------------------------------------
@@ -35,6 +41,7 @@ PARAMETRES :
 
 
 <br>
+
 * exemple simple si copie vers \/
 
 ```
@@ -45,6 +52,7 @@ PARAMETRES :
 ```
 
 <br>
+
 * avec une destination précise (attention sans flat)
 
 ```
@@ -55,6 +63,7 @@ PARAMETRES :
 ```
 
 <br>
+
 * avec le flat
 
 ```
@@ -71,6 +80,7 @@ PARAMETRES :
 
 
 <br>
+
 * exemple simple : collecter les fichiers et les mettre à dispo avec nginx
 
 ```

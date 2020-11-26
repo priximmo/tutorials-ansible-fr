@@ -6,6 +6,7 @@
 
 
 <br>
+
 * 23 types / localisation :
 
 ``` 
@@ -38,19 +39,27 @@
 # ANSIBLE : Precedence des variables
 
 <br>
+
 * exemple > role
 
 <br>
+
 	* default variable
 <br>
+
 	* group vars
 <br>
+
 	* host vars
 <br>
+
 	* variables de playbook
 <br>
+
 	* variables de roles
 <br>
+
 	* facts de roles (set_fact)
 <br>
+
 	* variable de cli

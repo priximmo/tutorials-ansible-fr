@@ -6,24 +6,30 @@
 
 
 <br>
+
 Documentation : https://docs.ansible.com/ansible/latest/collections/ansible/builtin/add_host_module.html
 
 
 Objectif : refaire le script de la vidéo 14 avec ansible
 
 <br>
+
 PARAMETRES
 
 <br>
+
 * groups : group alimenté
 
 <br>
+
 * hostname : nom de la machine (définition des variables standards, port...)
 		dont ansible_connection > docker
 <br>
+
 * name : nom de la machine dans l'inventory
 
 <br>
+
 * connexion local + clef ssh pub dans une variable
 
 ```
@@ -47,6 +53,7 @@ PARAMETRES
 
 
 <br>
+
 * création des conteneurs
 
 ```
@@ -65,6 +72,7 @@ PARAMETRES
 ```
 
 <br>
+
 * ajout des conteneurs dans l'inventaire au groupe docker
 
 ```
@@ -81,6 +89,7 @@ PARAMETRES
 # ANSIBLE : Module Add_host & docker & module raw
 
 <br>
+
 * création d'user dans le conteneur
 
 ```
@@ -92,6 +101,7 @@ PARAMETRES
 ```
 
 <br>
+
 * ajustement
 
 ```  
@@ -112,6 +122,7 @@ PARAMETRES
 # ANSIBLE : Module Add_host & docker & module raw
 
 <br>
+
 * éventuellement collecte des ip
 
 ```  

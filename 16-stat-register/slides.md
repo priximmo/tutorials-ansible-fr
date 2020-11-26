@@ -6,6 +6,7 @@
 
 
 <br>
+
 Documentation : https://docs.ansible.com/ansible/latest/modules/stat_module.html
 
 Paramètres :
@@ -26,6 +27,7 @@ Paramètres :
 
 
 <br>
+
 * création d'un fichier
 
 ```
@@ -37,6 +39,7 @@ Paramètres :
 ```
 
 <br>
+
 * utilisation de stat
 
 ```
@@ -46,6 +49,7 @@ Paramètres :
 ```
 
 <br>
+
 * récupération de la variable
 
 ```
@@ -64,6 +68,7 @@ Paramètres :
 
 
 <br>
+
 * récupération d'une clef
 
 ```
@@ -73,6 +78,7 @@ Paramètres :
 ```
 
 <br>
+
 * utilisation conditionnnel
 
 ```
@@ -84,6 +90,7 @@ Paramètres :
 ```
 
 <br>
+
 * exemple: 
 
 ```

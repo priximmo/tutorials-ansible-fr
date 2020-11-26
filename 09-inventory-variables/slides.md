@@ -7,6 +7,7 @@
 
 
 <br>
+
 * ansible = forte précédence des variables (ordre hiérarchique)
 
 * regroupement par famille :
@@ -16,6 +17,7 @@
     * Variables
 
 <br>
+
 * 22 types: 
 
 ```
@@ -53,6 +55,7 @@ Doc : https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.htm
 
 
 <br>
+
 * variables d'inventaires:
 		- fichier d'inventaire
 		- group_vars (répertoire)
@@ -79,6 +82,7 @@ Doc : https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.htm
 # ANSIBLE : Variables d'inventaire
 
 <br>
+
 * multienv >> c'est facile !!!
 
 ```
@@ -127,6 +131,7 @@ Doc : https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.htm
 
 
 <br>
+
 * commande de test :
 
 ```
@@ -134,6 +139,7 @@ ansible -i "node2," all -b -e "var1=xavki" -m debug -a 'msg={{ var1 }}'
 ```
 
 <br>
+
 * inventory :
 
 ```
@@ -165,6 +171,7 @@ all:
 
 
 <br>
+
 * autour des group_vars
 
 ```
@@ -191,6 +198,7 @@ ou encore
 
 
 <br>
+
 * autour des host_vars
 
 ```
@@ -212,6 +220,7 @@ ou encore
 
 
 <br>
+
 * et si on ajoutait un host au hasard et appartenant à "all"
 
 ```

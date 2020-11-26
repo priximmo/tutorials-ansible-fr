@@ -6,6 +6,7 @@
 
 
 <br>
+
 Objectifs:
 	* travailler en commun sur les rôles et les playbooks
 	* gérer plusieurs branches
@@ -13,9 +14,11 @@ Objectifs:
 	* installer les rôles
 
 <br>
+
 * la règle > ansible-galaxy install = installation de rôles
 
 <br>
+
 Avantages :
 
 * c'est la règle
@@ -27,6 +30,7 @@ Avantages :
 * installation de la branche à la demande
 
 <br>
+
 Inconvénients :
 
 * installation les rôles "non gitté" (développement hors répertoire rôle)
@@ -35,6 +39,7 @@ Inconvénients :
 
 
 <br>
+
 Proposition : script bash
 
 -----------------------------------------------------------------------------------

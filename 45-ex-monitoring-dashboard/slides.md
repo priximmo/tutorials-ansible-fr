@@ -7,6 +7,7 @@
 
 
 <br>
+
 Précédement : 
 	1- installation node exporter
 	2- installation prometheus
@@ -14,6 +15,7 @@ Précédement :
   4> installation d'un dashboard
 
 <br>
+
 * variables
 
 ```
@@ -22,6 +24,7 @@ grafana_admin_password: "password"
 ```
 
 <br>
+
 * 
 
 ```
@@ -40,6 +43,7 @@ grafana_admin_password: "password"
 # ANSIBLE : Ex - monitoring > grafana
 
 <br>
+
 * installation d'une datasource grafana
 
 ```
@@ -56,6 +60,7 @@ grafana_admin_password: "password"
 ```
 
 <br>
+
 * download dun dashboard (node exporter)
 
 ```
@@ -67,6 +72,7 @@ grafana_admin_password: "password"
 ```
 
 <br>
+
 * référencement du dashboard
 
 ```
@@ -84,6 +90,7 @@ grafana_admin_password: "password"
 
 
 <br>
+
 * fichier template
 
 ```
@@ -100,6 +107,7 @@ providers:
 ```
 
 <br>
+
 * création du handlers
 
 ```

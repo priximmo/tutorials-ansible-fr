@@ -6,16 +6,19 @@
 
 
 <br>
+
 Doc : https://docs.ansible.com/ansible/latest/modules/file_module.html
 Commande : ansible-doc file
 
 <br>
+
 * différence importante entre ansible et terraform
 
 		* terraform = idempotence et stateful
 		* ansible = idempotence et stateless
 
 <br>
+
 * touch avec idempotence
 
 ```
@@ -29,6 +32,7 @@ Commande : ansible-doc file
 ```
 
 <br>
+
 * à l'inverse
 
 ```
@@ -50,6 +54,7 @@ Commande : ansible-doc file
 
 
 <br>
+
 * idemportence > existance strictement
 
 * stateful > existance/inexistance
@@ -58,6 +63,7 @@ cf Terraform
 
 
 <br>
+
 ex :
 
 * je créé une VM
@@ -67,6 +73,7 @@ ex :
 		* ansible la créé et c'est tout
 
 <br>
+
 
 * je supprime la variable de la VM (sa ressource)
 

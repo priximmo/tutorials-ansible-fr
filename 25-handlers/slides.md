@@ -6,6 +6,7 @@
 
 
 <br>
+
 Documentation: https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html
 
 
@@ -14,6 +15,7 @@ Documentation: https://docs.ansible.com/ansible/latest/user_guide/playbooks_hand
 * exemple : vhost nginx et reload
 
 <br>
+
 * installation :
 
 ```
@@ -32,6 +34,7 @@ Documentation: https://docs.ansible.com/ansible/latest/user_guide/playbooks_hand
 ```
 
 <br>
+
 * suppression des vhosts default
 
 ```
@@ -50,6 +53,7 @@ Documentation: https://docs.ansible.com/ansible/latest/user_guide/playbooks_hand
 
 
 <br>
+
 *  création du vhost dans sites-available
 
 ```
@@ -64,6 +68,7 @@ Documentation: https://docs.ansible.com/ansible/latest/user_guide/playbooks_hand
 ```
 
 <br>
+
 * création du lien symbolique dans sites-enabled
 
 ```
@@ -75,6 +80,7 @@ Documentation: https://docs.ansible.com/ansible/latest/user_guide/playbooks_hand
 ```
 
 <br>
+
 * dans tous les cas on start nginx 
 
 ```
@@ -90,6 +96,7 @@ Documentation: https://docs.ansible.com/ansible/latest/user_guide/playbooks_hand
 
 
 <br>
+
 * on définit le handlers
 
 ```
@@ -101,6 +108,7 @@ Documentation: https://docs.ansible.com/ansible/latest/user_guide/playbooks_hand
 ```
 
 <br>
+
 * attention quand jouer le trigger ?
 
 ```

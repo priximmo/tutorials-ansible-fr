@@ -5,28 +5,36 @@
 # ANSIBLE : module docker-compose
 
 <br>
+
 Documentation : https://docs.ansible.com/ansible/latest/collections/community/general/docker_compose_module.html
 
 
 <br>
+
 * Objectif : gérer docker-compose
 
 <br>
+
 PARAMETRES
 
 <br>
+
 * build : avec construction à base d'un dockerfile - path
 
 <br>
+
 * definition : pour configurer le docker-compose
 
 <br>
+
 * dependencies : dépendance d'un autre service
 
 <br>
+
 * docker_host : socket docker (unix/ssh/tcp)
 
 <br>
+
 * files : liste des docker-compose file
 
 -------------------------------------------------------------------------------------
@@ -36,30 +44,39 @@ PARAMETRES
 
 
 <br>
+
 * nocache : build sans cache
 
 <br>
+
 * pull : puller en priorité les images ?
 
 <br>
+
 * remove_images : supprimer l'image local
 
 <br>
+
 * remove_orphans : supprimer les conteneurs non compris dans le docker-compose
 
 <br>
+
 * remove_volumes : suppression des volumes
 
 <br>
+
 * scale : définitin du scaling
 
 <br>
+
 * services : gestion du up (present), stop (stopped), restart (restarted)
 
 <br>
+
 * state : idem services
 
 <br>
+
 * plus simple
 
 ```
@@ -80,6 +97,7 @@ PARAMETRES
 
 
 <br>
+
 * et son output
 
 ```
@@ -94,6 +112,7 @@ PARAMETRES
 ```
 
 <br>
+
 * scaling des services
 
 ```
@@ -111,6 +130,7 @@ PARAMETRES
 # ANSIBLE : module docker-compose
 
 <br>
+
 * supprimer
 
 ```
@@ -121,6 +141,7 @@ PARAMETRES
 ```
 
 <br>
+
 * déintion du service sans fichier
 
 ```
@@ -135,6 +156,7 @@ PARAMETRES
 ```
 
 <br>
+
 * avec build
 
 ```

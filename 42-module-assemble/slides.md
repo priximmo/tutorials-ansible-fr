@@ -6,38 +6,49 @@
 
 
 <br>
+
 Documentation : https://docs.ansible.com/ansible/latest/collections/ansible/builtin/assemble_module.html
 
 * concatener des fichiers
 
 <br>
+
 PARAMETRES
 
 <br>
+
 * backup : sauvegarde du fichier avant changement
 
 <br>
+
 * decrypt : déchiffrer automatiquement par défaut ou pas le vault
 
 <br>
+
 * delimiter : séparation entre chaque fichier
 
 <br>
+
 * dest : la destination (fichier)
 
 <br>
+
 * group : groupe du fichier de destination
 
 <br>
+
 * regexp : regular expression de pattern des fichiers sources
 
 <br>
+
 * remote_src
 
 <br>
+
 * src : répertoire source
 
 <br>
+
 * validate : commande de validation
 
 -----------------------------------------------------------------------------------------
@@ -46,6 +57,7 @@ PARAMETRES
 
 
 <br>
+
 * simple via uniquement le remote
 
 ```
@@ -74,6 +86,7 @@ PARAMETRES
 
 
 <br>
+
 * ajouter un delimiter
 
 ```
@@ -81,6 +94,7 @@ delimiter: '### START FRAGMENT ###'
 ```
 
 <br>
+
 * sans remote src
 
 ```

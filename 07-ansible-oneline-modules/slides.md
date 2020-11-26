@@ -7,6 +7,7 @@
 
 
 <br>
+
 * module command
 
 ```
@@ -20,6 +21,7 @@ ansible -i "node2," all -u vagrant -m shell -a "ps aux | grep vagrant | wc -l" -
 ```
 
 <br>
+
 * exemple raw (sans python)
 
 ```
@@ -28,6 +30,7 @@ ansible -i "node2," all -u vagrant -b -K -m raw -a "apt install -y git"
 ```
 
 <br>
+
 * module apt
 
 ```
@@ -35,6 +38,7 @@ ansible -i "node2," all -b -m apt -a 'name=nginx state=latest'
 ```
 
 <br>
+
 * arrêt d'une service
 
 ```
@@ -48,6 +52,7 @@ ansible -i "node2," all -b -m service -a 'name=nginx state=stopped'
 
 
 <br>
+
 * faire un scp ??
 
 ```
@@ -55,6 +60,7 @@ ansible -i "node2," all -m copy -a 'src=toto.txt dest=/tmp/titi.txt'
 ```
 
 <br>
+
 * récupérer un fichier
 
 ```
@@ -62,6 +68,7 @@ ansible -i "node2," all -m fetch -a 'src=/tmp/titi.txt dest=xavki.txt flat=yes'
 ```
 
 <br>
+
 * lister les gathers facts
 
 ```

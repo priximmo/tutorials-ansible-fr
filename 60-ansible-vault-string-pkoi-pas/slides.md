@@ -6,12 +6,14 @@
 
 
 <br>
+
 Documentation : https://docs.ansible.com/ansible/latest/user_guide/vault.html
 https://docs.ansible.com/ansible/latest/cli/ansible-vault.html
 
 Objectif : chiffrer les secrets
 
 <br>
+
 La commande ansible-vault :
 
 	* create : créé et ouvre un fichier dans un éditeur, sera chiffré à la fermeture
@@ -30,6 +32,7 @@ La commande ansible-vault :
 
 	
 <br>
+
 * définir un vault pour une variable
 
 ```
@@ -38,6 +41,7 @@ ansible -i "127.0.0.1," all --ask-vault  -m debug -a "var=mysecret"
 ```
 
 <br>
+
 * Pb : déchiffrement 
 
 ```
@@ -47,6 +51,7 @@ ansible-vault edit group_vars/all/vault.yml
 Solution : recopier dans un fichier
 
 <br>
+
 * Pb de recherche si chiffrement total
 
 ```

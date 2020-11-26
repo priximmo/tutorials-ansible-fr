@@ -6,16 +6,19 @@
 
 
 <br>
+
 Documentation : 
 	* apt_key : https://docs.ansible.com/ansible/2.5/modules/apt_key_module.html
 	* apt_repository : https://docs.ansible.com/ansible/2.5/modules/apt_repository_module.html
 
 <br>
+
 APT_KEY
 
 PARAMETRES :
 
 <br>
+
 * data > directement fournir la clef
 
 * file : chemin vers un fichier contenant la clef
@@ -39,6 +42,7 @@ PARAMETRES :
 Quelques exemples :
 
 <br>
+
 * à partir d'un fichier
 
 ```
@@ -49,6 +53,7 @@ Quelques exemples :
 ```
 
 <br>
+
 * à partir d'une url
 
 ```
@@ -60,6 +65,7 @@ Quelques exemples :
 ```
 
 <br>
+
 * suppression d'une clef
 
 ```
@@ -75,29 +81,37 @@ Quelques exemples :
 
 
 <br>
+
 APT_REPOSITORY
 
 PARAMETRES :
 
 <br>
+
 * codename : si par un ppa surcharge la distribution
 
 <br>
+
 * filename : nom du fichier dans /etc/apt/source.list.d/
 
 <br>
+
 * mode : permissions sur le fichier (0644)
 
 <br>
+
 * repo : dépot source
 
 <br>
+
 * state : present/absent
 
 <br>
+
 * update_cache : enchainer avec un update du cache apt
 
 <br>
+
 * validate_certs : validation strict du ssl
 
 
@@ -107,6 +121,7 @@ PARAMETRES :
 
 
 <br>
+
 Exemple : installation docker
 
 

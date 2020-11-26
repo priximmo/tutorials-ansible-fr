@@ -6,19 +6,23 @@
 
 
 <br>
+
 Documentation : https://docs.ansible.com/ansible/latest/collections/ansible/builtin/set_fact_module.html
 
 * définir des facts (gather facts)
 
 <br>
+
 PARAMETRES
 
 <br>
+
 * cacheable : ajouté au cache (défaut non)
 
 * key_value : définition de la clef et de la valeur prise
 
 <br>
+
 
 * définir un gather fact
 
@@ -37,6 +41,7 @@ PARAMETRES
 
 
 <br>
+
 * exemple avec éléments calculés
 
 ```
@@ -60,6 +65,7 @@ PARAMETRES
 # ANSIBLE : Module SET_FACT
 
 <br>
+
 * le gather fact datetime :
 
 ```
@@ -69,6 +75,7 @@ PARAMETRES
 ```
 
 <br>
+
 * si cache (ansible.cfg)
 
 ```
@@ -85,6 +92,7 @@ fact_caching_timeout = 7200
 # ANSIBLE : Module SET_FACT
 
 <br>
+
 * contourner le cache
 
 ```

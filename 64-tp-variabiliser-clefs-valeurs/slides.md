@@ -6,12 +6,14 @@
 
 
 <br>
+
 Documentation :
 https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#combining-hashes-dictionaries
 
 Objectif : Créer intégralement un dictionnaire
 
 <br>
+
 * Exemple : création des labels Traefik
 
 ```
@@ -25,6 +27,7 @@ Objectif : Créer intégralement un dictionnaire
 ```
 
 <br>
+
 * création d'un dictionnaire vide
 
 ```
@@ -41,6 +44,7 @@ Rq : obligatoire à cause de la boucle sur les fichiers (sinon ajout au précéd
 
 
 <br>
+
 * alimentation du dictionnaire à partir des variables du fileglob
 
 ```
@@ -66,6 +70,7 @@ Rq : risque de conflit donc utilisation du loop_control
 # ANSIBLE : TP - Variabiliser les valeurs... ET LES CLEFS
 
 <br>
+
 * création du conteneur mariadb
 
 ```
@@ -98,6 +103,7 @@ Rq : risque de conflit donc utilisation du loop_control
 # ANSIBLE : TP - Variabiliser les valeurs... ET LES CLEFS
 
 <br>
+
 * création du conteneur wordpress avec injection du dictionnaire
 
 ```
@@ -130,6 +136,7 @@ Rq : risque de conflit donc utilisation du loop_control
 
 
 <br>
+
 * test du code retour avant de passer au fichier suivant ou de terminer
 
 ```

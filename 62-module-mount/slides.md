@@ -6,35 +6,45 @@
 
 
 <br>
+
 Documentation : https://docs.ansible.com/ansible/latest/collections/ansible/posix/mount_module.html
 
 Objectif : Monter des volumes > édition fstab
 
 <br>
+
 PARAMETRES
 
 <br>
+
 * backup : création d'un backup avant édition
 
 <br>
+
 * boot : montage au boot
 
 <br>
+
 * dump : enclenchement ou non du système de sauvegarde dump
 
 <br>
+
 * fstab : fichier utilisé si différent /etc/fstab
 
 <br>
+
 * fstype : type de filesystem
 
 <br>
+
 * path : destination du montage
 
 <br>
+
 * src : répertoire source (ou serveur avec son path)
 
 <br>
+
 * mount : absent / mounted / present / remounted / unmounted
 
 --------------------------------------------------------------------------------------------------------------
@@ -43,15 +53,18 @@ PARAMETRES
 
 
 <br>
+
 * exemple avec un serveur nfs
 
 CREATION DU SERVEUR
 
 
 <br>
+
 * création d'un rôle nfs_server
 
 <br>
+
 * installation des paquets pour Debian
 
 ```
@@ -64,6 +77,7 @@ CREATION DU SERVEUR
 ```
 
 <br>
+
 * création des répertoires
 
 ```
@@ -79,6 +93,7 @@ CREATION DU SERVEUR
 # ANSIBLE : Module Mount
 
 <br>
+
 * configuration des volumes mis à disposition
 
 ```
@@ -93,6 +108,7 @@ CREATION DU SERVEUR
 ```
 
 <br>
+
 * default vars
 
 ```
@@ -102,6 +118,7 @@ nfs_server_dir_data:
 ```
 
 <br>
+
 * contenu du fichier template
 
 ```
@@ -116,6 +133,7 @@ nfs_server_dir_data:
 # ANSIBLE : Module Mount
 
 <br>
+
 * inventory 
 
 ```
@@ -142,6 +160,7 @@ all:
 # ANSIBLE : Module Mount
 
 <br>
+
 * modification du playbook
 
 ```
@@ -170,13 +189,16 @@ all:
 # ANSIBLE : Module Mount
 
 <br>
+
 INSTALLATION DES CLIENTS NFS
 
 
 <br>
+
 * création du rôle nfs_client
 
 <br>
+
 * installation du paquet nfs-common
 
 ```
@@ -189,6 +211,7 @@ INSTALLATION DES CLIENTS NFS
 ```
 
 <br>
+
 * création des répertoires
 
 ```
@@ -204,6 +227,7 @@ INSTALLATION DES CLIENTS NFS
 # ANSIBLE : Module Mount
 
 <br>
+
 * montage finale via le module mount
 
 ```

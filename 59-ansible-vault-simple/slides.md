@@ -6,12 +6,14 @@
 
 
 <br>
+
 Documentation : https://docs.ansible.com/ansible/latest/user_guide/vault.html
 https://docs.ansible.com/ansible/latest/cli/ansible-vault.html
 
 Objectif : chiffrer les secrets
 
 <br>
+
 La commande ansible-vault :
 
 	* create : créé et ouvre un fichier dans un éditeur, sera chiffré à la fermeture
@@ -30,6 +32,7 @@ La commande ansible-vault :
 
 	
 <br>
+
 * type de données encryptées :
        * group variables files from inventory
        * host variables files from inventory
@@ -47,6 +50,7 @@ La commande ansible-vault :
 
 
 <br>
+
 * le cas le plus simple la création d'un fichier chiffré
 
 ```
@@ -54,6 +58,7 @@ ansible-vault create group_vars/vault.yml
 ```
 
 <br>
+
 * voir son contenu
 
 ```
@@ -61,6 +66,7 @@ ansible-view group_vars/vault.yml
 ```
 
 <br>
+
 * éditer son contenu
 
 ```
@@ -68,6 +74,7 @@ ansible-vault edit group_vars/vault.yml
 ```
 
 <br>
+
 * utiliser une variable
 
 ```
@@ -80,6 +87,7 @@ ansible -i "127.0.0.1," all -e "@mysecretfile.yml" --ask-vault -m debug -a "var=
 
 
 <br>
+
 * si dans l'inventaire ou le playbook
 
 ```
@@ -93,6 +101,7 @@ mavariable: "{{ vault_mavariable}}"
 ```
 
 <br>
+
 * ou sans prompt par un fichier
 
 ```
@@ -100,6 +109,7 @@ ansible -i "127.0.0.1," all  --vault-password-file ./.vault.txt -m debug -a "var
 ```
 
 <br>
+
 ou encore en variable d'environnement
 
 ```
@@ -107,6 +117,7 @@ export ANSIBLE_VAULT_PASSWORD_FILE=./.vault.txt
 ```
 
 <br>
+
 * changement d'éditeur (bashrc)
 
 ```

@@ -14,42 +14,55 @@ Objectifs : générer une clef ssh et la déployer
 Attention : où suis-je ? qui suis-je ?
 
 <br>
+
 PARAMETRES : openssh_keypair
 
 <br>
+
 * attibutes : attributs des fichiers (non supprimable etc)
 
 <br>
+
 * comment : commentaire de la clef
 
 <br>
+
 * force : regénère la clef si elle existe déjà
 
 <br>
+
 * group : group propriétaire des fichiers
 
 <br>
+
 * mode : permisssions (cf file, 0600, u+rw)
 
 <br>
+
 * owner : propirétaire
 
 <br>
+
 * path : localisation des clefs (attention sécurité de la clef privée)
 
 <br>
+
 * regenerate : never / fail / partial_idempotence (si non conforme) / full_idempotence (et si non lisible) / always
 
 <br>
+
 * size : taille de la clef
 
 <br>
+
 * state : present/absent
 
 <br>
+
 * type : rsa / dsa / rsa1 / ecdsa / ed25519
 
 <br>
+
 * unsafe_writes : prévenir les corruptions de fichiers
 
 Rq : si password / clef cassé > force : yes
@@ -60,6 +73,7 @@ Rq : si password / clef cassé > force : yes
 
 
 <br>
+
 * exemple de génération de clef
 
 ``` 
@@ -87,6 +101,7 @@ Rq : delegate_to & run_once
 
 
 <br>
+
 PARAMETRES : authorized_key:
 
 * comment : commentaire (écrase le commentaire d'origine)
@@ -117,6 +132,7 @@ PARAMETRES : authorized_key:
 
 
 <br>
+
 * exemple à pour le user devops à partir de la clef générée
 
 ```
@@ -149,6 +165,7 @@ PARAMETRES : authorized_key:
 
 
 <br>
+
 * exemple mode exclusif
 
 ```

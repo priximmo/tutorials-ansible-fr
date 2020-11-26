@@ -12,27 +12,35 @@ Equivalent ? scp
 
 
 <br>
+
 PARAMETRES :
 
 <br>
+
 * attributes : attributs du fichier
 
 <br>
+
 * backup : réalise une copie datée avant la copie
 
 <br>
+
 * checksum : vérification du ficheir via un hash
 
 <br>
+
 * content : dans le cas ou la source n'est pas un fichier mais une variable ou un string
 
 <br>
+
 * decrypt : déchiffre les fichiers si ils sont vaultés (défaut : yes)
 
 <br>
+
 * dest : localisation du fichier sur les serveurs target
 
 <br>
+
 * dicrectory_mode : dans le cas d'une recopie en mode récursif
 
 ---------------------------------------------------------------------------------------------------
@@ -41,34 +49,44 @@ PARAMETRES :
 
 
 <br>
+
 * follow : indiquer le filesytème dans la destination
 
 <br>
+
 * force : remplace le fichier si il est différent de la source 
 
 <br>
+
 * group : group propriétaire
 
 <br>
+
 * local_follow : indique le filesystème dans la source
 
 <br>
+
 * mode : permissions du fichier ou du répertoire (0755, u+rwx,g+rx,o+rx)
 
 <br>
+
 * owner : user propriétiare
 
 <br>
+
 * remote_src : no > copie du master vers la target, yes > copie de la target vers la target
 
 <br>
+
 * src : localisation de la source
 		* attention : roles / dir files / .
 
 <br>
+
 * unsafe_writes : éviter la corruption de fichier
 
 <br>
+
 validate : commande jouée pour valider le fichier avant de le copier (le fichier se situe %s)
 
 ---------------------------------------------------------------------------------------------------
@@ -77,6 +95,7 @@ validate : commande jouée pour valider le fichier avant de le copier (le fichie
 
 
 <br>
+
 * simple
 
 ```
@@ -90,6 +109,7 @@ validate : commande jouée pour valider le fichier avant de le copier (le fichie
 Rq : attention à la localisation de la source (cf les rôles)
 
 <br>
+
 * si changement > de base reupload
 
 ```
@@ -102,6 +122,7 @@ Rq : attention à la localisation de la source (cf les rôles)
 ```
 
 <br>
+
 * en mode récursif
 
 ```
@@ -120,6 +141,7 @@ mkdir -p tmp/xavki/{1,2,3}
 # ANSIBLE : Module COPY
 
 <br>
+
 * déplacer les fichiers ou répertoires sur la cible
 
 ```
@@ -131,6 +153,7 @@ mkdir -p tmp/xavki/{1,2,3}
 ```
 
 <br>
+
 * combinaison avec with_items
 
 ```
@@ -149,6 +172,7 @@ mkdir -p tmp/xavki/{1,2,3}
 
 
 <br>
+
 * utilisation de pattern
 
 ```
@@ -165,6 +189,7 @@ mkdir -p tmp/xavki/{1,2,3}
 # ANSIBLE : Module COPY
 
 <br>
+
 * avec backup
 
 ```
@@ -178,6 +203,7 @@ mkdir -p tmp/xavki/{1,2,3}
 ```
 
 <br>
+
 * recopier du contenu à partir d'une variale ou/et un string
 
 ```
@@ -195,6 +221,7 @@ mkdir -p tmp/xavki/{1,2,3}
 # ANSIBLE : Module COPY
 
 <br>
+
 * avec validation
 
 ```

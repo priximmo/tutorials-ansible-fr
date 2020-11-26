@@ -7,11 +7,13 @@
 
 
 <br>
+
 * configuration de différentes manières :
     * ansible.cfg
     * cli
 
 <br>
+
 * et à différents endroits pour ansible.cfg (ordre inverse de prise en compte)
     * éventuellement en définissant ANSIBLE_CONFIG
     * à l'endroit de votre playbook ansible.cfg
@@ -19,6 +21,7 @@
     * /etc/ansible/ansible.cfg
 
 <br>
+
 * exemple : 
 
 ```
@@ -44,6 +47,7 @@ Doc : https://docs.ansible.com/ansible/2.3/intro_configuration.html
 
 
 <br>
+
 * commande : 
 
 ```
@@ -58,6 +62,7 @@ ansible-config dump --only-changed #valeurs par défaut modifiée
 * exemple
 
 <br>
+
 ```
 ANSIBLE_SSH_ARGS:
   default: -C -o ControlMaster=auto -o ControlPersist=60s
@@ -82,6 +87,7 @@ ANSIBLE_SSH_ARGS:
 
 
 <br>
+
 * host key checking = fingerprint
 
 ```
@@ -90,6 +96,7 @@ host_key_checking = False
 ```
 
 <br>
+
 * callback temps par action
 
 ```
@@ -98,6 +105,7 @@ callback_whitelist = profile_tasks
 ```
 
 <br>
+
 * pipelining
 
 ```
@@ -106,6 +114,7 @@ pipelining = True
 ```
 
 <br>
+
 Principe par défaut :
   * création fichier python
   * création directory
@@ -114,6 +123,7 @@ Principe par défaut :
   * récupération résultat
 
 <br>
+
 Avec pipelining :
   * génération du fichier python
   * envoi sur le python interpreter distant via stdin
@@ -129,6 +139,7 @@ Rq: travailler sans fichier distant
 
 
 <br>
+
 * partage de plusieurs sessions et augmentation de la persistence (connexion...)
 
 ```
@@ -139,6 +150,7 @@ ssh_args = -o ControlMaster=auto -o ControlPersist=60s
 Doc : https://www.blog-libre.org/2019/05/11/loption-controlmaster-de-ssh_config/
 
 <br>
+
 * spécifier le mode d'identification
 
 ```
@@ -147,6 +159,7 @@ ssh_args = -o ControlMaster=auto -o ControlPersist=60s -o PreferredAuthenticatio
 ```
 
 <br>
+
 * fork = parallélisation
 
 ```
@@ -160,6 +173,7 @@ forks = 30
 
 
 <br>
+
 * gather facts avec précaution
 
 ```
@@ -167,6 +181,7 @@ gather_facts: no
 ```
 
 <br>
+
 * gather facts caching par fichier
 
 ```
@@ -176,6 +191,7 @@ fact_caching_connection = /tmp/mycachedir
 ```
 
 <br>
+
 * gather facts caching par redis
 
 
@@ -186,11 +202,13 @@ fact_caching_connection = localhost:6379:0
 ```
 
 <br>
+
 * Mitogen
 
 Doc : https://mitogen.networkgenomics.com/ansible_detailed.html
 
 <br>
+
 * cas ultime > ansible localhost  >> ansible-pull (commande)
   * chargement du code ansible sur le serveur distant
       * cloud init > cron > ansible-pull

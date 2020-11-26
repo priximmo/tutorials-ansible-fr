@@ -7,6 +7,7 @@
 
 
 <br>
+
 Précédement : 
 	1- installation node exporter
 	2- installation prometheus
@@ -14,6 +15,7 @@ Précédement :
 
 
 <br>
+
 * ajout gnupg
 
 ```
@@ -35,6 +37,7 @@ Précédement :
 ```
 
 <br>
+
 * module apt_repository
 
 ```
@@ -51,6 +54,7 @@ Précédement :
 
 
 <br>
+
 * installation de grafana
 
 ```
@@ -63,6 +67,7 @@ Précédement :
 ```
 
 <br>
+
 * démarrage du service dans tous les cas
 
 ```
@@ -78,6 +83,7 @@ Précédement :
 # ANSIBLE : Ex - monitoring > grafana
 
 <br>
+
 * attendre le démarrage du service
 
 ```
@@ -92,6 +98,7 @@ Précédement :
 ```
 
 <br>
+
 * changement du password
 
 ```

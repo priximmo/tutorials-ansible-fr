@@ -6,6 +6,7 @@
 
 
 <br>
+
 Objectifs:
 	* travailler en commun sur les rôles et les playbooks
 	* gérer plusieurs branches
@@ -13,15 +14,19 @@ Objectifs:
 	* installer les rôles
 
 <br>
+
 1 - mettre en place un .gitignore pour éviter les rôles
 
 <br>
+
 2 - 1 dépôt par rôle
 
 <br>
+
 3 - 1 dépôt pour les playbooks et l'invetory
 
 <br>
+
 3 - fichier de requirements.yml
 
 ```
@@ -32,6 +37,7 @@ Objectifs:
 ```
 
 <br>
+
 4 - 1 dépôt pour les playbooks et l'inventory
 
 5 - clean et run

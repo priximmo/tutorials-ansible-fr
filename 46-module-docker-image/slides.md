@@ -6,12 +6,14 @@
 
 
 <br>
+
 * Objectif : construction, build et push d'images docker
 
 Documentation :
 https://docs.ansible.com/ansible/latest/collections/community/general/docker_image_module.html
 
 <br>
+
 Prérequis :
 
 	* docker
@@ -19,15 +21,19 @@ Prérequis :
 	* python3-docker ou pip3 install docker
 
 <br>
+
 PARAMETRES :
 
 <br>
+
 * api_version : version de l'api docker (docker info)
 
 <br>
+
 * archive_path : cas d'une image en tar, chemin d'accès
 
 <br>
+
 * build : pour constuire une image
 		* args : clef/valeur
 		* cache_from : images sources utilisées en cache
@@ -55,39 +61,51 @@ PARAMETRES :
 
 
 <br>
+
 * buildargs (deprecated) : idem build > args
 
 <br>
+
 * ca_cert : vérficiation du serveur par ca (DOCKER_CERT_PATH)
 
 <br>
+
 * client_cert : tls client
 
 <br>
+
 * client_key : tls client clef 
 
 <br>
+
 * containers_limit (deprecated) : idem build > container_limits
 				
 <br>
+
 * debug : activation du mode debug
 
 <br>
+
 * docker_hosts : par défaut socket local sinon tcp/ssh
 
 <br>
+
 * dockerfile (deprecated) : cf build
 
 <br>
+
 * force : à utiliser avec le state absent pour forcer la suppression
 
 <br>
+
 * force_source : refaire build, load, pull d'une image qui existe déjà
 
 <br>
+
 * force_tag : forcer le tagging d'une image
 
 <br>
+
 * http_timeout (deprecated) : cf build
 
 ------------------------------------------------------------------------------------------------------
@@ -96,30 +114,39 @@ PARAMETRES :
 
 
 <br>
+
 * load_path : load une image via son archive tar
 
 <br>
+
 * name : nom de l'image url_registry/nom
 
 <br>
+
 * nocache : ne pas utiliser le cache au build
 
 <br>
+
 * path (deprecated) : cf build
 
 <br>
+
 * pull : idem
 
 <br>
+
 * push : idem
 
 <br>
+
 * repository : chemin vers le dépôt
 
 <br>
+
 * rm (deprecated) : cd build
 
 <br>
+
 * source : origine de l'image :
 		* build : dockerfile
 		* load : archive tar
@@ -132,24 +159,31 @@ PARAMETRES :
 
 
 <br>
+
 * ssl_version : version ssl pour docker
 
 <br>
+
 * state : present / build / absent
 
 <br>
+
 * tag : tag de l'image
 
 <br>
+
 * timeout : délai pour le timeout du daemon docker
 
 <br>
+
 * tls : connexion chiffrée vers l'api docker
 
 <br>
+
 * tls_hostname : hostname pour le tls
 
 <br>
+
 * validate_certs : check tls
 
 
@@ -159,9 +193,11 @@ PARAMETRES :
 
 
 <br>
+
 EXEMPLES :
 
 <br>
+
 * pull simple d'une image
 
 ```
@@ -173,6 +209,7 @@ EXEMPLES :
 ```
 
 <br>
+
 * retaguer une image
 
 ```
@@ -189,6 +226,7 @@ EXEMPLES :
 
 
 <br>
+
 * import via un tar (docker save)
 
 ```
@@ -205,6 +243,7 @@ EXEMPLES :
 ```
 
 <br>
+
 * build d'image via Dockerfile
 
 ```
@@ -235,6 +274,7 @@ EXEMPLES :
 
 
 <br>
+
 * cas du build & push
 
 ```

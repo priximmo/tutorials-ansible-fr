@@ -6,12 +6,14 @@
 
 
 <br>
+
 Documentation : https://docs.ansible.com/ansible/latest/user_guide/vault.html
 https://docs.ansible.com/ansible/latest/cli/ansible-vault.html
 
 Objectif : chiffrer les secrets
 
 <br>
+
 La commande ansible-vault :
 
 	* create : créé et ouvre un fichier dans un éditeur, sera chiffré à la fermeture
@@ -33,6 +35,7 @@ La commande ansible-vault :
 # ANSIBLE : Vault ID & multipassword
 	
 <br>
+
 * simple remplacement du prompt : --vault-id
 
 ```
@@ -43,6 +46,7 @@ ansible -i "127.0.0.1," all --vault-id pwd.txt  -m debug -a "msg='{{mysecret}}'"
 ```
 
 <br>
+
 * avec un id spécifique
 
 ```
@@ -57,6 +61,7 @@ ansible -i "127.0.0.1," all --vault-id prod@pwd.txt  -m debug -a "msg='{{mysecre
 	
 
 <br>
+
 * playbook avec deux secrets
 
 ```

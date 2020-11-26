@@ -5,11 +5,13 @@
 # ANSIBLE : module docker-swarm-service -> déploiement de services
 
 <br>
+
 Documentation : https://docs.ansible.com/ansible/2.9/modules/docker_swarm_service_module.html#docker-swarm-service-module
 
 
 
 <br>
+
 * installation du service visualizer
 
 ```
@@ -26,6 +28,7 @@ Documentation : https://docs.ansible.com/ansible/2.9/modules/docker_swarm_servic
 
 
 <br>
+
 * installation de traefik
 
 ```
@@ -73,6 +76,7 @@ Documentation : https://docs.ansible.com/ansible/2.9/modules/docker_swarm_servic
 # ANSIBLE : module docker-swarm-service -> déploiement de services
 
 <br>
+
 * installation de visualizer 
 
 ```

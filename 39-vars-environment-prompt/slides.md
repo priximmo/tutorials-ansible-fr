@@ -6,6 +6,7 @@
 
 
 <br>
+
 Documentation : 
 https://docs.ansible.com/ansible/latest/user_guide/playbooks_environment.html
 
@@ -14,11 +15,13 @@ Objectifs : Définir des variables d'environnement et utiliser un prompt
 
 
 <br>
+
 * différents endroits pour définir les variables d'environnement
 	* playbook
 	* tasks
 
 <br>
+
 * définition de la variable et utilisation
 
 ```
@@ -39,6 +42,7 @@ Objectifs : Définir des variables d'environnement et utiliser un prompt
 
 
 <br>
+
 * var prompt : interrogation de l'utilisateur
 
 ```
@@ -54,6 +58,7 @@ Objectifs : Définir des variables d'environnement et utiliser un prompt
 ```
 
 <br>
+
 * avec phrase et valeur par défaut
 
 ```
@@ -78,6 +83,7 @@ Objectifs : Définir des variables d'environnement et utiliser un prompt
 
 
 <br>
+
 * variable d'environnement de la machine ansible
 
 ```

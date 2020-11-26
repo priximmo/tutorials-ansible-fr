@@ -11,33 +11,43 @@ Objectifs : génération de fichier à partir de modèles intégrant des variabl
 		format jinja2 (python)
 
 <br>
+
 PARAMETRES :
 
 <br>
+
 * attributes : attributs de fichiers
 
 <br>
+
 * backup : créé une sauvegarde avant la modification (idem copy)
 
 <br>
+
 * block_end_string : fin de block dans les templates ( %})
 
 <br>
+
 * block_start_string : début de block ({%)
 
 <br>
+
 * dest : fichier cible ou généré
 
 <br>
+
 * follow : suivre les liens symboliques
 
 <br>
+
 * force : écraser si le fichier de destination existe (défaut : yes)
 
 <br>
+
 * group : group propriétaire du fichier
 
 <br>
+
 * lstrip_blocks : respect stricte ou non des tabulations et blancs
 
 ```
@@ -50,34 +60,44 @@ PARAMETRES :
 
 
 <br>
+
 * mode : permissions du fichier (0755 ou r+rwx,g+rx,o+rx)
 
 <br>
+
 * newline_sequence : quel élément est utilisé pour les nouvelles lignes
 
 <br>
+
 * output_encoding : encodage du fichier généré (defaut : utf8)
 
 <br>
+
 * owner : propriétaire du fichier
 
 <br>
+
 * src : fichier source (template), attention localisation
 		* attention : rôles / dir template / .
 
 <br>
+
 * trim_blocks : supprimer les retours à la ligne des blocks
 
 <br>
+
 * unsafe_writes : éviter la corruption des fichiers
 
 <br>
+
 * validate : commande de validation avant modification (idem copy)
 
 <br>
+
 * variable_end_string : caractères des fins des variables
 
 <br>
+
 * variable_start_string : caractères de début des variables
 
 
@@ -87,6 +107,7 @@ PARAMETRES :
 
 
 <br>
+
 * le plus simplte : 
 
 ```
@@ -113,6 +134,7 @@ Hello {{ var1 }}
 
 
 <br>
+
 * quelques variables utiles
 
 ```
@@ -140,6 +162,7 @@ exemple au début du fichier
 
 
 <br>
+
 * permissions, user et group
 
 ```
@@ -153,6 +176,7 @@ exemple au début du fichier
 ```
 
 <br>
+
 * le backup avant modification
 
 
@@ -174,6 +198,7 @@ exemple au début du fichier
 
 
 <br>
+
 * parcourir une liste > un fichier par itération
 
 ```
@@ -208,6 +233,7 @@ j'ai {{ item.age }}
 
 
 <br>
+
 * itération dans le template
 
 ```

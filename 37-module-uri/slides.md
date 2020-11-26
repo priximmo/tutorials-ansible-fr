@@ -6,32 +6,41 @@
 
 
 <br>
+
 Documentation : https://docs.ansible.com/ansible/2.3/uri_module.html
 
 Objectifs : passer des requêtes http ou https et interagir avec
 
 <br>
+
 PARAMETRES :
 
 <br>
+
 * HEADER_ : paramètre header pour passer vos requêtes
 
 <br>
+
 * body : si activation du format json récupérer une variable
 
 <br>
+
 * body_format : format du body json ou raw
 
 <br>
+
 * creates : si le fichier existe la tâche n'est pas lancée
 
 <br>
+
 * dest : répertoire de destination
 
 <br>
+
 * follow_redirects : suivre les redirections
 
 <br>
+
 * force_basic_aut : forcer le basic auth
 
 --------------------------------------------------------------------------------
@@ -40,36 +49,47 @@ PARAMETRES :
 
 
 <br>
+
 * headers : ajout de header (format yaml)
 
 <br>
+
 * method : GET / POST/ DELETE / PUT / HEAD / PATCH / TRACE...
 
 <br>
+
 * others : autre argument pour le file module (fichier créé)
 
 <br>
+
 * password : pour le basic auth
 
 <br>
+
 * removes : supprime le fichier avant
 
 <br>
+
 * return_content : pour récupérer le contenu
 
 <br>
+
 * status_code : 200, 301... [200,201...]
 
 <br>
+
 * timeout : en seconde
 
 <br>
+
 * url : target
 
 <br>
+
 * user : pour basic_auth
 
 <br>
+
 * validate_certs : stricte tls ou non
 
 --------------------------------------------------------------------------------
@@ -78,6 +98,7 @@ PARAMETRES :
 
 
 <br>
+
 * cas simple
 
 ```
@@ -92,6 +113,7 @@ PARAMETRES :
 ```
 
 <br>
+
 * vérification du status
 
 ```
@@ -112,6 +134,7 @@ PARAMETRES :
 
 
 <br>
+
 * liste de code retour
 
 ```
@@ -124,6 +147,7 @@ PARAMETRES :
 ```
 
 <br>
+
 * récupération du contenu
 
 ```
@@ -147,6 +171,7 @@ PARAMETRES :
 
 
 <br>
+
 * utilisation du format json
 
 ```
@@ -164,6 +189,7 @@ PARAMETRES :
 ```
 
 <br>
+
 * validation du contenu
 
 ```
@@ -186,6 +212,7 @@ PARAMETRES :
 
 
 <br>
+
 * basic auth
 
 ```

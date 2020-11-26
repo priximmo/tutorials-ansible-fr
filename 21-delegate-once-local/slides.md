@@ -11,6 +11,7 @@ Objectifs : gérer les run locaux ou déléguer des tâches
 		* primaire/secondaire
 
 <br>
+
 * delegate_to : déléguer une tache à un autre serveur identifié
 
 ```
@@ -27,6 +28,7 @@ Objectifs : gérer les run locaux ou déléguer des tâches
 Rq : attention au nombre d'itération si plusieurs serveurs
 
 <br>
+
 * quelles variables ?
 
 ```
@@ -48,6 +50,7 @@ Rq : attention au nombre d'itération si plusieurs serveurs
 
 
 <br>
+
 * si on ne veut faire qu'une seule fois la tâche ?
 
 ```
@@ -60,6 +63,7 @@ Rq : attention au nombre d'itération si plusieurs serveurs
 ```
 
 <br>
+
 * local avec ssh
 
 ```
@@ -69,6 +73,7 @@ Rq : attention au nombre d'itération si plusieurs serveurs
 ```
 
 <br>
+
 * sans ssh
 
 ```

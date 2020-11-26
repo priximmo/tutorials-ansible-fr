@@ -6,12 +6,14 @@
 
 
 <br>
+
 * Objectif : lancement d'image docker
 
 Documentation :
 https://docs.ansible.com/ansible/latest/collections/community/general/docker_container_module.html
 
 <br>
+
 Prérequis :
 
 	* docker
@@ -19,6 +21,7 @@ Prérequis :
 	* python3-docker ou pip3 install docker
 
 <br>
+
 PARAMETRES :
 
 * capabilities : ajout de capabilities
@@ -72,9 +75,11 @@ PARAMETRES :
 
 
 <br>
+
 EXEMPLES
 
 <br>
+
 * mise en place et premier run
 
 ```
@@ -121,6 +126,7 @@ EXEMPLES
 
 
 <br>
+
 * command et detach
 
 ```
@@ -151,6 +157,7 @@ EXEMPLES
 
 
 <br>
+
 * exposition de ports et test :
 
 ```
@@ -187,6 +194,7 @@ EXEMPLES
 
 
 <br>
+
 * avec healthcheck :
 
 ```
@@ -210,6 +218,7 @@ EXEMPLES
 # ANSIBLE : module docker_container
 
 <br>
+
 * itération de conteneurs
 
 ```
@@ -234,6 +243,7 @@ EXEMPLES
 ```
 
 <br>
+
 * si une image spécifique
 
 ```
@@ -245,6 +255,7 @@ when: item.Image == 'nginx'
 # ANSIBLE : module docker_container
 
 <br>
+
 * output
 
 ```

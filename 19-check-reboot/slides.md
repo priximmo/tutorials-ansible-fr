@@ -10,30 +10,39 @@ Documentation: https://docs.ansible.com/ansible/latest/collections/ansible/built
 Objectifs : rebooter des machines sous conditions et reprendre après
 
 <br>
+
 PARAMETRES :
 
 <br>
+
 * boot_time_command : command qui génère l'id de reboot
 
 <br>
+
 * connect_timeout : timeout de la connexion en seconde
 
 <br>
+
 * msg : message délivré avant le reboot
 
 <br>
+
 * post_reboot_delay : temps d'attente en secondes après le reboot pour continuer
 
 <br>
+
 * pre_reboot_delay : délai avant de lancer le reboot
 
 <br>
+
 * reboot_timeout : timeout du reboot lui-même
 
 <br>
+
 * search_paths : path pour la commande shutdown
 
 <br>
+
 * test_command  : commande de test pour confirmer le succés du reboot
 
 -----------------------------------------------------------------------------------------------------
@@ -43,6 +52,7 @@ PARAMETRES :
 
 
 <br>
+
 * démonstration avec de simples fichiers
 
 ```
@@ -58,6 +68,7 @@ PARAMETRES :
 ```
 
 <br>
+
 ```
   - name: test
     stat:
@@ -66,6 +77,7 @@ PARAMETRES :
 ```
 
 <br>
+
 ```
   - name: lancement du reboot avec reboot
     reboot:
@@ -92,6 +104,7 @@ PARAMETRES :
 
 
 <br>
+
 * exemple d'une mise à jour
 
 

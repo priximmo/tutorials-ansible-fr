@@ -6,14 +6,17 @@
 
 
 <br>
+
 Documentation : 
 https://docs.ansible.com/ansible/2.9/modules/docker_stack_module.html
 
 <br>
+
 PARAMETRES
 
 
 <br>
+
 * prérequis :
 
 ```
@@ -24,6 +27,7 @@ PARAMETRES
 ```
 
 <br>
+
 * copy build et docker-compose files :
 
 ```
@@ -40,6 +44,7 @@ PARAMETRES
 
 
 <br>
+
 * deploiement de la stack :
 
 ```
@@ -54,6 +59,7 @@ PARAMETRES
 ```
 
 <br>
+
 * éventuellement définir le compose dans la tâche
 
 ```

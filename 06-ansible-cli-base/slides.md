@@ -7,6 +7,7 @@
 
 
 <br>
+
 * peu utilisé (en proportion) au profit de ansible-playbook
 
 * permettre du test (ping, inventaire)
@@ -16,6 +17,7 @@
 * beaucoup d'options similaires à la commande ansible-playbook
 
 <br>
+
 * test de connexions 
 
 ```
@@ -23,6 +25,7 @@ ansible -i "node2," all -u vagrant -m ping
 ```
 
 <br>
+
 * principales options à connaître :
 		* -u : user distant utilisé
 		* -b : passer les commandes en élévation de privilèges (sudo)
@@ -45,6 +48,7 @@ ansible -i "node2," all -u vagrant -m ping
 
 
 <br>
+
 * définir des paramètres ssh
 
 ```
@@ -53,6 +57,7 @@ ansible -i "node2," all -u vagrant -k --ssh-extra-args="-o 'PreferredAuthenticat
 
 
 <br>
+
 * sshpass pour passer un password
 
 ```
@@ -60,6 +65,7 @@ sshpass -p 'vagrant' ansible -i "node2," all -u vagrant -k --ssh-extra-args="-o 
 ```
 
 <br>
+
 * affichage oneline
 
 ```
@@ -67,6 +73,7 @@ ansible -i "node2," all -u vagrant -m ping --one-line
 ```
 
 <br>
+
 * module command
 
 ```
@@ -74,6 +81,7 @@ ansible -i "node2," all -u vagrant -m command -a uptime
 ```
 
 <br>
+
 * passage d'une variable
 
 ```

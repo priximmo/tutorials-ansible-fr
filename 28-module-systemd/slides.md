@@ -6,6 +6,7 @@
 
 
 <br>
+
 Documentation : 
 
 Objectifs : gestion des services systemd et reload
@@ -13,36 +14,47 @@ Objectifs : gestion des services systemd et reload
 Documentation : https://docs.ansible.com/ansible/2.5/modules/systemd_module.html
 
 <br>
+
 PARAMETRES :
 
 <br>
+
 * daemon_reexec :
 
 <br>
+
 * daemon_reload : exécute un reload pour prendre en compte les changements de conf systemd
 
 <br>
+
 * enabled : active le démarrage au boot du service
 
 <br>
+
 * force : écraser les liens symboliques systemd
 
 <br>
+
 * masked : masquer l'unité systemd
 
 <br>
+
 * name : nom du service systemd
 
 <br>
+
 * no_block : ne pas attendre la fin de l'opération pour continuer
 
 <br>
+
 * scope: systemd manager pour un user ou l'ensemble des users
 
 <br>
+
 * state : started /stopped / reloaded / restarted
 
 <br>
+
 * user : deprecated
 
 
@@ -52,6 +64,7 @@ PARAMETRES :
 
 
 <br>
+
 * le plus simple : 
 
 ```
@@ -62,6 +75,7 @@ PARAMETRES :
 ```
 
 <br>
+
 * arrêt
 
 ```
@@ -72,6 +86,7 @@ PARAMETRES :
 ```
 
 <br>
+
 * activation au boot
 
 ```
@@ -88,6 +103,7 @@ PARAMETRES :
 
 
 <br>
+
 * exécuter avant si nécessaire un daemon-reload
 
 ```
@@ -100,6 +116,7 @@ PARAMETRES :
 ```
 
 <br>
+
 * s'assurer sa présence dans le list-units
 
 ```
@@ -113,6 +130,7 @@ PARAMETRES :
 ```
 
 <br>
+
 * juste faire un daemon-reload
 
 ```

@@ -6,6 +6,7 @@
 
 
 <br>
+
 Documentation : 
 https://docs.ansible.com/ansible/2.5/modules/shell_module.html
 https://docs.ansible.com/ansible/latest/collections/ansible/builtin/command_module.html
@@ -17,33 +18,43 @@ Command vs Shell >
 		shell : utilisation de tout ce qui est dans la CLI (pipe...)
 
 <br>
+
 PARAMETRES : COMMAND
 
 <br>
+
 * argv : ligne de commande sous forme de liste
 
 <br>
+
 * chdir : change de répertoire
 
 <br>
+
 * cmd : commande lancée
 
 <br>
+
 * creates : la commande n'est pas lancée si le fichier existe
 
 <br>
+
 * removes : inverse de creates, si le fichier existe la commande est lancée
 
 <br>
+
 * stdin : spécifier une valeur entrante via stdin
 
 <br>
+
 * stdin_add_newline : passe une ligne pour le stdin
 
 <br>
+
 * strip_empyt_ends : supprimer les lignes vides
 
 <br>
+
 * warn : activer ou désactiver le task warning
 
 ---------------------------------------------------------------------------------
@@ -51,6 +62,7 @@ PARAMETRES : COMMAND
 # ANSIBLE : Modules COMMAND & SHELL
 
 <br>
+
 * simple :
 
 ```
@@ -61,6 +73,7 @@ PARAMETRES : COMMAND
 ```
 
 <br>
+
 * changement de directory :
 
 ```
@@ -76,6 +89,7 @@ PARAMETRES : COMMAND
 # ANSIBLE : Modules COMMAND & SHELL
 
 <br>
+
 * commande en liste :
 
 ```
@@ -88,6 +102,7 @@ PARAMETRES : COMMAND
 ```
 
 <br>
+
 * sous condition si le fichier n'existe pas
 
 ```
@@ -110,6 +125,7 @@ PARAMETRES : COMMAND
 # ANSIBLE : Modules COMMAND & SHELL
 
 <br>
+
 * inverse : si il existe
 
 ```
@@ -126,24 +142,31 @@ PARAMETRES : COMMAND
 
 
 <br>
+
 PARAMTRES : SHELL
 
 <br>
+
 * chdir : changement de répertoire d'exécution
 
 <br>
+
 * creates : la commande est lancée si le fichier n'existe pas
 
 <br>
+
 * executable : choix du shell utilisé
 
 <br>
+
 * removes : inverse de creates
 
 <br>
+
 * stdin : définir un stdin
 
 <br>
+
 * warn : afficher ou non les warn
 
 ---------------------------------------------------------------------------------
@@ -152,6 +175,7 @@ PARAMTRES : SHELL
 
 
 <br>
+
 * exemple simple :
 
 ```
@@ -164,6 +188,7 @@ PARAMTRES : SHELL
 ```
 
 <br>
+
 * exemple avec un bloc
 
 ```
@@ -178,6 +203,7 @@ PARAMTRES : SHELL
 ```
 
 <br>
+
 * exemple avec des variables d'environnement
 
 ```

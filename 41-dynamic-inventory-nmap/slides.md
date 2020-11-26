@@ -14,6 +14,7 @@ https://github.com/ansible-collections/community.general/tree/main/scripts/inven
 
 
 <br>
+
 * ansible.cfg
 
 ```

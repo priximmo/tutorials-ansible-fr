@@ -6,6 +6,7 @@
 
 
 <br>
+
 Documentation :
 https://docs.ansible.com/ansible/latest/collections/ansible/builtin/fileglob_lookup.html
 https://docs.ansible.com/ansible/latest/collections/ansible/builtin/include_vars_module.html
@@ -13,17 +14,20 @@ https://docs.ansible.com/ansible/latest/collections/ansible/builtin/include_vars
 Objectif : Parcourir des fichiers de variables identiques
 
 <br>
+
 Exemples :
 	* vhost nginx
 	* base de données
 	* stacks à instancier
 
 <br>
+
 * Reprenons notre cluster swarm pour instancier du wordpress
 
 * un fichier descriptif pour chaque wordpress
 
 <br>
+
 * deux vidéos dans cette thématique
 
 --------------------------------------------------------------------------------------------------------------
@@ -32,6 +36,7 @@ Exemples :
 
 
 <br>
+
 * disposer d'un répertoire décrivant chaque wordpress
 
 ```
@@ -43,6 +48,7 @@ Rq : localisation au choix
 Attention : localisation du playbook
 
 <br>
+
 * Base d'un fichier pour une instance wordpress
 
 ```
@@ -62,6 +68,7 @@ Rq : port 80 pour traefik, sécurité password...
 # ANSIBLE : TP - Combinaison with_fileglob & include_vars
 
 <br>
+
 * utilisation de fileglob
 
 ```
@@ -74,6 +81,7 @@ cat roles/deploy_wordpress/tasks/main.yml
 ```
 
 <br>
+
 * création du fichier de task sur lequel boucler (par fichier d'instance)
 
 ```
@@ -92,6 +100,7 @@ Rq : w la clef des variables
 # ANSIBLE : TP - Combinaison with_fileglob & include_vars
 
 <br>
+
 * utilisation pour la création des networks de chacun des wordpress
 
 ```
@@ -103,6 +112,7 @@ Rq : w la clef des variables
 ```
 
 <br>
+
 * création des volumes docker (double boucle : fichiers + with_items)
 
 ```

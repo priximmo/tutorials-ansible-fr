@@ -7,11 +7,13 @@
 
 
 <br>
+
 * commande ansible-inventory
 		* pour y voir plus clair
 		* pour grapher
 
 <br>
+
 * export au format json par défaut (serveurs et variables d'inventaire)
 
 ```
@@ -26,6 +28,7 @@ ansible-inventory -i 00_inventory.yml --list --export
 ```
 
 <br>
+
 * afficher un format compact sans variables
 
 ```
@@ -44,6 +47,7 @@ ansible-inventory -i 00_inventory.yml --graph --vars
 
 
 <br>
+
 * export vers un fichier
 
 ```
@@ -51,6 +55,7 @@ ansible-inventory -i <inventory_file> --output
 ```
 
 <br>
+
 * format toml
 
 ```
@@ -59,6 +64,7 @@ ansible-inventory -i <inventory_file> --vars --toml
 ```
 
 <br>
+
 * grapher...
 
 ```

@@ -6,12 +6,15 @@
 
 
 <br>
+
 Documentation : https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html
 
 
 <br>
+
 STRUCTURE :
 <br>
+
 * arborescence de répertoires et fichiers yaml
 		* tasks : les actions et le point d'entrée
 		* defaults : les variables par défaut
@@ -33,6 +36,7 @@ ansible-galaxy init roles/user
 
 
 <br>
+
 * arborescence type 
 
 ```
@@ -66,12 +70,14 @@ ansible-galaxy init roles/user
 # ANSIBLE : LES ROLES
 
 <br>
+
 * 3 rôles :
 		* ssh_keygen : génération de la clef en local (pb become yes)
 		* users : création des users et déploiement des clefs
 		* nginx : installation d'un reverse proxy
 
 <br>
+
 * ROLE SSH_KEYGEN : génération d'une clef
 
 ```
@@ -98,6 +104,7 @@ ansible-galaxy init roles/user
 
 
 <br>
+
 * ROLE USERS : création d'un user et ajout de la clef ssh
 
 ```
@@ -129,6 +136,7 @@ ansible-galaxy init roles/user
 
 
 <br>
+
 * ROLE NGINX : installation du serveur nginx
 
 ```
@@ -164,6 +172,7 @@ ansible-galaxy init roles/user
 
 
 <br>
+
 * ROLE NGINX : start
 
 ```
@@ -188,6 +197,7 @@ ansible-galaxy init roles/user
 
 
 <br>
+
 * le playbook
 
 ```

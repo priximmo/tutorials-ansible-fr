@@ -6,27 +6,32 @@
 
 
 <br>
+
 Objectif : mettre à jour node exporter
 
 >> prometheus / grafana / node-exporter...
 
 <br>
+
 * étapes :
 		1- installation node exporter
 		2- installation de prometheus
 		3- installation de grafana
 
 <br>
+
 * travail sur 4 noeuds
 		1- un de monitoring (prometheus/grafana)
 		2- tous monitoré par node exporter
 
 <br>
+
 * 1ère étape : Node Exporter
 
 Source : https://github.com/prometheus/node_exporter/releases
 
 <br>
+
 * structure = inventory + playbook + role node exporter
 
 ----------------------------------------------------------------------------------------
@@ -35,12 +40,14 @@ Source : https://github.com/prometheus/node_exporter/releases
 
 
 <br>
+
 * collecter la version : comment ?
 		* via le binaire (go en command line ???)
 		* curl (il faut qu'il tourne ???)
 		* via la conf du service | provoquer le restart si modification
 
 <br>
+
 * ajout d'une version dans la conf du service systemd
 
 ```
@@ -50,6 +57,7 @@ After=network-online.target
 ```
 
 <br>
+
 * on récupère la version via le module shell
 
 ```
@@ -61,6 +69,7 @@ After=network-online.target
 ```
 
 <br>
+
 * on conditionne le téléchargement et le clean
 
 ```

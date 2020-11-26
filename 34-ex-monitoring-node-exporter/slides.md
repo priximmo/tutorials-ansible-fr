@@ -6,27 +6,32 @@
 
 
 <br>
+
 Objectif : série de vidéo de mise en pratique autour du monitoring
 
 >> prometheus / grafana / node-exporter...
 
 <br>
+
 * étapes :
 		1- installation node exporter
 		2- installation de prometheus
 		3- installation de grafana
 
 <br>
+
 * travail sur 4 noeuds
 		1- un de monitoring (prometheus/grafana)
 		2- tous monitoré par node exporter
 
 <br>
+
 * 1ère étape : Node Exporter
 
 Source : https://github.com/prometheus/node_exporter/releases
 
 <br>
+
 * structure = inventory + playbook + role node exporter
 
 ----------------------------------------------------------------------------------------
@@ -35,6 +40,7 @@ Source : https://github.com/prometheus/node_exporter/releases
 
 
 <br>
+
 LES TASKS DU ROLE
 
 0- variables
@@ -48,6 +54,7 @@ LES TASKS DU ROLE
 
 
 <br>
+
 * vérifier si node exporter est déjà installé 
 
 ```
@@ -62,6 +69,7 @@ LES TASKS DU ROLE
 # ANSIBLE : Ex - Monitoring > node exporter
 
 <br>
+
 * les variables
 
 ```
@@ -73,6 +81,7 @@ node_exporter_dir_conf: /etc/node_exporter
 ```
 
 <br>
+
 * création du user qui lancera le service
 
 ```
@@ -87,6 +96,7 @@ node_exporter_dir_conf: /etc/node_exporter
 ```
 
 <br>
+
 * création du répertoire de conf (pas nécessaire)
 
 ```
@@ -104,6 +114,7 @@ node_exporter_dir_conf: /etc/node_exporter
 
 
 <br>
+
 * download et unzip
 
 ```
@@ -116,6 +127,7 @@ node_exporter_dir_conf: /etc/node_exporter
 ```
 
 <br>
+
 * déplacement du binaire
 
 ```
@@ -131,6 +143,7 @@ node_exporter_dir_conf: /etc/node_exporter
 ```
 
 <br>
+
 * nettoyage
 
 ```
@@ -146,6 +159,7 @@ node_exporter_dir_conf: /etc/node_exporter
 
 
 <br>
+
 * template pour le service systemd
 
 ```
@@ -162,6 +176,7 @@ WantedBy=multi-user.target
 ```
 
 <br>
+
 * installation du template
 
 ```
@@ -182,6 +197,7 @@ WantedBy=multi-user.target
 
 
 <br>
+
 * flush du handler
 
 ```
@@ -195,6 +211,7 @@ WantedBy=multi-user.target
 ```
 
 <br>
+
 * handler
 
 ```

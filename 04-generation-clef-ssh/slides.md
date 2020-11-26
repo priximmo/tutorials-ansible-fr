@@ -7,6 +7,7 @@
 
 
 <br>
+
 * principe clefs
 		* clef privée
 		* clef privée
@@ -14,6 +15,7 @@
 		* longeur de clef (dépend de l'algo ecdsa 521)
 
 <br>
+
 * génération via ssh-keygen
 
 ```
@@ -21,6 +23,7 @@ ssh-keygen -t ecdsa -b 521
 ```
 
 <br>
+
 * spécifier la localisation de sortie
 
 ```
@@ -39,6 +42,7 @@ ssh-keygen -t ecdsa -b 521 -f /myhome/.ssh/maclefprivee
 
 
 <br>
+
 * ajout de votre clef publique sur le host distant
 
 ```
@@ -58,6 +62,7 @@ from="10.0.0.?,*.example.com",no-X11-forwarding ssh-rsa AB3Nz...EN8w== xavki@mon
 ```
 
 <br>
+
 * utilisation de la clef
 
 ```
@@ -67,6 +72,7 @@ ssh -i /localisation/clef/privee xavki@monhost
 ou plus facilement par un agent ssh (embarque votre configuration ssh)
 
 <br>
+
 * check si un agent tourne
 
 ```
@@ -99,9 +105,11 @@ ssh-add -l
 
 
 <br>
+
 * attention ordre de lecture de haut en bas
 
 <br>
+
 * exemple
 
 ```

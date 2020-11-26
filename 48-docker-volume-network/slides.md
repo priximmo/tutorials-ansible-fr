@@ -6,6 +6,7 @@
 
 
 <br>
+
 * Objectif : manager les réseaux et volumes
 
 ```
@@ -39,6 +40,7 @@ Source : https://docs.ansible.com/ansible/2.9/modules/list_of_all_modules.html
 # ANSIBLE : module docker_network & docker_volume
 
 <br>
+
 Prérequis :
 
 	* docker
@@ -46,24 +48,31 @@ Prérequis :
 	* python3-docker ou pip3 install docker
 
 <br>
+
 PARAMETRES
 
 <br>
+
 * appends : ajouter un réseau aux réseaux du conteneurs
 
 <br>
+
 * connected : affecter des conteneurs existants à un réseau unique
 
 <br>
+
 * docker_host : accès distant ou local en fonction de la socket unix/tcp/ssh
 
 <br>
+
 * ipam_config : configuration du réseau
 
 <br>
+
 * name : nom du réseau
 
 <br>
+
 * state : present / absent
 
 
@@ -75,6 +84,7 @@ PARAMETRES
 
 
 <br>
+
 * création d'un network 
 
 ```
@@ -84,6 +94,7 @@ PARAMETRES
 ```
 
 <br>
+
 * affecter des conteneurs existants à un réseau
 
 ```
@@ -108,6 +119,7 @@ PARAMETRES
 
 
 <br>
+
 * ajouter un réseau aux autres réseaux du conteneur
 
 ```
@@ -120,6 +132,7 @@ PARAMETRES
 ```
 
 <br>
+
 * configuration du réseau (ip gateway...)
 
 ```
@@ -144,13 +157,16 @@ Rq: https://docs.docker.com/compose/compose-file/compose-file-v2/#ipam
 
 
 <br>
+
 Documentation : https://docs.ansible.com/ansible/2.9/modules/docker_volume_module.html
 
 
 <br>
+
 PARAMETRES
 
 <br>
+
 * driver : local / nfs...
 
 * driver_options : configuration du driver
@@ -170,6 +186,7 @@ PARAMETRES
 
 
 <br>
+
 * création sinple d'un volume
 
 ```
@@ -180,6 +197,7 @@ PARAMETRES
 ```
 
 <br>
+
 * création d'un volume vers un path
 
 ```
@@ -194,6 +212,7 @@ PARAMETRES
 ```
 
 <br>
+
 * suppression du volume
 
 ```

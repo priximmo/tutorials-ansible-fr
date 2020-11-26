@@ -6,24 +6,30 @@
 
 
 <br>
+
 Doc : https://docs.ansible.com/ansible/latest/modules/user_module.html
 Commande : ansible-doc user
 Equivalence : useradd/adduser/userdel/deluser/luseradd
 
 <br>
+
 PARAMETRES :
 
 
 <br>
+
 * append : yes/no > en lien avec groups / ajout aux groupes ou changement
 
 <br>
+
 * comment : commentaire associé au user
 
 <br>
+
 * create_home : yes/no > création de la home ou pas
 
 <br>
+
 * expires : format epoch > date d'expiration
 
 ```
@@ -31,24 +37,31 @@ date "+%s" -d "10/06/2040 10:00:00"
 ```
 
 <br>
+
 * force : permet de forcer la suppression des fichier d'un user
 
 <br>
+
 * generate_ssh_key : génère en même temps une clef ssh à l'utilisateur
 
 <br>
+
 * group : définit le groupe principal de l'utilisateur
 
 <br>
+
 * groups : définit les groupes secondaires qui seront ajoutés
 
 <br>
+
 * home : définition de la home du user
 
 <br>
+
 * local : dans le cas d'une décentralisation de la gestion des users (forcer localement)
 
 <br>
+
 * move_home : pour déplacer une home existante
 
 -----------------------------------------------------------------------------
@@ -57,48 +70,63 @@ date "+%s" -d "10/06/2040 10:00:00"
 
 
 <br>
+
 * name : nom utilisateur
 
 <br>
+
 * password : hash du password
 
 <br>
+
 * password_lock : vérouiller le password du user
 
 <br>
+
 * remove : en cas de state absent, suppression en même des répertoires du user
 
 <br>
+
 * shell : définition sur shell attribué au user
 
 <br>
+
 * skeleton : avec create_home, pour définir le squelette à appliquer	
 
 <br>
+
 * ssh_key_bits : taille de la clef ssh générée
 
 <br>
+
 * ssh_key_comment : commentaire de la clef ssh
 
 <br>
+
 * ssh_key_file : spécifie le chemin de la clef ssh
 
 <br>
+
 * ssh_key_passphrase : définir la passphrase de la clef ssh sinon pas de passphrase
 
 <br>
+
 * ssh_key_type : rsa par défaut, type de clef ssh
 
 <br>
+
 * state : création ou suppression
 
 <br>
+
 * system : à la création définir ou non un compte system
 
 <br>
+
 * uid : fixer l'uid
 
 <br>
+
 * update_password : always/on_create > soit mettre à jour sur changement ou juste création
 
 
@@ -108,6 +136,7 @@ date "+%s" -d "10/06/2040 10:00:00"
 
 
 <br>
+
 * création d'un user avec password
 
 ```
@@ -119,6 +148,7 @@ date "+%s" -d "10/06/2040 10:00:00"
 ```
 
 <br>
+
 * ajout au groupe sudo
 
 ```
@@ -132,6 +162,7 @@ date "+%s" -d "10/06/2040 10:00:00"
 ```*
 
 <br>
+
 * fixer l'uid
 
 ```
@@ -151,6 +182,7 @@ date "+%s" -d "10/06/2040 10:00:00"
 
 
 <br>
+
 * génération de la clef ssh
 
 ```
@@ -166,6 +198,7 @@ date "+%s" -d "10/06/2040 10:00:00"
 ```
 
 <br>
+
 * ajout d'un register et découvrir les outputs
 
 ```
@@ -185,6 +218,7 @@ date "+%s" -d "10/06/2040 10:00:00"
 ```
 
 <br>
+
 * nologin avec le shell
 
 ```
@@ -202,6 +236,7 @@ date "+%s" -d "10/06/2040 10:00:00"
 ```
 
 <br>
+
 * suppression d'un user
 
 

@@ -6,35 +6,45 @@
 
 
 <br>
+
 Documentation : https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
 
 Comamnde : apt
 
 <br>
+
 PARAMETRES :
 
 <br>
+
 * allow_unauthenticated : autoriser l'installation de paquets non authentifiés
 
 <br>
+
 * autoclean : effacement des anciennes versions des paquets
 
 <br>
+
 * cache_valid_time : durée durant laquelle ne pas remettre à jour le cache apt
 
 <br>
+
 * deb : lien vers une source de paquet .deb
 
 <br>
+
 * default_release : version par défaut
 
 <br>
+
 * dpkg_options : option d'installation dpkg
 
 <br>
+
 * force : équivaut à --force-yes, désactive la signature et certificats de paquets
 
 <br>
+
 * force_apt_get : force l'utilisation de apt-get
 
 --------------------------------------------------------------------------------------------------------------
@@ -44,33 +54,43 @@ PARAMETRES :
 
 
 <br>
+
 * install_recommends : activer ou désactiver les paquets recommandés (dépend des OS)
 
 <br>
+
 * name : nom du paquet
 
 <br>
+
 * only_upgrade : met à jour uniquement les paquets installés
 
 <br>
+
 * policy_rc_d : règle de déclenchement automatique à l'installation d'un paquet
 
 <br>
+
 * purge : purge les fichiers de configurations (--purge)
 
 <br>
+
 * state : present / absent / latest / fixed / build-dep
 
 <br>
+
 * update_cache : réaliser un update avant l'installation
 
 <br>
+
 * update_cache_retries : nombre de tentatives de l'update
 
 <br>
+
 * update_cache_retry_max_delay : délai de chaque retry
 
 <br>
+
 * upgrade : yes / no / safe / dist / full
 
 
@@ -81,6 +101,7 @@ PARAMETRES :
 
 
 <br>
+
 * mise à jour du cache 
 
 ```
@@ -91,6 +112,7 @@ PARAMETRES :
 ```
 
 <br>
+
 * délai de validité du cache
 
 ```
@@ -102,6 +124,7 @@ PARAMETRES :
 ```
 
 <br>
+
 * utiliser la version backport
 
 ```
@@ -124,6 +147,7 @@ Rq :
 
 
 <br>
+
 * mise à jour
 
 ```
@@ -136,6 +160,7 @@ Rq :
 ```
 
 <br>
+
 * suppression
 
 ```
@@ -146,6 +171,7 @@ Rq :
 ```
 
 <br>
+
 * suppression complète
 
 ```

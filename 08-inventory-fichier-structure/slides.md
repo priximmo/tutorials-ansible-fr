@@ -7,28 +7,34 @@
 
 
 <br>
+
 * inventory = inventaire des machines et de leurs variables
 
 <br>
+
 * élément éssentiel car il décrit votre infra :
 		* vos serveurs
 		* vos types de serveurs
 
 <br>
+
 * deux types d'instances :
 		* hosts
 		* groupes
 
 <br>
+
 * plusieurs formats :
 		* ini = plat
 		* yaml = plus homogène
 		* json = pour manipuler
 
 <br>
+
 * possiblité d'utiliser des patterns
 
 <br>
+
 * inventory = 
 		* fichier d'inventaire
 		* répertoire group_vars
@@ -40,15 +46,19 @@
 
 
 <br>
+
 * fichier d'inventaire
 
 <br>
+
 * groupe racine => all
 
 <br>
+
 * groupes enfants
 
 <br>
+
 * exemple :
 		* un groupe parent1
 		* groupes enfants : enfant1 et enfant2
@@ -64,6 +74,7 @@
 
 
 <br>
+
 * format init
 
 ```
@@ -90,6 +101,7 @@ enfant3
 
 
 <br>
+
 * format yaml
 
 ```
@@ -117,6 +129,7 @@ all:
 # ANSIBLE : Static Inventory
 
 <br>
+
 * passer un groupe à un autre groupe
 
 
@@ -154,6 +167,7 @@ all:
 
 
 <br>
+
 * pattern
 
 ```
@@ -187,6 +201,7 @@ all:
 
 
 <br>
+
 * un peu plus vers la pratique
 		* couche commune > common
 		* serveurs web nginx > webserver 

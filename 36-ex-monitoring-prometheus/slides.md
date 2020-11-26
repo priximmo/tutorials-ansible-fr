@@ -6,25 +6,30 @@
 
 
 <br>
+
 Objectif : série de vidéo de mise en pratique autour du monitoring
 
 >> prometheus / grafana / node-exporter...
 
 <br>
+
 * étapes :
 		1- installation node exporter
 		2- installation de prometheus
 		3- installation de grafana
 
 <br>
+
 * travail sur 4 noeuds
 		1- un de monitoring (prometheus/grafana)
 		2- tous monitoré par node exporter
 
 <br>
+
 * 2ème étape : Prometheus
 
 <br>
+
 * structure = inventory + playbook + role node exporter + role prometheus
 
 ----------------------------------------------------------------------------------------
@@ -33,6 +38,7 @@ Objectif : série de vidéo de mise en pratique autour du monitoring
 
 
 <br>
+
 LES TASKS DU ROLE
 
 0- mise en place du rôle
@@ -44,6 +50,7 @@ LES TASKS DU ROLE
 6- handlers
 
 <br>
+
 * les variables
 
 ```
@@ -73,6 +80,7 @@ prometheus_var_config:
 
 
 <br>
+
 * installation de prometheus
 
 ```
@@ -85,6 +93,7 @@ prometheus_var_config:
 ```
 
 <br>
+
 * arguments passés à prometheus
 
 ```
@@ -104,6 +113,7 @@ prometheus_var_config:
 
 
 <br>
+
 * configuration de prometheus
 
 ```
@@ -118,6 +128,7 @@ prometheus_var_config:
 ```
 
 <br>
+
 * start du service prometheus
 
 ```
@@ -134,6 +145,7 @@ prometheus_var_config:
 
 
 <br>
+
 * flush du handler
 
 ```
@@ -141,6 +153,7 @@ prometheus_var_config:
 ```
 
 <br>
+
 * handlers
 
 ```
