@@ -105,54 +105,96 @@ LVOL :
 
 
 
-
 <br>
 
-- name: test
-  hosts: all
-  become: yes
-  tasks:
+* création d'une partition primaire
 
-  - name: Create a new ext4 primary partition
+```
+  - name: create a new primary partition
     parted:
       device: /dev/vdb
       number: 1
       flags: [ lvm ]
       state: present
+```
 
+<br>
+
+* afficher les facts LVM
+
+```
   - name: lvm debug
     debug:
       msg: "{{ ansible_lvm }}"
+```
 
-  - name: vgs
+------------------------------------------------------------------------------
+
+# ANSIBLE : Modules Parted & LVM & Filesystem
+
+<br>
+
+* création du PV et ajout au VG
+
+```
+  - name: create PV and VG
     lvg:
       vg: vg_xavki
       pvs: /dev/vdb1
+```
 
+<br>
+
+* création du LV prenant 100% du VG
+
+```
   - name: resize root lv
     lvol:
       vg: vg_xavki
       lv: lv_xavki
       size: 100%VG
+```
 
+------------------------------------------------------------------------------
+
+# ANSIBLE : Modules Parted & LVM & Filesystem
+
+<br>
+
+* création du filesystème en ext4
+
+```
   - name: create filesystem
     filesystem:
       fstype: ext4
       dev: "/dev/vg_xavki/lv_xavki"
       force: no
+```
+
+<br>
+
+* création d'un répertoire pour le montage
 
 
+```
   - name: Create a directory to mount the filesystem.
     file:
       path: "/xavki"
       state: directory
       mode: '0775'
+```
 
-  - name: Mount the created "{{ fs }}" filesystem.
+<br>
+
+* montage du volume dans le répertoire
+
+```
+  - name: Mount the created filesystem.
     mount:
       path: "/xavki"
       src: "/dev/vg_xavki/lv_xavki"
       fstype: "ext4"
       opts: rw,nosuid,noexec
       state: mounted
+```
 
