@@ -62,9 +62,9 @@ ASSERT
 ```
 #!/bin/bash
 read -p "Quel est ton prénom ?" prenom
-echo "Ton prénom est ${prenom}"
+echo "Tu es ${prenom}"
 read -p "Tu habites où ?" ville
-echo "et tu habites ${ville}"
+echo "et tu es originaire ${ville}"
 ```
 
 ---------------------------------------------------------------------------------------------------
@@ -90,8 +90,7 @@ echo "et tu habites ${ville}"
   - name: expect
     expect:
       echo: yes
-      command: hello.sh
-      chgdir: "{{ lookup('env','HOME') }}/playground/expect/"
+      command: "{{ lookup('env','HOME') }}/playground/expect/hello.sh"
       responses:
         (.*)prénom(.*): "Xavki"      
         (.*)ville(.*): "Caen"
