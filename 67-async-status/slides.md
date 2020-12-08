@@ -39,6 +39,10 @@ echo "END"
 exit
 ```
 
+-----------------------------------------------------------------
+
+# ANSIBLE : ASYNC STATUS
+
 <br>
 
 * connexion pour le test en local
@@ -73,6 +77,10 @@ exit
     poll: 5
     register: __output_script
 ```
+
+-----------------------------------------------------------------
+
+# ANSIBLE : ASYNC STATUS
 
 <br>
 
