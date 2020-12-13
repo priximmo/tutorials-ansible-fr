@@ -148,10 +148,10 @@ all:
         enfant2:
           hosts:
             srv3:
-        children
-          enfant3:
-            hosts:
-              srv5:
+          children
+            enfant3:
+              hosts:
+                srv5:
     parent2:
       hosts:
         srv6:
@@ -184,10 +184,10 @@ all:
         enfant2:
           hosts:
             srv3:
-        children
-          enfant3:
-            hosts:
-              srv5:
+          children
+            enfant3:
+              hosts:
+                srv5:
     parent2:
       hosts:
         srv[6:]:
