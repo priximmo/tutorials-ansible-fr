@@ -1,0 +1,8 @@
+---
+# handlers file for roles/mariadb
+
+- name: __restart_mariadb
+  service:
+    name: mariadb
+    state: restarted
+    enabled: yes
