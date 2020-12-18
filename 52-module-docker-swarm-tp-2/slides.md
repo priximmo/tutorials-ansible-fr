@@ -1,5 +1,7 @@
 %title: ANSIBLE
 %author: xavki
+%Vidéos: [Formation Ansible](https://www.youtube.com/playlist?list=PLn6POgpklwWoCpLKOSw3mXCqbRocnhrh-)
+%blog: [Xavki Blog](https://xavki.blog)
 
 
 # ANSIBLE : module docker-swarm > initialisation d'un cluster
