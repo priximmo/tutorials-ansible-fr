@@ -1,0 +1,21 @@
+---
+# tasks file for roles/valo_databases
+
+- name: "[MYSQL] - create database"
+  mysql_db:
+    name:
+      - collect
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: pages machine
+  template:
+    src: mysql.sql.j2
+    dest: "/tmp/mysql.sql"
+  delegate_to: 172.17.0.2
+  run_once: yes
+
+- name: run script
+  shell: "mysql collect < /tmp/mysql.sql"
+  become_user: root
+  delegate_to: 172.17.0.2
+  run_once: yes

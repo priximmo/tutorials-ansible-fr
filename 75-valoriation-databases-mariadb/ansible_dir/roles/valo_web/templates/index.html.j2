@@ -1,0 +1,25 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="table">
+        <div class="row header grey">
+          <div class="cell">
+            Server
+          </div>
+        </div>
+      
+        {% for server in groups['all'] %}
+        <div class="row">
+          <div class="cell" data-title="Server">
+            <a href="./server-{{ hostvars[server]['ansible_hostname'] }}.html" >{{ hostvars[server]['ansible_hostname'] }}</a><br>
+          </div>
+        </div>
+        {% endfor %}
+
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+---
+# tasks file for roles/valo_es
+
+
+- name: date without cache
+  shell: "date +%Y-%m-%d"
+  register: shell_date
+
+- name: hour without cache
+  shell: "date +%H"
+  register: shell_hour
+
+- name: date iso without cache
+  shell: "date --iso-8601=seconds"
+  register: shell_date_iso
+
+- set_fact:
+    date: "{{ shell_date.stdout }}"
+    hour: "{{ shell_hour.stdout }}"
+    date_iso: "{{ shell_date_iso.stdout }}"
+
+- name: generate json
+  template:
+    src: es.json.j2
+    dest: collect_files/inject.json
+  delegate_to: 127.0.0.1
+  become: no
+  run_once: yes
+
+
+- name: push json to ES
+  shell: "curl -X POST '192.168.20.102:9200/_bulk' -H 'Content-Type: application/x-ndjson' --data-binary '@collect_files/inject.json'"
+  delegate_to: 127.0.0.1
+  become: no
+  run_once: yes
+    

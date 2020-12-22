@@ -1,0 +1,36 @@
+---
+# tasks file for roles/insert_data
+
+  - name: script to inject data
+    template:
+      src: insert.sql.j2
+      dest: /tmp/inject.sql
+    with_random_choice:
+    - { table: "t1", random: "1000" }
+    - { table: "t1", random: "10000" }
+    - { table: "t1", random: "8000" }
+    - { table: "t2", random: "2000" }
+    - { table: "t2", random: "4000" }
+    - { table: "t2", random: "6000" }
+    - { table: "t3", random: "2000" }
+    - { table: "t3", random: "10000" }
+    - { table: "t3", random: "3000" }
+
+  - name: run script
+    shell: "mysql {{ item.db }} < /tmp/inject.sql"
+    retries: "{{ item.repeat }}"
+    with_items:
+    - { db: "db1", repeat: "2" }
+    - { db: "db2", repeat: "1" }
+    - { db: "db3", repeat: "2" }
+  
+  - name: size db
+    shell:  mysql -N -e "SELECT table_schema 'Data Base Name',round(sum( data_length + index_length) / 1024 / 1024, 2) 'Data Base Size in MB' FROM information_schema.TABLES where table_schema not in ('mysql', 'performance_schema', 'information_schema') GROUP BY table_schema ;" | tr '\t' ';'
+    register: __data_db_size_mb
+  
+  - name: debug
+    debug:
+      var: __data_db_size_mb
+
+
+

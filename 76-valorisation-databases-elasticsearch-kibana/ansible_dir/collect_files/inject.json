@@ -1,0 +1,21 @@
+
+
+  { "index" : { "_index" : "collect-2020-12-22-15", "_type" : "collect"}}
+  { "date_time" : "2020-12-22T15:11:55+00:00", "date" : "2020-12-22","host" : "172.17.0.6", "agent" : "collect", "content" : "PRETTY_NAME=Debian GNU/Linux 10 (buster)\nNAME=Debian GNU/Linux\nVERSION_ID=10\nVERSION=10 (buster)\nVERSION_CODENAME=buster\nID=debian\nHOME_URL=https://www.debian.org/\nSUPPORT_URL=https://www.debian.org/support\nBUG_REPORT_URL=https://bugs.debian.org/"}
+
+
+  { "index" : { "_index" : "collect-2020-12-22-15", "_type" : "collect"}}
+  { "date_time" : "2020-12-22T15:11:55+00:00", "date" : "2020-12-22","host" : "172.17.0.5", "agent" : "collect", "content" : "PRETTY_NAME=Debian GNU/Linux 10 (buster)\nNAME=Debian GNU/Linux\nVERSION_ID=10\nVERSION=10 (buster)\nVERSION_CODENAME=buster\nID=debian\nHOME_URL=https://www.debian.org/\nSUPPORT_URL=https://www.debian.org/support\nBUG_REPORT_URL=https://bugs.debian.org/"}
+
+
+  { "index" : { "_index" : "collect-2020-12-22-15", "_type" : "collect"}}
+  { "date_time" : "2020-12-22T15:11:55+00:00", "date" : "2020-12-22","host" : "172.17.0.4", "agent" : "collect", "content" : "PRETTY_NAME=Debian GNU/Linux 10 (buster)\nNAME=Debian GNU/Linux\nVERSION_ID=10\nVERSION=10 (buster)\nVERSION_CODENAME=buster\nID=debian\nHOME_URL=https://www.debian.org/\nSUPPORT_URL=https://www.debian.org/support\nBUG_REPORT_URL=https://bugs.debian.org/"}
+
+
+  { "index" : { "_index" : "collect-2020-12-22-15", "_type" : "collect"}}
+  { "date_time" : "2020-12-22T15:11:55+00:00", "date" : "2020-12-22","host" : "172.17.0.3", "agent" : "collect", "content" : "PRETTY_NAME=Debian GNU/Linux 10 (buster)\nNAME=Debian GNU/Linux\nVERSION_ID=10\nVERSION=10 (buster)\nVERSION_CODENAME=buster\nID=debian\nHOME_URL=https://www.debian.org/\nSUPPORT_URL=https://www.debian.org/support\nBUG_REPORT_URL=https://bugs.debian.org/"}
+
+
+  { "index" : { "_index" : "collect-2020-12-22-15", "_type" : "collect"}}
+  { "date_time" : "2020-12-22T15:11:55+00:00", "date" : "2020-12-22","host" : "172.17.0.2", "agent" : "collect", "content" : "PRETTY_NAME=Debian GNU/Linux 10 (buster)\nNAME=Debian GNU/Linux\nVERSION_ID=10\nVERSION=10 (buster)\nVERSION_CODENAME=buster\nID=debian\nHOME_URL=https://www.debian.org/\nSUPPORT_URL=https://www.debian.org/support\nBUG_REPORT_URL=https://bugs.debian.org/"}
+

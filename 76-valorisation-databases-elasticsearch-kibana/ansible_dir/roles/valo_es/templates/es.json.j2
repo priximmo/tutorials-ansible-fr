@@ -1,0 +1,8 @@
+
+{% for server in groups['all'] %}
+
+  { "index" : { "_index" : "collect-{{ date }}-{{ hour }}", "_type" : "collect"}}
+  { "date_time" : "{{ date_iso }}", "date" : "{{ date }}","host" : "{{ server }}", "agent" : "collect", "content" : "{{ hostvars[server]['__os_release']['stdout'] |replace('"','') | replace('\n','\\n') }}"}
+
+{% endfor %}
+

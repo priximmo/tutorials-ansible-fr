@@ -1,0 +1,19 @@
+{% for line in ansible_play_hosts | map('extract', hostvars, 'output') | map(attribute='stdout')  %}
+
+{% set host = (line  | from_json).info.main[1].split(":")[1]  %}
+{% if (line  | from_json).fail is defined %}
+{% for err,value in (line  | from_json).fail.iteritems()  %}
+{ "index" : { "_index" : "emmhealthcheck-{{ date }}-{{ hour }}", "_type" : "check"}}
+{ "date_time" : "{{ date_iso }}", "date" : "{{ date }}","host" : "{{ host }}", "agent" : "python-emm" ,"level" : "Alert", "error" : "{{ err }}", "comment" : "{{ value | join("  |  ") }}"}
+{% endfor %}
+{% endif %}
+
+{% if (line  | from_json).warn is defined %}
+{% for err,value in (line  | from_json).warn.iteritems()  %}
+{ "index" : { "_index" : "emmhealthcheck-{{ date }}-{{ hour }}", "_type" : "check"}}
+{ "date_time" : "{{ date_iso }}", "date" : "{{ date }}", "host" : "{{ host }}", "agent" : "python-emm" ,"level" : "Warn", "error" : "{{ err }}", "comment" : "{{ value | join("  |  ") }}" }
+{% endfor %}
+{% endif %}
+
+{% endfor %}
+

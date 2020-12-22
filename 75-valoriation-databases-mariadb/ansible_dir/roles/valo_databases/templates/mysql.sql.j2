@@ -1,0 +1,18 @@
+#jinja2: lstrip_blocks: "True"
+CREATE TABLE IF NOT EXISTS collect.t_serverstate ( id INT AUTO_INCREMENT, date_maj TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, hostname VARCHAR(100), level_alert VARCHAR(30), db VARCHAR(20), db_size_mb VARCHAR(50), tb VARCHAR(250), table_rows VARCHAR(250), primary key(id) );
+
+{% for server in groups['all'] %}
+  {% for db in hostvars[server]['__data_db_size_mb']['stdout_lines'] %}
+  {% set db = db.split(";") %}
+    {% for tb in hostvars[server]['__data_tb_rows_nb']['stdout_lines'] %}
+    {% set tb = tb.split(";") %}
+      {% if tb[0] == db[0] and (db[1] | float < 0.3) %}
+INSERT INTO collect.t_serverstate (hostname, level_alert, db, db_size_mb, tb, table_rows) VALUES ("{{ server }}", "normal" , "{{ db[0] }}", "{{ db[1] }}", "{{ tb[1] }}", "{{ tb[2] }}" );
+      {% elif tb[0] == db[0] and (db[1] | float >= 0.3) %}
+INSERT INTO collect.t_serverstate (hostname, level_alert, db, db_size_mb, tb, table_rows) VALUES ("{{ server }}", "warning" , "{{ db[0] }}", "{{ db[1] }}", "{{ tb[1] }}", "{{ tb[2] }}" );
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endfor %}
+
+

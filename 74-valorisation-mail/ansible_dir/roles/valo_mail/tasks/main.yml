@@ -1,0 +1,38 @@
+---
+# tasks file for roles/valo_mail
+
+- name: pages machine
+  template:
+    src: global_db.html.j2
+    dest: "/var/www/html/global_db.html"
+  delegate_to: 172.17.0.2
+  run_once: yes
+
+- name: test
+  fetch:
+    src: "/var/www/html/global_db.html"
+    dest: "collect_files/recap_mail.html"
+    flat: yes
+  run_once: yes
+  delegate_to: 172.17.0.2
+
+
+- name: Send email
+  mail:
+    host: smtp.gmail.com
+    username: "{{ vault_email_user }}"
+    password: "{{ vault_email_pwd }}"
+    port: 587
+    subject: "States of your DB"
+    body: "{{ lookup('file', 'collect_files/recap_mail.html') }}"
+    from: "{{ vault_email_user }}"
+    to: "{{ vault_email_user }}"
+    headers:
+    - Reply-To=moi@moi.fr
+    subtype: html
+    charset: us-ascii
+  run_once: yes
+  delegate_to: 127.0.0.1
+  become: no
+
+

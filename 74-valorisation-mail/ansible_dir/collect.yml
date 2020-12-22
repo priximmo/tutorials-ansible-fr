@@ -1,0 +1,16 @@
+- name: create a directory to store all files
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: create dir
+    file:
+      path: collect_files/
+      recurse: yes
+
+- name: copy some files
+  hosts: all
+  become: yes
+  roles:
+  - collect
+  - valo_web
+  - valo_mail
