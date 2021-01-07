@@ -1,6 +1,8 @@
 https://stackoverflow.com/questions/44077630/ansible-to-check-diskspace-for-mounts-mentioned-as-variable
 
 
+https://github.com/ansible/tower-example
+
 groups['all'] | regex_replace('^ans.*([0-9]+)$', '\\1') | int is divisibleby 2 
 
 auditing
@@ -15,20 +17,9 @@ https://www.adaltas.com/fr/2017/10/25/de-dockerfile-a-ansible-containers/
 
 https://github.com/ansible/ansible-baseline
 
-- assert
-
 - status : changed / failed / success
 
 - cli_config module
-
-
-- hosts: development
-  become: yes
-  gather_facts: no
-  pre_tasks:
-  - name: 'install python'
-    raw: 'sudo apt-get -y install python'
-gather_facts to no
 
 
 - mitogen
@@ -38,23 +29,14 @@ gather_facts to no
 - awx
 
 
-- with_dicts
-
 - any_errors_fatal
 
 - max fail percentage
-
-- vault
-
-- vault file
-
-- vault id
 
 - no_logs
 
 - tags
 
-- idempotent command create remove
 
 - strategy: debug
 P task/host/result/vars ->Prints the value to executed a module
