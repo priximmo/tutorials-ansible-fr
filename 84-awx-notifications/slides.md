@@ -4,7 +4,7 @@
 %blog: [Xavki Blog](https://xavki.blog)
 
 
-# ANSIBLE : AWX - Git & Workflow
+# ANSIBLE : AWX - Notifications
 
 
 <br>
@@ -21,38 +21,14 @@ Il nous faut :
 
 * 1 template : associe project + inventory
 
+* workflow
+
+* notifications
 
 -----------------------------------------------------------------------------------
 
-# ANSIBLE : AWX - Git & Workflow
+# ANSIBLE : AWX - Notifications
 
 
 
 <br>
-
-INSTALLATION
-
-* prévoir les volumes persistants (/var/lib/awx/projects)
-
-* bases de données et compose
-
-```
-sudo apt install -y ansible python3-pip
-sudo pip3 install docker docker-compose
-git clone https://github.com/ansible/awx
-vim awx/installer/inventory #datas pg / projects / compose
-ansible -i inventory -b install.yml
-```
-
-<br>
-
-* local = beaucoup d'inconvénients
-
-		* versionning
-
-		* persistence
-
-		* gestion du volume
-
-		* restart si docker
-

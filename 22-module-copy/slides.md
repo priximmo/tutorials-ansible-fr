@@ -43,7 +43,7 @@ PARAMETRES :
 
 <br>
 
-* dicrectory_mode : dans le cas d'une recopie en mode récursif
+* directory_mode : dans le cas d'une recopie en mode récursif
 
 ---------------------------------------------------------------------------------------------------
 

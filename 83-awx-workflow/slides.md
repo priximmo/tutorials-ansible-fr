@@ -21,6 +21,7 @@ Il nous faut :
 
 * 1 template : associe project + inventory
 
+* workflow : combinaison
 
 -----------------------------------------------------------------------------------
 
@@ -30,29 +31,10 @@ Il nous faut :
 
 <br>
 
-INSTALLATION
+https://gitlab.com/ansible_multi_repos
 
-* prévoir les volumes persistants (/var/lib/awx/projects)
+https://gitlab.com/ansible_multi_repos/01_install_tooling.git
 
-* bases de données et compose
+https://gitlab.com/ansible_multi_repos/02_install_nginx.git
 
-```
-sudo apt install -y ansible python3-pip
-sudo pip3 install docker docker-compose
-git clone https://github.com/ansible/awx
-vim awx/installer/inventory #datas pg / projects / compose
-ansible -i inventory -b install.yml
-```
-
-<br>
-
-* local = beaucoup d'inconvénients
-
-		* versionning
-
-		* persistence
-
-		* gestion du volume
-
-		* restart si docker
-
+https://gitlab.com/ansible_multi_repos/03_install_users.git
