@@ -135,4 +135,11 @@ keyed_groups:
 
 Rq : https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html#options
 
+<br>
 
+* vérification
+
+```
+ansible-inventory -i xavki_aws_ec2.yml --list
+ansible-inventory -i xavki_aws_ec2.yml --graph
+```
