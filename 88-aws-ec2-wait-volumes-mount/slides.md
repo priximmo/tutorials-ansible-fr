@@ -4,7 +4,7 @@
 %blog: [Xavki Blog](https://xavki.blog)
 
 
-# ANSIBLE : AWS - Projets & Key Pairs
+# ANSIBLE : AWS - Wait & Volumes
 
 <br>
 
@@ -45,101 +45,94 @@ Rq : boto n'est pas utilisable sur toutes les régions
 
 -----------------------------------------------------------------------------------------------------
 
-# ANSIBLE : AWS - Projets & Key Pairs
+# ANSIBLE : AWS - Wait & Volumes
 
 
 <br>
-
-* Key Pairs = clefs SSH (générée ou importée)
-
-* Security Group = règles firewall (entrées/sorties)
-
-<br>
-
-* Gestion des crédentials
+* constituer notre inventaire avec add_host (cf vidéo 58)
 
 ```
-mkdir -p group_vars/all/
-vim group_vars/all/all.yml
+  - name: add wordpress instances to inventory
+    add_host:
+      hostname: '{{ item.public_dns_name }}'
+      ansible_host: '{{ item.public_dns_name }}'
+      groups:
+      - wordpress
+    loop: "{{ __wordpress_instances.tagged_instances }}"
+
+  - name: add mariadb instances to inventory
+    add_host:
+      hostname: '{{ item.public_dns_name }}'
+      ansible_host: '{{ item.public_dns_name }}'
+      mariadb_private_ip: '{{ item.private_dns_name }}'
+      groups:
+      - mariadb
+    loop: "{{ __mariadb_instances.tagged_instances }}"
 ```
 
-```
-ec2_access_key: "{{ vault_ec2_access_key }}"
-ec2_secret_key: "{{ vault_ec2_secret_key }}"
-ec2_region: "eu-west-1"
-```
-
-<br>
-
-* chiffrement avec ansible-vault :
-
-```
-vim group_vars/all/vault.yml
-```
-
-```
-vault_ec2_access_key: <valeur_id_key>
-vault_ec2_secret_key: <valeur_secret_key>
-```
-
-```
-ansible-vault encrypt group_vars/all/vault.yml
-```
 
 -----------------------------------------------------------------------------------------------------
 
-# ANSIBLE : AWS - Projets & Key Pairs
+# ANSIBLE : AWS - Wait & Volumes
 
 
 <br>
 
-* modules aws :  ansible en local > api AWS
-
-<br>
-
-* exemple :
+* attendre que les instances répondent avec wait_for
 
 ```
-- hosts: localhost
-  connection: local
-  tasks:
-  - name: list instances
-    ec2_instance_info:
-      aws_access_key: "{{ ec2_access_key }}"
-      aws_secret_key: "{{ ec2_secret_key }}"
-      region: "{{ region }}"
-    register: __ec2_info
+  - name: Wait for ssh to come up
+    wait_for:
+      host: '{{ item.public_dns_name }}'
+      port: 22
+      delay: 20
+      timeout: 200
+      state: started
+    loop: "{{ __wordpress_instances.tagged_instances }}"
+
+  - name: Wait for ssh to come up
+    wait_for:
+      host: '{{ item.public_dns_name }}'
+      port: 22
+      delay: 20
+      timeout: 200
+      state: started
+    loop: "{{ __mariadb_instances.tagged_instances }}"
 ```
 
-Note : https://docs.ansible.com/ansible/latest/collections/community/aws/ec2_instance_info_module.html
-
-<br>
-
-* utilisation de la variable
-
-```
-  - name: Instances ID
-    debug:
-      msg: "ID: {{ item.instance_id }} - State: {{ item.state.name }} - Public DNS: {{ item.public_dns_name }}"
-    loop: "{{ __ec2_info.instances }}"
-```
 
 -----------------------------------------------------------------------------------------------------
 
-# ANSIBLE : AWS - Projets & Key Pairs
+# ANSIBLE : AWS - Wait & Volumes
+
 
 <br>
 
-* module des key pairs (crée, supprimée, importée ou générée et récupération via register)
+* ajouter des volumes à nos instances avec ec2_vol
 
 ```
-  - name: Upload public key to AWS
-    ec2_key:
-      name: "{{ key_name }}"
-      key_material: "{{ lookup('file', '/home/oki/.ssh/id_rsa.pub') }}"
-      region: "{{ region }}"
+  - name: add volume to wordpresss instance
+    ec2_vol:
       aws_access_key: "{{ ec2_access_key }}"
-      aws_secret_key: "{{ ec2_secret_key }}"
-```
+      aws_secret_key: "{{  ec2_secret_key }}"
+      instance: "{{ item.id }}"
+      region: "{{ region }}"
+      volume_size: "10"
+      volume_type: gp2
+      device_name: /dev/xvdf
+      delete_on_termination: yes
+    loop: "{{ __wordpress_instances.tagged_instances }}"
+    register: __ec2_volume_wordpress
 
-Note : https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_key_module.html
+  - name: add volume to mariadb instance
+    ec2_vol:
+      aws_access_key: "{{ ec2_access_key }}"
+      aws_secret_key: "{{  ec2_secret_key }}"
+      instance: "{{ item.id }}"
+      region: "{{ region }}"
+      volume_type: gp2
+      volume_size: "20"
+      device_name: /dev/xvdf
+      delete_on_termination: yes
+    loop: "{{ __mariadb_instances.tagged_instances }}"
+```

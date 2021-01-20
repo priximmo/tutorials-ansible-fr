@@ -4,7 +4,7 @@
 %blog: [Xavki Blog](https://xavki.blog)
 
 
-# ANSIBLE : AWS - Projets & Key Pairs
+# ANSIBLE : AWS - Installation de Mariadb
 
 <br>
 
@@ -45,101 +45,150 @@ Rq : boto n'est pas utilisable sur toutes les régions
 
 -----------------------------------------------------------------------------------------------------
 
-# ANSIBLE : AWS - Projets & Key Pairs
+# ANSIBLE : AWS - Installation de Mariadb et son volume
 
 
 <br>
 
-* Key Pairs = clefs SSH (générée ou importée)
+* création d'un playbook
 
-* Security Group = règles firewall (entrées/sorties)
-
-<br>
-
-* Gestion des crédentials
 
 ```
-mkdir -p group_vars/all/
-vim group_vars/all/all.yml
-```
-
-```
-ec2_access_key: "{{ vault_ec2_access_key }}"
-ec2_secret_key: "{{ vault_ec2_secret_key }}"
-ec2_region: "eu-west-1"
-```
-
-<br>
-
-* chiffrement avec ansible-vault :
-
-```
-vim group_vars/all/vault.yml
-```
-
-```
-vault_ec2_access_key: <valeur_id_key>
-vault_ec2_secret_key: <valeur_secret_key>
-```
-
-```
-ansible-vault encrypt group_vars/all/vault.yml
-```
-
------------------------------------------------------------------------------------------------------
-
-# ANSIBLE : AWS - Projets & Key Pairs
-
-
-<br>
-
-* modules aws :  ansible en local > api AWS
-
-<br>
-
-* exemple :
-
-```
-- hosts: localhost
-  connection: local
+- name: Install Mariadb
+  remote_user: ubuntu
+  hosts: mariadb
+  become: yes
   tasks:
-  - name: list instances
-    ec2_instance_info:
-      aws_access_key: "{{ ec2_access_key }}"
-      aws_secret_key: "{{ ec2_secret_key }}"
-      region: "{{ region }}"
-    register: __ec2_info
 ```
 
-Note : https://docs.ansible.com/ansible/latest/collections/community/aws/ec2_instance_info_module.html
+Rq : remote_user, become, group mariadb (cf inventory)
+
+
+-----------------------------------------------------------------------------------------------------
+
+# ANSIBLE : AWS - Installation de Mariadb
+
 
 <br>
 
-* utilisation de la variable
+* on formate le fs
 
 ```
-  - name: Instances ID
-    debug:
-      msg: "ID: {{ item.instance_id }} - State: {{ item.state.name }} - Public DNS: {{ item.public_dns_name }}"
-    loop: "{{ __ec2_info.instances }}"
+  - name: formatting the volume
+    filesystem:
+      dev: /dev/xvdf
+      fstype: xfs
+```
+
+<br>
+
+* création préalable du répertoire
+
+```
+  - name: create mysql dir
+    file:
+      path: /var/lib/mysql
+      state: directory
+      owner: ubuntu
+      group: ubuntu
+      mode: 0775
 ```
 
 -----------------------------------------------------------------------------------------------------
 
-# ANSIBLE : AWS - Projets & Key Pairs
+# ANSIBLE : AWS - Installation de Mariadb
 
 <br>
 
-* module des key pairs (crée, supprimée, importée ou générée et récupération via register)
+* montage
 
 ```
-  - name: Upload public key to AWS
-    ec2_key:
-      name: "{{ key_name }}"
-      key_material: "{{ lookup('file', '/home/oki/.ssh/id_rsa.pub') }}"
-      region: "{{ region }}"
-      aws_access_key: "{{ ec2_access_key }}"
-      aws_secret_key: "{{ ec2_secret_key }}"
+  - name: mounting the filesystem
+    mount:
+      src: /dev/xvdf
+      opts: noatime
+      name: /var/lib/mysql
+      fstype: xfs
+      state: mounted
 ```
 
-Note : https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_key_module.html
+-----------------------------------------------------------------------------------------------------
+
+# ANSIBLE : AWS - Installation de Mariadb
+
+<br>
+
+* installation de mariadb + pymysql (attention update)
+
+```
+  - name: install mariadb
+    apt:
+      update_cache: yes
+      state: present
+
+  - name: install mariadb
+    apt:
+      name: mariadb-server,python3-pymysql
+      update_cache: yes
+      state: present
+
+  - name: start mariadb
+    service:
+      name: mariadb
+      state: started
+```
+
+-----------------------------------------------------------------------------------------------------
+
+# ANSIBLE : AWS - Installation de Mariadb
+
+<br>
+
+* création de la db et du user:
+
+```
+  - name: Create DB
+    become_user: root
+    mysql_db:
+      name: "{{ mysql_db }}"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+
+  - name: Create user
+    become_user: root
+    mysql_user:
+      name: "{{ mysql_user }}"
+      password: "{{ mysql_password }}"
+      priv: "*.*:ALL"
+      host: '%'
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+```
+
+-----------------------------------------------------------------------------------------------------
+
+# ANSIBLE : AWS - Installation de Mariadb
+
+<br>
+
+* écoute toutes les interfaces :
+
+```
+  - name: "[MYSQL] - change my.cnf"
+    lineinfile:
+      dest: "/etc/mysql/my.cnf"
+      line: "{{ item }}"
+    with_items:
+      - "[mysqld]"
+      - "bind-address  = 0.0.0.0"
+      - "# skip-networking"
+```
+
+<br>
+
+* on restart (on verra plus tard pour plus propre ;)
+
+```
+  - name: start mariadb
+    service:
+      name: mariadb
+      state: restarted
+```
