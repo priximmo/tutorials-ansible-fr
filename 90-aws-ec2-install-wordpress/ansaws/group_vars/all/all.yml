@@ -1,0 +1,17 @@
+ec2_access_key: "{{ vault_ec2_access_key }}"
+ec2_secret_key: "{{ vault_ec2_secret_key }}"
+
+key_name: my_ssh_key
+region: eu-west-1
+image: ami-0aef57767f5404a3c 
+id_wordpress: wp_wordpress
+id_mariadb: wp_mariadb
+
+sec_group_wordpress: ssh-sg-wordpress
+sec_group_mariadb: ssh-sg-mariadb
+
+vpc_id: vpc-0234e77b
+
+mysql_db: "wordpress"
+mysql_user: "xavki"
+mysql_password: "password"
