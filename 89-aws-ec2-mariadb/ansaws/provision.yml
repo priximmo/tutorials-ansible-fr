@@ -1,0 +1,237 @@
+- hosts: localhost
+  connection: local
+  tasks:
+
+  - name: list instances
+    ec2_instance_info:
+      aws_access_key: "{{ ec2_access_key }}"
+      aws_secret_key: "{{ ec2_secret_key }}"
+      region: "{{ region }}"
+    register: __ec2_info
+
+  - name: Instances ID
+    debug:
+      msg: "ID: {{ item.instance_id }} - State: {{ item.state.name }} - Public DNS: {{ item.public_dns_name }}"
+    loop: "{{ __ec2_info.instances }}"
+
+  - name: Upload public key to AWS
+    ec2_key:
+      name: "{{ key_name }}"
+      key_material: "{{ lookup('file', '/home/oki/.ssh/id_rsa.pub') }}"
+      region: "{{ region }}"
+      aws_access_key: "{{ ec2_access_key }}"
+      aws_secret_key: "{{ ec2_secret_key }}"
+  
+  - name: Create security group for wordpress
+    ec2_group:
+      name: "{{ sec_group_wordpress }}"
+      description: "Sec group for {{ sec_group_wordpress }}"
+      vpc_id: "{{ vpc_id }}"
+      region: "{{ region }}"
+      aws_access_key: "{{ ec2_access_key }}"
+      aws_secret_key: "{{ ec2_secret_key }}"
+      rules:
+        - proto: tcp
+          ports:
+            - 22
+          cidr_ip: 0.0.0.0/0
+          rule_desc: allow all on ssh port
+        - proto: tcp
+          ports:
+            - 80
+          cidr_ip: 0.0.0.0/0
+          rule_desc: allow http for allow
+    register: __ec2_info_sec_group_wordpress
+  
+  - name: Create security group for mariadb
+    ec2_group:
+      name: "{{ sec_group_mariadb }}"
+      description: "Sec group for {{ sec_group_mariadb }}"
+      vpc_id: "{{ vpc_id }}"
+      region: "{{ region }}"
+      aws_access_key: "{{ ec2_access_key }}"
+      aws_secret_key: "{{ ec2_secret_key }}"
+      rules:
+        - proto: tcp
+          ports:
+            - 22
+          cidr_ip: 0.0.0.0/0
+          rule_desc: allow all on ssh port
+        - proto: tcp
+          ports:
+            - 3306
+          cidr_ip: 172.31.0.0/16
+          rule_desc: allow mariadb for allow
+    register: __ec2_info_sec_group_mariadb
+
+  - name: create instance
+    ec2:
+      aws_access_key: "{{ ec2_access_key }}"
+      aws_secret_key: "{{  ec2_secret_key }}"
+      key_name: "{{ key_name }}"
+      id: "{{ id_wordpress }}-{{ ansible_date_time.date }}"
+      group_id: "{{ __ec2_info_sec_group_wordpress.group_id }}"            
+      image: "{{ image }}"
+      instance_type: t2.micro
+      region: "{{ region }}"
+      wait: true
+      instance_tags:
+        Type: Wordpress
+        Env: Production
+      exact_count: 1
+      count_tag:
+        Type: Wordpress
+    register: __wordpress_instances
+
+  - name: create instance
+    ec2:
+      aws_access_key: "{{ ec2_access_key }}"
+      aws_secret_key: "{{  ec2_secret_key }}"
+      key_name: "{{ key_name }}"
+      id: "{{ id_mariadb }}-{{ ansible_date_time.date }}"
+      group_id: "{{ __ec2_info_sec_group_mariadb.group_id }}"
+      image: "{{ image }}"
+      instance_type: t2.micro
+      region: "{{ region }}"
+      wait: true
+      instance_tags:
+        Type: Mariadb
+        Env: Production
+      exact_count: 1
+      count_tag:
+        Type: Mariadb
+    register: __mariadb_instances
+
+  - name: add wordpress instances to inventory
+    add_host:
+      hostname: '{{ item.public_dns_name }}'
+      ansible_host: '{{ item.public_dns_name }}'
+      groups:
+      - wordpress
+    loop: "{{ __wordpress_instances.tagged_instances }}"
+
+  - name: add mariadb instances to inventory
+    add_host:
+      hostname: '{{ item.public_dns_name }}'
+      ansible_host: '{{ item.public_dns_name }}'
+      mariadb_private_ip: '{{ item.private_dns_name }}'
+      groups:
+      - mariadb
+    loop: "{{ __mariadb_instances.tagged_instances }}"
+
+  - name: Wait for ssh to come up
+    wait_for:
+      host: '{{ item.public_dns_name }}'
+      port: 22
+      delay: 5
+      timeout: 200
+      state: started
+    loop: "{{ __wordpress_instances.tagged_instances }}"
+
+  - name: Wait for ssh to come up
+    wait_for:
+      host: '{{ item.public_dns_name }}'
+      port: 22
+      delay: 5
+      timeout: 200
+      state: started
+    loop: "{{ __mariadb_instances.tagged_instances }}"
+
+  - name: add volume to wordpresss instance
+    ec2_vol:
+      aws_access_key: "{{ ec2_access_key }}"
+      aws_secret_key: "{{  ec2_secret_key }}"
+      instance: "{{ item.id }}"
+      region: "{{ region }}"
+      volume_size: "10"
+      volume_type: gp2
+      device_name: /dev/xvdf
+      delete_on_termination: yes
+    loop: "{{ __wordpress_instances.tagged_instances }}"
+    register: __ec2_volume_wordpress
+
+  - name: add volume to mariadb instance
+    ec2_vol:
+      aws_access_key: "{{ ec2_access_key }}"
+      aws_secret_key: "{{  ec2_secret_key }}"
+      instance: "{{ item.id }}"
+      region: "{{ region }}"
+      volume_type: gp2
+      volume_size: "20"
+      device_name: /dev/xvdf
+      delete_on_termination: yes
+    loop: "{{ __mariadb_instances.tagged_instances }}"
+
+- name: Install Mariadb
+  remote_user: ubuntu
+  hosts: mariadb
+  become: yes
+  tasks:
+
+  - name: formatting the volume
+    filesystem:
+      dev: /dev/xvdf
+      fstype: xfs
+
+  - name: create mysql dir
+    file:
+      path: /var/lib/mysql
+      state: directory
+      owner: ubuntu
+      group: ubuntu
+      mode: 0775
+
+  - name: mounting the filesystem
+    mount:
+      src: /dev/xvdf
+      opts: noatime
+      name: /var/lib/mysql
+      fstype: xfs
+      state: mounted
+
+  - name: update cache
+    apt:
+      update_cache: yes
+      state: present
+
+  - name: install mariadb
+    apt:
+      name: mariadb-server,python3-pymysql
+      update_cache: yes
+      state: present
+
+  - name: start mariadb
+    service:
+      name: mariadb
+      state: started
+
+  - name: Create DB
+    become_user: root
+    mysql_db:
+      name: "{{ mysql_db }}"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+
+  - name: Create user
+    become_user: root
+    mysql_user:
+      name: "{{ mysql_user }}"
+      password: "{{ mysql_password }}"
+      priv: "*.*:ALL"
+      host: '%'
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+
+  - name: change my.cnf
+    lineinfile:
+      dest: "/etc/mysql/my.cnf"
+      line: "{{ item }}"
+    with_items:
+      - "[mysqld]"
+      - "bind-address  = 0.0.0.0"
+      - "# skip-networking"
+    notify: restart_mariadb
+
+  handlers:
+  - name: restart_mariadb
+    service:
+      name: mariadb
+      state: restarted
