@@ -1,0 +1,95 @@
+---
+# tasks file for roles/ec2_wordpress
+
+
+- name: formatting the volume
+  filesystem:
+    dev: /dev/xvdf
+    fstype: xfs
+
+- name: create wordpress dir
+  file:
+    path: /var/www/html
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: 0775
+
+- name: mounting the filesystem
+  mount:
+    src: /dev/xvdf
+    opts: noatime
+    name: /var/www/html
+    fstype: xfs
+    state: mounted
+
+- name: install apache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+    name: apache2,php7.4-common,php7.4-mysql,libapache2-mod-php7.4,wget          
+    state: present
+
+- name: start apache
+  service:
+    name: apache2
+    state: started
+
+- name: check if wordpress exists"
+  stat:
+    path: "/var/www/html/wordpress/"
+  register: __check_wordpress
+
+- name: drop file default index.html
+  file:
+    path: "/var/www/html/index.html"
+    state: absent
+
+- name: download wordpress tar.gz
+  unarchive:
+    src: "{{ wordpress_source }}"
+    dest: "/var/www/html/"
+    remote_src: yes
+  when: __check_wordpress.stat.exists == False
+
+- name: check if sample config exists
+  stat:
+    path: /var/www/html/wordpress/wp-config-sample.php
+  register: __check_sample
+
+- name: rename wp-config-sample.php
+  copy:
+    src: /var/www/html/wordpress/wp-config-sample.php
+    dest: /var/www/html/wordpress/wp-config.php
+    remote_src: yes
+  when: __check_sample.stat.exists == True and __check_wordpress.stat.exists == False
+
+- name: private ip for mariadb
+  debug:
+    msg: "{{ hostvars[groups['mariadb'][0]]['ansible_all_ipv4_addresses'] }}" 
+
+- name: modify wp-config.php
+  lineinfile:
+    dest: /var/www/html/wordpress/wp-config.php
+    regexp: "{{ item.search }}"
+    line: "{{ item.new }}"
+    backrefs: yes
+  with_items:
+    - {'search': '^(.*)database_name_here(.*)$', 'new': '\1{{ mysql_db }}\2'}    
+    - {'search': '^(.*)username_here(.*)$', 'new': '\1{{ mysql_user }}\2'}       
+    - {'search': '^(.*)password_here(.*)$', 'new': '\1{{ mysql_password }}\2'} 
+  when: __check_sample.stat.exists == True and __check_wordpress.stat.exists == False
+
+- name: modify wp-config.php - mariadb dns
+  replace:
+    path: /var/www/html/wordpress/wp-config.php
+    regexp: 'localhost'
+    replace: "{{ hostvars[groups['mariadb'][0]]['ansible_all_ipv4_addresses'][0] }}"
+  when: __check_sample.stat.exists == True and __check_wordpress.stat.exists == False
+
+- name: change document root in apache2
+  replace:
+    path: /etc/apache2/sites-available/000-default.conf
+    regexp: '/var/www/html$'
+    replace: "/var/www/html/wordpress"
+  notify: __reload_apache

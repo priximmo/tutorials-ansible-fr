@@ -1,0 +1,67 @@
+---
+# tasks file for roles/ec2_mariadb
+
+- name: formatting the volume
+  filesystem:
+    dev: /dev/xvdf
+    fstype: xfs
+
+- name: create mysql dir
+  file:
+    path: /var/lib/mysql
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: 0775
+
+- name: mounting the filesystem
+  mount:
+    src: /dev/xvdf
+    opts: noatime
+    name: /var/lib/mysql
+    fstype: xfs
+    state: mounted
+
+- name: update cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+
+- name: install mariadb
+  apt:
+    name: mariadb-server,python3-pymysql
+    update_cache: yes
+    state: present
+
+- name: start mariadb
+  service:
+    name: mariadb
+    state: started
+
+- name: Create DB
+  become_user: root
+  mysql_db:
+    name: "{{ mysql_db }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Create user
+  become_user: root
+  mysql_user:
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_password }}"
+    priv: "*.*:ALL"
+    host: '%'
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: change my.cnf
+  lineinfile:
+    dest: "/etc/mysql/my.cnf"
+    line: "{{ item }}"
+  with_items:
+    - "[mysqld]"
+    - "bind-address  = 0.0.0.0"
+    - "# skip-networking"
+  notify: restart_mariadb
+
+

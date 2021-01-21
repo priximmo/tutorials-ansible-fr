@@ -1,0 +1,4 @@
+---
+# defaults file for roles/ec2_wordpress
+
+wordpress_source: "https://wordpress.org/latest.tar.gz"

@@ -1,0 +1,7 @@
+---
+# handlers file for roles/ec2_wordpress
+
+- name: __reload_apache
+  service:
+    name: apache2
+    state: reloaded

@@ -1,0 +1,18 @@
+- hosts: localhost
+  connection: local
+  roles:
+  - ec2_provision
+
+- name: Install Mariadb
+  remote_user: ubuntu
+  hosts: mariadb
+  become: yes
+  roles:
+  - ec2_mariadb
+
+- name: Install Wordpress
+  remote_user: ubuntu
+  become: yes
+  hosts: wordpress
+  roles:
+  - ec2_wordpress

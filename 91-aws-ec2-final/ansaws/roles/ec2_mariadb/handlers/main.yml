@@ -1,0 +1,7 @@
+---
+# handlers file for roles/ec2_mariadb
+
+- name: restart_mariadb
+  service:
+    name: mariadb
+    state: restarted

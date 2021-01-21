@@ -1,0 +1,59 @@
+- name: clean instances
+  hosts: localhost
+  connection: local
+  tasks:
+
+  - name: Terminate Instances
+    ec2_instance_info:
+      aws_access_key: "{{ ec2_access_key }}"
+      aws_secret_key: "{{ ec2_secret_key }}"
+      region: "{{ region }}"
+    register: __ec2_infos
+
+  - name: displaying output
+    debug: 
+      msg: "{{item.instance_id}}"
+    with_items: "{{ __ec2_infos.instances }}"
+
+  - name: terminate
+    ec2:
+      aws_access_key: "{{ ec2_access_key }}"
+      aws_secret_key: "{{ ec2_secret_key }}"
+      instance_ids: "{{ item.instance_id }}"
+      region: "{{ region }}"
+      state: absent
+      wait: yes
+    with_items: "{{ __ec2_infos.instances }}"
+
+  - ec2_group_info:
+      aws_access_key: "{{ ec2_access_key }}"
+      aws_secret_key: "{{ ec2_secret_key }}"
+      region: "{{ region }}"
+      filters:
+        group-name:
+        - "{{ sec_group_wordpress }}"
+        - "{{ sec_group_mariadb }}"
+    register: __groups_infos
+
+  - name: debug
+    debug:
+      msg: "{{ __groups_infos }}"
+
+  - name: Delete group by its id
+    ec2_group:
+      aws_access_key: "{{ ec2_access_key }}"
+      aws_secret_key: "{{ ec2_secret_key }}"
+      region: "{{ region }}"
+      group_id: "{{ item.group_id }}"
+      state: absent
+    with_items:
+    - "{{ __groups_infos.security_groups }}"
+
+  - name: remove key pair by name
+    ec2_key:
+      aws_access_key: "{{ ec2_access_key }}"
+      aws_secret_key: "{{ ec2_secret_key }}"
+      region: "{{ region }}"
+      name: "{{ key_name }}"
+      state: absent
+
