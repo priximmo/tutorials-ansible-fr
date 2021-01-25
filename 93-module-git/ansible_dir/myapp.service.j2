@@ -1,0 +1,10 @@
+[Unit]
+Description= Flask myapp
+After=network.target
+
+[Service]
+User=root
+ExecStart=/opt/myapp/sample_api.py
+
+[Install]
+WantedBy=multi-user.target

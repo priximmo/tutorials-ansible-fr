@@ -1,0 +1,52 @@
+- name: test git module
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: install python libs
+    apt:
+      name: python3-flask,python3-requests
+      state: present
+
+  - name: git clone from gitlab
+    git:
+      repo: git@gitlab.com:xavki/ansible_git.git
+      dest: /tmp/myapp
+      version: master
+      update: yes
+      accept_hostkey: yes
+      separate_git_dir: /tmp/git_dir
+    notify: reload_myapp
+    become: no
+  
+  - name: move on /opt
+    copy:
+      src: /tmp/myapp
+      dest: /opt/
+      remote_src: yes
+  
+  - name: change mode
+    file:
+      path: /opt/myapp
+      mode: 0755
+      recurse: yes
+  
+  - name: add systemd service
+    template:
+      src: myapp.service.j2
+      dest: /etc/systemd/system/myapp.service
+    notify: reload_myapp
+
+  - name: start service myapp
+    service:
+      name: myapp
+      state: started
+  
+  handlers:
+  
+  - name: reload_myapp
+    systemd:
+      name: myapp
+      daemon_reload: yes
+      state: restarted
+      enabled: yes

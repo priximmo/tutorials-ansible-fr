@@ -84,7 +84,7 @@ PARAMETRES :
 - name: Make sure a service is running
   systemd:
     name: haproxy
-    state: started
+    state: stopped
 ```
 
 <br>
@@ -92,7 +92,7 @@ PARAMETRES :
 * activation au boot
 
 ```
-- name: Make sure a service is running
+- name: active to the start
   systemd:
     name: haproxy
     state: started
@@ -109,7 +109,7 @@ PARAMETRES :
 * exécuter avant si nécessaire un daemon-reload
 
 ```
-- name: Make sure a service is running
+- name: with daemon reload
   systemd:
     name: haproxy
     state: started
@@ -122,7 +122,7 @@ PARAMETRES :
 * s'assurer sa présence dans le list-units
 
 ```
-- name: Make sure a service is running
+- name: no masked
   systemd:
     name: haproxy
     state: started
@@ -136,7 +136,7 @@ PARAMETRES :
 * juste faire un daemon-reload
 
 ```
-- name: Make sure a service is running
+- name: just do a daemon-reload
   systemd:
     daemon-reload: yes
 ```

@@ -1,0 +1,6 @@
+all:
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  hosts:
+    172.17.0.3:
+    172.17.0.2:
