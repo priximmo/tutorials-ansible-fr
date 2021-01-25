@@ -20,6 +20,10 @@ ansible ssh > remote server ssh > git server
 
 transmission de la clef via le forward agent (sinon toke gitlab)
 
+-----------------------------------------------------------------------------------------------------------
+
+# ANSIBLE : MODULE GIT
+
 <br>
 
 PARAMETRES
@@ -118,6 +122,10 @@ PARAMETRES
 <br>
 
 * version : le HEAD ou la branche
+
+-----------------------------------------------------------------------------------------------------------
+
+# ANSIBLE : MODULE GIT
 
 <br>
 
