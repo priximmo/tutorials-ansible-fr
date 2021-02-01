@@ -4,7 +4,7 @@
 %blog: [Xavki Blog](https://xavki.blog)
 
 
-# ANSIBLE : TP ELK ET MONITORING - LOGSTASH
+# ANSIBLE : TP ELK ET MONITORING - KIBANA
 
 <br>
 
@@ -24,7 +24,7 @@ Objectifs : Elargir notre stack monitoring et logging + callback logstash à ven
 
 ---------------------------------------------------------------------------------
 
-# ANSIBLE : TP ELK ET MONITORING - LOGSTASH
+# ANSIBLE : TP ELK ET MONITORING - KIBANA
 
 <br>
 
@@ -52,7 +52,7 @@ Objectifs : Elargir notre stack monitoring et logging + callback logstash à ven
 
 ---------------------------------------------------------------------------------
 
-# ANSIBLE : TP ELK ET MONITORING - LOGSTASH
+# ANSIBLE : TP ELK ET MONITORING - KIBANA
 
 <br>
 
@@ -73,7 +73,7 @@ Objectifs : Elargir notre stack monitoring et logging + callback logstash à ven
 
 ---------------------------------------------------------------------------------
 
-# ANSIBLE : TP ELK ET MONITORING - LOGSTASH
+# ANSIBLE : TP ELK ET MONITORING - KIBANA
 
 <br>
 
@@ -90,7 +90,7 @@ Objectifs : Elargir notre stack monitoring et logging + callback logstash à ven
 
 ---------------------------------------------------------------------------------
 
-# ANSIBLE : TP ELK ET MONITORING - LOGSTASH
+# ANSIBLE : TP ELK ET MONITORING - KIBANA
 
 <br>
 
@@ -110,7 +110,7 @@ Objectifs : Elargir notre stack monitoring et logging + callback logstash à ven
 
 ---------------------------------------------------------------------------------
 
-# ANSIBLE : TP ELK ET MONITORING - LOGSTASH
+# ANSIBLE : TP ELK ET MONITORING - KIBANA
 
 <br>
 
@@ -137,7 +137,7 @@ Objectifs : Elargir notre stack monitoring et logging + callback logstash à ven
 
 ---------------------------------------------------------------------------------
 
-# ANSIBLE : TP ELK ET MONITORING - LOGSTASH
+# ANSIBLE : TP ELK ET MONITORING - KIBANA
 
 <br>
 

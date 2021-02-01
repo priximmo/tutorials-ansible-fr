@@ -71,7 +71,7 @@ ou fichier requirements
   version: 7.10.2
 ```
 
-Rq : avec vagrant commant du wait dans le main.yml (interface)
+Rq : avec vagrant commenter du wait dans le main.yml (interface)
 
 ----------------------------------------------------------------------------------------
 
@@ -87,7 +87,6 @@ Rq : avec vagrant commant du wait dans le main.yml (interface)
     es_config:
       cluster.name: "xavki_es"
       network.host: "{{ ansible_host }}"
-      es_api_host: "{{ ansible_host }}"
       cluster.initial_master_nodes: "node1"
       discovery.zen.ping.unicast.hosts: "node1,node2"
       http.port: 9200
