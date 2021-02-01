@@ -1,0 +1,6 @@
+---
+# defaults file for roles/kibana
+
+kibana_elastic_url: "https://artifacts.elastic.co"
+kibana_elastic_version: "7.x"
+kibana_elastic_key_apt_id: "46095ACC8548582C1A2699A9D27D666CD88E42B4"

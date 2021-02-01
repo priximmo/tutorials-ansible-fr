@@ -60,7 +60,7 @@ all:
 
 ```
 mkdir -p roles group_vars host_vars
-ansible-galaxy install elastic.elasticsearch,7.8.0 -p roles
+ansible-galaxy install elastic.elasticsearch,v7.10.2 -p roles
 ```
 
 ou fichier requirements
@@ -68,7 +68,7 @@ ou fichier requirements
 ```
 - name: elasticsearch
   src: elastic.elasticsearch
-  version: 7.8.0
+  version: 7.10.2
 ```
 
 Rq : avec vagrant commant du wait dans le main.yml (interface)
@@ -109,7 +109,7 @@ Rq : avec vagrant commant du wait dans le main.yml (interface)
   user: vagrant
   hosts: elastic
   roles:
-    - elastic.elasticsearch
+    - elasticsearch
 ```
 
 

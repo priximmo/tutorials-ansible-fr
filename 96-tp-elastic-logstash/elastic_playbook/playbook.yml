@@ -1,0 +1,7 @@
+- name: install eS
+  become: yes
+  user: vagrant
+  hosts: elastic
+  roles:
+    - elasticsearch
+    - logstash

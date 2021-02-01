@@ -1,0 +1,14 @@
+- name: install eS
+  become: yes
+  user: vagrant
+  hosts: elastic
+  roles:
+    - elasticsearch
+    - logstash
+
+- name: install kibana
+  become: yes
+  user: vagrant
+  hosts: kibana
+  roles:
+    - kibana
