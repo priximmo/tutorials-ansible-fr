@@ -1,0 +1,9 @@
+---
+# handlers file for roles/node_exporter
+
+- name: reload_daemon_and_restart_elasticsearch_exporter
+  systemd:
+    name: elasticsearch_exporter
+    state: restarted
+    daemon_reload: yes
+    enabled: yes

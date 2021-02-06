@@ -1,0 +1,34 @@
+- name: install node exporter
+  become: yes
+  hosts: all
+  roles:
+  - node_exporter
+  - filebeat
+
+- name: install eS
+  become: yes
+  hosts: elastic
+  roles:
+  - elasticsearch
+  - logstash
+  - elasticsearch_exporter
+
+- name: install kibana
+  become: yes
+  hosts: kibana
+  roles:
+  - kibana
+
+- name: install prometheus/grafana
+  become: yes
+  hosts: monitor
+  roles:
+  - prometheus
+  - grafana
+
+- name: install swarm cluster
+  hosts: docker
+  become: yes
+  roles:
+  - docker
+  - swarm

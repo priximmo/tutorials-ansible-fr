@@ -1,0 +1,16 @@
+[Unit]
+Description=Elasticsearch Exporter Version {{ elasticsearch_exporter_version }}
+After=network-online.target
+
+[Service]
+User={{ elasticsearch_exporter_user }}
+Group={{ elasticsearch_exporter_group }}
+Type=simple
+ExecStart={{ elasticsearch_exporter_bin }} \
+--es.uri=http://{{ ansible_host }}:9200 \
+--es.all \
+--es.indices \
+--es.clusterinfo.interval=30s
+
+[Install]
+WantedBy=multi-user.target

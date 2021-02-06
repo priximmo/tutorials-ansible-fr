@@ -1,0 +1,55 @@
+---
+# tasks file for roles/logstash
+
+- name: ensure apt-transport-https is installed
+  apt:
+    name: apt-transport-https
+    state: present
+    cache_valid_time: 3600
+    update_cache: yes
+
+- name: Debian - Add Elasticsearch repository key
+  apt_key:
+    url: "{{ logstash_elastic_url }}/GPG-KEY-elasticsearch"
+    id: "{{ logstash_elastic_key_apt_id }}"
+    state: present
+
+- name: Debian - Add elasticsearch repository
+  apt_repository:
+    repo: "deb {{ logstash_elastic_url }}/packages/{{ logstash_elastic_version }}/apt stable main"
+    state: present
+
+- name: install logstash
+  apt:
+    name: logstash
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: add user for logstash
+  user:
+    name: logstash
+    group: logstash
+    groups: adm
+
+- name: create the default configuration file
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/logstash/conf.d/{{ item }}"
+    owner: logstash
+    group: logstash
+    mode: 0644
+  with_items:
+    - default.conf
+  notify: restart logstash
+
+- name: ensure logstash is started
+  service:
+    name: logstash
+    state: started
+    enabled: yes
+
+
+
+
+

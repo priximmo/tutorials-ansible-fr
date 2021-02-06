@@ -1,0 +1,7 @@
+---
+# handlers file for roles/filebeat
+
+- name: restart_filebeat
+  systemd:
+    name: filebeat
+    state: restarted

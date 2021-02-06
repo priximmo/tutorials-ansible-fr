@@ -1,0 +1,44 @@
+---
+# tasks file for roles/filebeat
+
+
+- name: ensure apt-transport-https is installed
+  apt:
+    name: apt-transport-https
+    state: present
+    cache_valid_time: 3600
+    update_cache: yes
+
+- name: Debian - Add Elasticsearch repository key
+  apt_key:
+    url: "{{ filebeat_elastic_url }}/GPG-KEY-elasticsearch"
+    id: "{{ filebeat_elastic_key_apt_id }}"
+    state: present
+
+- name: Debian - Add elastic repository
+  apt_repository:
+    repo: "deb {{ filebeat_elastic_url }}/packages/{{ filebeat_elastic_version }}/apt stable main"
+    state: present
+
+- name: install filebeat
+  apt:
+    name: filebeat
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: service always started
+  systemd:
+    name: filebeat
+    state: started
+    daemon-reload: yes
+    enabled: yes
+
+- name: add filebeat configuration
+  template:
+    src: filebeat.yml.j2
+    dest: /etc/filebeat/filebeat.yml
+    mode: 0600
+    owner: root
+    group: root
+  notify: restart_filebeat
