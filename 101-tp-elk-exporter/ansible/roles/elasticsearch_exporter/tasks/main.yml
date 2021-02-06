@@ -1,0 +1,70 @@
+---
+# tasks file for roles/elasticsearch_exporter
+
+- name: check if elasticsearch exporter exist
+  stat:
+    path: "{{ elasticsearch_exporter_bin }}"
+  register: __check_elasticsearch_exporter_present
+
+- name: if elasticsearch exporter exist get version
+  shell: "cat /etc/systemd/system/elasticsearch_exporter.service | grep Version | sed s/'.*Version '//g"
+  register: __get_elasticsearch_exporter_version
+  when: __check_elasticsearch_exporter_present.stat.exists == true
+  changed_when: false
+
+- name: create elasticsearch exporter user
+  user:
+    name: "{{ elasticsearch_exporter_user }}"
+    append: true
+    shell: /usr/sbin/nologin
+    system: true
+    create_home: false
+    home: /
+
+- name: create elasticsearch exporter config dir
+  file:
+    path: "{{ elasticsearch_exporter_dir_conf }}"
+    state: directory
+    owner: "{{ elasticsearch_exporter_user }}"
+    group: "{{ elasticsearch_exporter_group }}"
+
+- name: download and unzip elasticsearch exporter if not exist
+  unarchive:
+    src: "https://github.com/justwatchcom/elasticsearch_exporter/releases/download/v{{ elasticsearch_exporter_version }}/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-amd64.tar.gz"
+    dest: /tmp/
+    remote_src: yes
+    validate_certs: false
+  when: __check_elasticsearch_exporter_present.stat.exists == false or not __get_elasticsearch_exporter_version.stdout == elasticsearch_exporter_version
+
+- name: move the binary to the final destination
+  copy:
+    src: "/tmp/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-amd64/elasticsearch_exporter"
+    dest: "{{ elasticsearch_exporter_bin }}"
+    owner: "{{ elasticsearch_exporter_user }}"
+    group: "{{ elasticsearch_exporter_group }}"
+    mode: 0755
+    remote_src: yes
+  when: __check_elasticsearch_exporter_present.stat.exists == false or not __get_elasticsearch_exporter_version.stdout == elasticsearch_exporter_version
+
+- name: clean
+  file:
+    path: /tmp/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-amd64/
+    state: absent
+
+- name: install service
+  template:
+    src: elasticsearch_exporter.service.j2
+    dest: /etc/systemd/system/elasticsearch_exporter.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload_daemon_and_restart_elasticsearch_exporter
+
+- meta: flush_handlers
+
+- name: service always started
+  systemd:
+    name: elasticsearch_exporter
+    state: started
+    daemon-reload: yes
+    enabled: yes
