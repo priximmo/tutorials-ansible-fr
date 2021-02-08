@@ -1,0 +1,15 @@
+---
+# tasks file for roles/cadvisor
+
+- name: create containers
+  docker_container:
+    name: cadvisor
+    image: google/cadvisor
+    privileged: yes
+    published_ports: 9666:8080
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:ro
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+    - /dev/disk/:/dev/disk:ro

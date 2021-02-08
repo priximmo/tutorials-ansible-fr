@@ -1,0 +1,25 @@
+---
+# tasks file for roles/nfs_server
+
+- name: Ensure NFS utilities are installed
+  apt:
+    name: nfs-common,nfs-kernel-server
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Ensure directories to export exist
+  file:  
+    path: "/exports/{{ item }}"
+    state: directory
+    mode: 0777
+  with_items: "{{ nfs_server_dir_data }}"
+
+- name: Copy exports file.
+  template:
+    src: exports.j2
+    dest: /etc/exports
+    owner: root
+    group: root
+    mode: 0644
+  notify: __reload_nfs

@@ -81,7 +81,7 @@
   with_items:
   - { name: "elasticsearch-exporter" }
 
-- name: activate dashboards 
+- name: activate dashboards
   template:
     src: dashboard-conf.yml.j2
     dest: /etc/grafana/provisioning/dashboards/dashboard-{{ item.name }}.yml
@@ -90,5 +90,6 @@
   - { name: "node-exporter" }
   - { name: "elasticsearch-exporter" }
   notify: restart_grafana
+
 
 

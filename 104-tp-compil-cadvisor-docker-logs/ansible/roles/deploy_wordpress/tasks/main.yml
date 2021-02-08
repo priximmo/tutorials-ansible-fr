@@ -1,0 +1,8 @@
+---
+# tasks file for roles/deploy_wordpress
+
+
+- name: "Instanciate wordpress {{ item.name }}"
+  include_tasks: wordpress.yml
+  with_fileglob:
+  - "./group_vars/instances_wordpress/*.yml"
