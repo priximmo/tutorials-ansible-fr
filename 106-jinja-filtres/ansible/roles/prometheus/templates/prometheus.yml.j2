@@ -1,0 +1,44 @@
+#jinja2: lstrip_blocks: "True"
+{{ prometheus_var_config | to_nice_yaml(indent=2) }}
+{% if prometheus_node_exporter_group %}
+- job_name: node_exporter
+  scrape_interval: 15s
+  static_configs:
+  - targets:
+{% for server in groups[prometheus_node_exporter_group] %}
+    - {{ server }}:9100
+{% endfor %}
+{% endif %}
+{% if prometheus_elasticsearch_exporter_group %}
+- job_name: elasticsearch
+  scrape_interval: 60s
+  scrape_timeout:  30s
+  metrics_path: "/metrics"
+  static_configs:
+  - targets:
+{% for server in groups[prometheus_elasticsearch_exporter_group] %}
+    - {{ server }}:9114
+{% endfor %}
+    labels:
+      service: elasticsearch
+  relabel_configs:
+  - source_labels: [__address__]
+    regex: '(.*)\:9108'
+    target_label:  'instance'
+    replacement:   '$1'
+  - source_labels: [__address__]
+    regex:         '.*\.(.*)\.lan.*'
+    target_label:  'environment'
+    replacement:   '$1'
+{% endif %}
+{% if prometheus_docker_exporter_group %}
+- job_name: docker
+  scrape_interval: 30s
+  scrape_timeout:  30s
+  metrics_path: "/metrics"
+  static_configs:
+  - targets:
+{% for server in groups[prometheus_docker_exporter_group] %}
+    - {{ server }}:9666
+{% endfor %}
+{% endif %}

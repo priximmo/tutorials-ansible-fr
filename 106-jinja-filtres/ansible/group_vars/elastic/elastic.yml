@@ -1,0 +1,9 @@
+es_heap_size: "1g"
+es_config:
+  cluster.name: "xavki_es"
+  network.host: "{{ ansible_host }}"
+  cluster.initial_master_nodes: "node1"
+  discovery.zen.ping.unicast.hosts: "node1,node2"
+  http.port: 9200
+  node.master: true
+  node.data: true

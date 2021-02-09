@@ -1,0 +1,11 @@
+---
+# defaults file for roles/filebeat
+
+filebeat_elastic_url: "https://artifacts.elastic.co"
+filebeat_elastic_version: "7.x"
+filebeat_elastic_key_apt_id: "46095ACC8548582C1A2699A9D27D666CD88E42B4"
+filebeat_input_config:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/*.log

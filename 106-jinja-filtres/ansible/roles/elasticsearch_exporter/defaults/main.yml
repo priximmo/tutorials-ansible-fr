@@ -1,0 +1,8 @@
+---
+# defaults file for roles/elasticsearch_exporter
+
+elasticsearch_exporter_version: "1.1.0"
+elasticsearch_exporter_bin: /usr/local/bin/elasticsearch_exporter
+elasticsearch_exporter_user: elasticsearch-exporter
+elasticsearch_exporter_group: "{{ elasticsearch_exporter_user }}"
+elasticsearch_exporter_dir_conf: /etc/elasticsearch_exporter

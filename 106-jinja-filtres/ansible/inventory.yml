@@ -1,0 +1,39 @@
+all:
+  children:
+    elastic:
+      hosts:
+        node1:
+        node2:
+    kibana:
+      hosts:
+        node1:
+    monitor:
+      hosts:
+        node3:
+    docker:
+      children:
+        managers:
+          hosts:
+            node4:
+        workers:
+          hosts:
+            node5:
+            node6:
+    nfs_server:
+      hosts:
+        node7:
+  hosts:
+    node1:
+      ansible_host: 192.168.13.10
+    node2:
+      ansible_host: 192.168.13.11
+    node3:
+      ansible_host: 192.168.13.12
+    node4:
+      ansible_host: 192.168.13.13
+    node5:
+      ansible_host: 192.168.13.14
+    node6:
+      ansible_host: 192.168.13.15
+    node7:
+      ansible_host: 192.168.13.16

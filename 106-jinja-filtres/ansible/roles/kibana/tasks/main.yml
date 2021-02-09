@@ -1,0 +1,45 @@
+---
+# tasks file for roles/kibana
+
+- name: Install apt-transport-https to support https APT downloads
+  apt:
+    name: apt-transport-https
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Add Elastic repository key
+  apt_key:
+    url: "{{ kibana_elastic_url }}/GPG-KEY-elasticsearch"
+    id: "{{ kibana_elastic_key_apt_id }}"
+    state: present
+
+- name: Add elasticsearch repository
+  apt_repository:
+    repo: "deb {{ kibana_elastic_url }}/packages/{{ kibana_elastic_version }}/apt stable main"      
+    state: present
+
+- name: Update repositories cache and install Kibana
+  apt:
+    name: kibana
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Updating the config file to restrict outside access
+  lineinfile:
+    destfile: /etc/kibana/kibana.yml
+    regexp: "{{ item.target }}"
+    line: "{{ item.replace }}"
+  with_items:
+  - { target: "server.host:", replace: "server.host: 0.0.0.0"}
+  - { target: "#elasticsearch.hosts", replace: "elasticsearch.hosts: [\"http://192.168.13.10:9200\",\"http://192.168.13.11:9200\"]"}
+  notify: restart_kibana
+
+- name: Enabling Kibana service
+  systemd:
+    name: kibana
+    state: started
+    enabled: yes
+
+

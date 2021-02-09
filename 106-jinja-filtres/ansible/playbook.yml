@@ -1,0 +1,55 @@
+- name: install node exporter
+  become: yes
+  hosts: all
+  roles:
+  - node_exporter
+  - filebeat
+  tags:
+  - node_exporter_filebeat
+
+- name: install eS
+  become: yes
+  hosts: elastic
+  roles:
+  - elasticsearch
+  - logstash
+  - elasticsearch_exporter
+  tags:
+  - elasticsearch
+
+- name: install kibana
+  become: yes
+  hosts: kibana
+  roles:
+  - kibana
+  tags:
+  - kibana
+
+- name: install prometheus/grafana
+  become: yes
+  hosts: monitor
+  roles:
+  - prometheus
+  - grafana
+  tags:
+  - monitor
+
+- name: install nfs_server
+  hosts: nfs_server
+  become: yes
+  roles:
+  - nfs_server
+  tags:
+  - nfs_server
+
+- name: install swarm cluster
+  become: yes
+  hosts: docker
+  roles:
+  - cadvisor
+  - docker
+  - swarm
+  - tooling
+  - deploy_wordpress
+  tags:
+  - swarm
