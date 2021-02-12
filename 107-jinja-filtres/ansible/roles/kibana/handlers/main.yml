@@ -1,7 +1,0 @@
----
-# handlers file for roles/kibana
-
-- name: restart_kibana
-  systemd:
-    name: kibana
-    state: restarted

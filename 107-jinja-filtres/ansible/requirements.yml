@@ -1,3 +1,0 @@
-- name: elasticsearch
-  src: elastic.elasticsearch
-  version: v7.10.2
