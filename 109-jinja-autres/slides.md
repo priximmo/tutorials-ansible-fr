@@ -4,7 +4,7 @@
 %blog: [Xavki Blog](https://xavki.blog)
 
 
-# ANSIBLE : FILTRE 2 - Files & Types ansible
+# ANSIBLE : FILTRE 1 - Files & suites
 
 
 <br>
@@ -32,11 +32,6 @@
 {{ path is link }}
 ```
 
----------------------------------------------------------------------------------
-
-# ANSIBLE : FILTRE 1 - Files & Types ansible
-
-
 <br>
 
 * opérateur ansible
@@ -49,10 +44,6 @@
 {{ ansible_facts['distribution_version'] is version('10', '>=') }}
 {{ variable is vault_encrypted }}
 ```
-
----------------------------------------------------------------------------------
-
-# ANSIBLE : FILTRE 1 - Files & Types ansible
 
 <br>
 
@@ -71,10 +62,6 @@
 {{ "192.168.0.17".split(".") | join("/") }}
 ```
 
----------------------------------------------------------------------------------
-
-# ANSIBLE : FILTRE 1 - Files & Types ansible
-
 <br>
 
 * bit vs bytes (1B = 8b)
@@ -91,13 +78,9 @@
 {{'10.00 Kb'|human_to_bytes(isbits=True)}}
 ```
 
----------------------------------------------------------------------------------
-
-# ANSIBLE : FILTRE 1 - Files & Types ansible
-
 <br>
 
-* débug de type
+* début de type
 
 ```
 typeDeVar1: "{{ configuration2 | type_debug }}"
@@ -129,13 +112,11 @@ typeDeVar1: "{{ configuration2 | type_debug }}"
       dest: /tmp/xavki.txt
 ```
 
----------------------------------------------------------------------------------
-
-# ANSIBLE : FILTRE 1 - Files & Types ansible
+Rq : merge les listes (dernier l'emporte si valeur diff)
 
 <br>
 
-* récupérer des éléments d'une liste pur en refaire une autre
+* récupérer des éléments du liste pur en refaire une autre
 
 ```
 {{ [0,2] | map('extract', ['x','y','z']) | list }}
@@ -147,9 +128,22 @@ typeDeVar1: "{{ configuration2 | type_debug }}"
 
 <br>
 
-* créer une liste de liste
+* créer une lite de tuples
 
 ```
 {{ [1,2,3,4,5] | zip(['a','b','c','d','e','f']) | list }}
 ```
 
+<br>
+
+* définir la liste dans le jinja
+
+```
+{% set myList = [ 1 , 2 , 3 ] %}
+{% for value in myList %}
+    {% if value is divisibleby(3) %}
+         La valeur {{ value }} est divisible par 3
+    {% else %}
+         La valeur {{ value }} n'est pas divisible par 3
+{% endfor %}
+```
