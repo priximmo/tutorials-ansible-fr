@@ -4,7 +4,7 @@
 %blog: [Xavki Blog](https://xavki.blog)
 
 
-# ANSIBLE : URL
+# ANSIBLE : URL & DATES
 
 
 <br>
@@ -33,6 +33,11 @@ Exemple : collecte d'aresse sur des serveurs distants et centralisation/split (h
 {{ url | urlsplit('username') }}
 ```
 
+-----------------------------------------------------------------------------------------
+
+# ANSIBLE : URL & DATES
+
+
 <br>
 
 * password
@@ -56,6 +61,10 @@ Exemple : collecte d'aresse sur des serveurs distants et centralisation/split (h
 ```
 {{ url | urlsplit('port') }}
 ```
+
+-----------------------------------------------------------------------------------------
+
+# ANSIBLE : URL & DATES
 
 <br>
 
@@ -83,120 +92,101 @@ Exemple : collecte d'aresse sur des serveurs distants et centralisation/split (h
 {{ url | urlsplit() }}
 ```
 
+-----------------------------------------------------------------------------------------
+
+# ANSIBLE : URL & DATES
+
 
 <br>
 
 * to_datetime : comparer du temps
  
 ```
-{{ mydate | to_datetime("%d %b %y %H:%M %Z") }}  
+{{ "2021-02-16 18:00:00" | to_datetime }}
 ```
 
 ```
-{{ "2016-08-14 20:00:12" | to_datetime }}
+mydate: "16 Feb 21 20:00 UTC"
+{{ ( mydate | to_datetime("%d %b %y %H:%M %Z")
 ```
+
 
 <br>
 
 * calcul sur date
 
 ```
-{{ (( mydate | to_datetime("%d %b %y %H:%M %Z")) - ("2016-08-14 18:00:00" | to_datetime)).total_seconds()  }}
+{{ ( mydate | to_datetime("%d %b %y %H:%M %Z") - "2021-02-16 18:00:00" | to_datetime ).total_seconds()  }}
+{{ ( mydate | to_datetime("%d %b %y %H:%M %Z") - "2021-02-16 18:00:00" | to_datetime ).days }}
+```
+
+-----------------------------------------------------------------------------------------
+
+# ANSIBLE : URL & DATES
+
+<br>
+
+* strftime : convertion à partir d'un format
+
+```
+date +%s
+mydate: 1613504248
+{{ '%Y-%m-%d %H:%M:%S' | strftime(mydate) }} 
+{{ '%H:%M:%S' | strftime(mydate) }} 
+```
+
+-----------------------------------------------------------------------------------------
+
+# ANSIBLE : URL & DATES
+
+<br>
+
+* Mais ansible à d'autres atouts : ansible_date_time
+
+```
+{{ ansible_date_time.epoch|int - __stat_hosts.stat.mtime }}
+```
+
+<br>
+
+* tous les formats disponibles
+
+```
+{{ ansible_date_time }}
+```
+
+<br>
+
+* il y a 30 jours
+
+```
+{{ (ansible_date_time.epoch | int)-(86400*30) }}
+```
+
+<br>
+
+* comparaison
+
+```
+{{ (__stat_hosts.stat.mtime) > (ansible_date_time.epoch | int)-(86400*30) }}
+```
+
+-----------------------------------------------------------------------------------------
+
+# ANSIBLE : URL & DATES
+
+<br>
+
+* et encore en dernier recours la commande...
+
+```
+  - name: commande date
+    shell: "date +%Y-%m-%d%H-%M-%S.%5N"
+    register: __date_time
+  - name: Set variables
+    set_fact:
+       date: "{{ __date_time.stdout[0:10]}}"
+       time: "{{ __date_time.stdout[10:]}}"
 ```
 
 
-
-* strftime(string_format, second=None): To format a date using a string
-
-ansible_date_time.epoch|int - stat_results.stat.mtime
-
-
-
-
-
-
----
-- hosts: localhost
-  gather_facts: true
-  become: false
-  vars:
-    example_epoch_times:
-      - 1514764800
-      - 1519862400
-      - 1516253185
-      - 1511481600
-      - 1595548800
-      - 1517443199
-  tasks:
-    - set_fact:
-        _thirty_days_ago_epoch: "{{ (ansible_date_time['epoch']|int)-(86400*30) }}"
-        _sixty_days_ago_epoch: "{{ (ansible_date_time['epoch']|int)-(86400*60) }}"
-        _ninety_days_ago_epoch: "{{ (ansible_date_time['epoch']|int)-(86400*90) }}"
-
-    - name: Displaying Older Than 30 Days
-      debug:
-        msg: "{{ '%Y-%m-%d %H:%M:%S' | strftime(item) }} has been longer than 30 days"
-      with_items: "{{ example_epoch_times }}"
-      when: (item/86400)+25569 < (_thirty_days_ago_epoch|int/86400)+25569
-
-    - name: Displaying Older Than 60 Days
-      debug:
-        msg: "{{ '%Y-%m-%d %H:%M:%S' | strftime(item) }} has been longer than 60 days"
-      with_items: "{{ example_epoch_times }}"
-      when: (item/86400)+25569 < (_sixty_days_ago_epoch|int/86400)+25569
-
-    - name: Displaying Older Than 90 Days
-      debug:
-        msg: "{{ '%Y-%m-%d %H:%M:%S' | strftime(item) }} has been longer than 90 days"
-      with_items: "{{ example_epoch_times }}"
-      when: (item/86400)+25569 < (_ninety_days_ago_epoch|int/86400)+25569
-
-    - name: Displaying Less Than 30 Days
-      debug:
-        msg: "{{ '%Y-%m-%d %H:%M:%S' | strftime(item) }} has been less than 30 days"
-      with_items: "{{ example_epoch_times }}"
-      when: >
-            (item/86400)+25569 > (_thirty_days_ago_epoch|int/86400)+25569 and
-            (item/86400)+25569 < (ansible_date_time['epoch']|int/86400)+25569
-
-    - name: Displaying Future
-      debug:
-        msg: "{{ '%Y-%m-%d %H:%M:%S' | strftime(item) }} is in the future"
-      with_items: "{{ example_epoch_times }}"
-      when: (item/86400)+25569 > (ansible_date_time['epoch']|int/86400)+25569
-
-
-- name: Uses shell module to retrieve data and timestamp from the OS
-  hosts: localhost
-
-  tasks:
-
-  - name: Get timestamp from the system
-    shell: "date +%Y-%m-%d%H-%M-%S"
-    register: tstamp
-
-  - name: Get timestamp from the system, include the first 5 nanoseconds digits
-    shell: "date +%Y-%m-%d%H-%M-%S.%5N"
-    register: tstamp_ns
-
-  - name: Set variables
-    set_fact:
-     cur_date: "{{ tstamp.stdout[0:10]}}"
-     cur_time: "{{ tstamp.stdout[10:]}}"
-     cur_time_ns: "{{ tstamp_ns.stdout[10:]}}"
-
-  - name: System timestamp - date
-    debug:
-     msg:  "Current date: {{ cur_date }}"
-
-  - name: System timestamp - time
-    debug:
-     msg:  "Current date: {{ cur_time }}"
-
-  - name: System timestamp - time, including the first 5 nanoseconds digits
-    debug:
-     msg:  "Current date: {{ cur_time_ns }}"
-
-
-
-((ansible_date_time.epoch|int - stat_results.stat.mtime) > (geoip_upgrade_days * 60 * 60 * 24))
