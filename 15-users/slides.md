@@ -161,7 +161,7 @@ date "+%s" -d "10/06/2040 10:00:00"
     groups: sudo
     append: yes
     password: "{{ 'password' | password_hash('sha512') }}"   
-```*
+```
 
 <br>
 
