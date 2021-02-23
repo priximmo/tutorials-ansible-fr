@@ -1,0 +1,42 @@
+---
+# tasks file for roles/mariadb
+
+- name: install mariadb
+  apt:
+    name: mariadb-server,python3-pymysql
+    state: present
+
+- name: start mariadb
+  service:
+    name: mariadb
+    state: started
+    enabled: yes
+
+- name: "[MYSQL] - create database"
+  mysql_db:
+    name:
+      - db1
+      - db2
+      - db3
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: "[MYSQL] - create user"
+  mysql_user:
+    name: "xavki"
+    password: "password"
+    priv: "*.*:ALL"
+    host: '%'
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: "[MYSQL] - change my.cnf"
+  lineinfile:
+    dest: "/etc/mysql/my.cnf"
+    line: "{{ item }}"
+  with_items:
+    - "[mysqld]"
+    - "bind-address  = 0.0.0.0"
+    - "# skip-networking"
+  notify: __restart_mariadb
+
+
+
