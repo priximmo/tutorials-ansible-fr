@@ -45,18 +45,18 @@ jsonVrac: '[{ "hostname": "host1", "customProperties": { "foo": "first", "foo2":
     jsonSource: |
       [
         {
+            "hostname": "host1",
             "customProperties": {
                 "foo": "first",
                 "foo2": "second"
-            },
-            "hostname": "host1"
+            }
         },
         {
+            "hostname": "host2",
             "customProperties": {
                 "foo": "third",
                 "foo2": "fourth"
-            },
-            "hostname": "host2"
+            }
         }
       ]
 
@@ -121,4 +121,52 @@ jsonVrac: '[{ "hostname": "host1", "customProperties": { "foo": "first", "foo2":
     copy:
       content: "{{ jsonSource | from_json | to_nice_yaml }}"
       dest: test.yaml
+```
+
+----------------------------------------------------------------------------------
+
+
+# ANSIBLE : JINJA - JSON / YAML
+
+
+<br>
+
+* compléter un json
+
+```
+  - name: fact
+    set_fact:
+      hostList2: '{{ (jsonSource | from_json)  + [{ "hostname": "host3",  "customProperties": { "foo": "first", "foo2": "second"  }}] }}'
+  - name: debug
+    debug:
+      var: hostList2
+```
+
+<br>
+
+* définition d'une variable yaml
+
+```
+prometheus_var_config:
+  global:
+    scrape_interval: "15s"
+    evaluation_interval: 5s
+    external_labels:
+      env: 'prod'
+  scrape_configs:
+    - job_name: prometheus
+      scrape_interval: 15s
+      static_configs:
+        - targets: ['127.0.0.1:9090']
+```
+
+<br>
+
+* 
+
+```
+#jinja2: lstrip_blocks: "True"
+{{ prometheus_var_config | to_nice_yaml(indent=2) }}
+- job_name: node_exporter
+  scrape_interval: 15s
 ```
