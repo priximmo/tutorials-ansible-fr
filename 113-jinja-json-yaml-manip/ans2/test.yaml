@@ -1,0 +1,8 @@
+-   customProperties:
+        foo: first
+        foo2: second
+    hostname: host1
+-   customProperties:
+        foo: third
+        foo2: fourth
+    hostname: host2

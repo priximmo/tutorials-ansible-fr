@@ -8,7 +8,7 @@
     pow(power): Get to the power
     root(n): Get square root of n
 
-
+		json_query
     to_json(a, *args, **kw): convert to json
     to_nice_json(a, indent=4, sort_keys=True, *args, **kw): convert to human redable json
     to_yaml(a, *args, **kw): convert to yaml
