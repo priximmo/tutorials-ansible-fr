@@ -30,7 +30,7 @@ Filtres:
 * variable json non formée
 
 ```
-jsonVrac: '[{ "hostname": "host1", "customProperties": { "foo": "first", "foo2": "second" }}, { "hostname": "host2", "customProperties": { "foo": "third", "foo2": "fourth" }}]'
+jsonVrac: '[{ "hostname": "host1", "customProperties": { "foo": "first", "foo2": "second" }},{ "hostname": "host2", "customProperties": { "foo": "third", "foo2": "fourth" }}]'
 ```
 
 -----------------------------------------------------------------------------------
@@ -59,6 +59,7 @@ jsonVrac: '[{ "hostname": "host1", "customProperties": { "foo": "first", "foo2":
             }
         }
       ]
+```
 
 -----------------------------------------------------------------------------------
 
@@ -142,6 +143,12 @@ jsonVrac: '[{ "hostname": "host1", "customProperties": { "foo": "first", "foo2":
       var: hostList2
 ```
 
+----------------------------------------------------------------------------------
+
+
+# ANSIBLE : JINJA - JSON / YAML
+
+
 <br>
 
 * définition d'une variable yaml
@@ -159,6 +166,12 @@ prometheus_var_config:
       static_configs:
         - targets: ['127.0.0.1:9090']
 ```
+
+----------------------------------------------------------------------------------
+
+
+# ANSIBLE : JINJA - JSON / YAML
+
 
 <br>
 
