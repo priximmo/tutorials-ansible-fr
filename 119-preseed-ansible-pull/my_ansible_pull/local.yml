@@ -1,0 +1,25 @@
+
+- name: my playbook
+  hosts: localhost
+  connection: local
+  become: yes
+
+  tasks: 
+
+  - name: install nginx
+    apt:
+      name: nginx,curl
+      state: present
+      update_cache: yes
+      cache_valid_time: 3600
+
+  - name: nginx started
+    service:
+      name: nginx
+      state: started
+
+  - name: remote xavki.txt file
+    copy:
+      content: |
+         Auto run
+      dest: /tmp/xavki.txt

@@ -1,0 +1,7 @@
+all:
+  children:
+    grp1:
+      hosts:
+        ans1:
+        ans2:
+        ans5:
