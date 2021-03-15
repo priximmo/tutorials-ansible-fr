@@ -24,5 +24,5 @@
       name: ansible-pull
       cron_file: ansible-pull
       user: root
-      job: "ansible-pull -U git@gitlab.com:xavki/my_ansible_pull.git --clean --purge --full --private-key /home/vagrant/.ssh/id_rsa --accept-host-key 2>&1 >> /var/log/ansible-pull.log"
+      job: "ansible-pull -U git@gitlab.com:xavki/my_ansible_pull.git --clean --purge --full --private-key /root/.ssh/id_rsa --accept-host-key 2>&1 >> /var/log/ansible-pull.log"
 
