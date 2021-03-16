@@ -1,0 +1,13 @@
+#cloud-config
+password: ubuntu
+ssh_pwauth: true
+chpasswd:
+  expire: false
+
+users:
+- default
+- name: xavki
+  shell: /bin/bash
+  sudo: [ "ALL=(ALL) ALL" ]
+  lock_passwd: false
+  passwd: $5$NcjNz0RTQpULe$XIz92/uiFDq2UPJ1hpb86yxIVYNpSyYMXPn4vC5jiF.

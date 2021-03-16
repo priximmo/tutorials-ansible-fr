@@ -1,0 +1,93 @@
+{
+  "_comment": "Build with `packer build ubuntu.json`",
+  "builders": [
+      {
+          "type": "qemu",
+          "iso_checksum": "{{user `iso_checksum`}}",
+          "iso_url": "{{user `iso_url`}}",
+          "disk_size": "{{user `disk_size`}}",
+          "disk_image": true,
+          "format": "qcow2",
+          "disk_compression": true,
+          "headless": true,
+          "output_directory": "output-ubuntu",
+          "shutdown_command": "echo '{{user `ssh_password`}}' | sudo -t -S /sbin/shutdown -P now",
+          "ssh_password": "{{user `ssh_password`}}",
+          "ssh_timeout": "45m",
+          "ssh_username": "{{user `ssh_username`}}",
+          "ssh_pty": true,
+          "ssh_handshake_attempts": "20",
+          "vm_name": "{{user `name`}}{{user `version`}}.qcow2",
+          "accelerator": "kvm",
+          "use_default_display": true,
+          "qemuargs": [
+              [
+                  "-display",
+                  "gtk"
+              ],
+              [
+                  "-machine",
+                  "accel=kvm"
+              ],
+              [
+                  "-cpu",
+                  "host"
+              ],
+              [
+                "-m",
+                "{{user `ram`}}M"
+              ],
+              [
+                "-smp",
+                "{{user `cpu`}}"
+              ],
+              [
+                  "-fda",
+                  "my-seed.img"
+              ],
+              [
+                  "-serial",
+                  "mon:stdio"
+              ]
+          ]
+      }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'",
+      "inline": [
+        "sudo apt update 2>&1 >/dev/null",
+        "sudo apt -qq -y install software-properties-common git ansible 2>&1 >/dev/null",
+        "sed -i s/ens3/enp1s0/g /etc/netplan/50-cloud-init.yaml"
+      ],
+      "type": "shell"
+    },
+    {
+      "type": "ansible-local",
+      "command": "echo '{{user `pass`}}' | ansible-playbook",
+      "playbook_file": "ansible/playbook.yml",
+      "playbook_dir": "ansible",
+      "staging_directory": "/tmp/",
+      "extra_arguments": [
+        "--vault-password-file=/bin/cat", 
+        "--extra-vars", "env={{user `env`}}" 
+     ]
+    }
+  ],
+  "variables": {
+    "cpu": "2",
+    "disk_size": "40000",
+    "ram": "2048",
+    "domain": "local",
+    "hostname": "xavki",
+    "iso_checksum": "db5969e16940d67184adb740db1b1f186b201714430737ea1c64a85e40d25f6b",
+    "iso_url": "https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img",
+    "name": "ubuntu",
+    "version": "2004",
+    "ssh_password": "ubuntu",
+    "ssh_username": "ubuntu",
+    "env": "production",
+    "pass": "{{env `ANSIBLE_VAULT_PASS`}}"
+  }
+
+}

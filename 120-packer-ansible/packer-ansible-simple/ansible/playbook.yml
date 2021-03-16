@@ -1,0 +1,36 @@
+
+- name: install nginx
+  hosts: localhost
+  connection: local
+  become: yes
+
+  tasks:
+
+
+  - name: install nginx
+    apt:
+      name: nginx,curl
+      state: present
+      update_cache: yes
+      cache_valid_time: 3600
+
+  - name: start nginx
+    service:
+      name: nginx
+      state: started
+
+  - name: copy vault in file
+    copy:
+      content: |
+        {{ vault_content }}
+        {{ env }}
+      dest: /tmp/xavki.txt
+
+  - name: get content of file
+    shell: cat /tmp/xavki.txt
+    register: __get_file
+
+  - name: display
+    debug:
+      var: __get_file
+    
