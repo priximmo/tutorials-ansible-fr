@@ -1,0 +1,31 @@
+
+- name: install nginx
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: install nginx
+    apt:
+      name: nginx,curl
+      update_cache: yes
+      cache_valid_time: 3600
+
+  - name: start nginx
+    service:
+      name: nginx
+      state: started
+
+  - name: edit file
+    copy:
+      content: |
+        {{ myvar }}
+      dest: /var/www/html/index.nginx-debian.html
+
+  - name: get content
+    shell: cat /var/www/html/index.nginx-debian.html
+    register: __get_content
+
+  - name: display
+    debug:
+      var: __get_content
+  

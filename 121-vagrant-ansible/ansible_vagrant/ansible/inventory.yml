@@ -1,0 +1,16 @@
+all:
+  vars:
+    myvar: "Salut All !!"
+  children:
+    grp1:
+      hosts:
+        vag1:
+        vag2:
+      vars:
+        myvar: "Salut Grp1 !!"
+    grp2:
+      hosts:
+        vag3:
+        vag4:
+      vars:
+        myvar: "Salut Grp2 !!"
