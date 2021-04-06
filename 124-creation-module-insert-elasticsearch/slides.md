@@ -8,6 +8,12 @@
 
 <br>
 
+* localisation du module :
+
+```
+/usr/share/ansible/plugins/modules/xavki_elasticsearch.py
+```
+
 * fonction d'exécution : add / delete / get
 
 ```
@@ -119,3 +125,39 @@ def add_document(module):
                      index=index,
                      body=body)
 ```
+
+
+-------------------------------------------------------------------------
+
+# ANSIBLE : CREATION D'UN MODULE - INSERTION ELASTICSEARCH
+
+
+```
+  - name: run our module
+    xavki_elasticsearch:
+      index: "hehe"     
+      host: "192.168.20.102"
+      body: 
+        first_name: "xavki"
+        city: "caen"   
+```
+
+-------------------------------------------------------------------------
+
+# ANSIBLE : CREATION D'UN MODULE - INSERTION ELASTICSEARCH
+
+* test
+
+```
+curl 192.168.20.102:9200/myindex/_doc/1
+
+curl -H 'Content-Type: application/json' 
+     'http://192.168.20.102:9200/myindex/_search?pretty'
+     -XPOST -d '
+         {
+            "query": {
+               "match_all": {}
+            }
+        }'
+```
+
