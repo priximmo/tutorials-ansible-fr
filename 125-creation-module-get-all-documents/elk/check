@@ -1,0 +1,6 @@
+10/06/2020;11;TESTU;BEGIN;start job
+10/06/2020;11;TESTU;PROCESS1;collect file
+10/06/2020;11;TESTU;PROCESS1;insert file
+10/06/2020;11;TESTU;PROCESS2;convert file to csv
+10/06/2020;11;TESTU;END;end job
+
