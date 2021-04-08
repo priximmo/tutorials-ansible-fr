@@ -109,13 +109,28 @@ def add_document(module):
                     index=index,
                     body=body)
 
+def get_documents(module):
+    es_api = get_elasticsearch_connect(module)
+    index = module.params.get('index')
+
+    if module.params.get('id') is NOT_SET:
+      request_all = {"query": { "match_all" : {}}}
+      request_all = json.dumps(request_all)
+      get_docs = es_api.search(index = index, body = request_all)
+
+    else:
+      id = module.params.get('id')
+      get_docs = es_api.get(index = index, id = id)
+
+    module.exit_json(changed=get_docs,
+                      index=index)
 
 def main():
     module = AnsibleModule(
         argument_spec = dict(
             host   = dict(type = "str", default = "localhost"),
             port   = dict(type = "int", default = 9200),
-            body   = dict(type = "dict", default = ""),
+            body   = dict(type = "dict", default = {}),
             id     = dict(type = "int"),
             index  = dict(type = "str", default = "xavki"),
             scheme = dict(type = "str", default = "http"),

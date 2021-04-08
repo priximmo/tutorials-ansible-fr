@@ -35,12 +35,30 @@ def get_documents(module):
 
 <br>
 
-* fonction get_documents : requête
+* fonction get_documents : requête sans id
 
 ```
-    request_all = {"query": { "match_all" : {}}}
-    request_all = json.dumps(request_all)
-    get_all_docs = es_api.search(index = index, body = request_all)
+    if module.params.get('id') is NOT_SET:
+      request_all = {"query": { "match_all" : {}}}
+      request_all = json.dumps(request_all)
+      get_docs = es_api.search(index = index, body = request_all)
+
+```
+
+---------------------------------------------------------------------
+
+# ANSIBLE : CREATION D'UN MODULE - GET ALL DOCUMENTS
+
+
+<br>
+
+* fonction get_documents : requête avec id
+
+```
+    else:
+      id = module.params.get('id')
+      get_docs = es_api.get(index = index, id = id)
+
 ```
 
 ---------------------------------------------------------------------
@@ -52,7 +70,7 @@ def get_documents(module):
 * fonction get_documents : envoi du résultat à l'utilisateur
 
 ```
-    module.exit_json(changed=get_all_docs,
+    module.exit_json(changed=get_docs,
                      index=index)
 ```
 
@@ -70,6 +88,7 @@ def get_documents(module):
       index: "vid124"
       host: "192.168.20.102"
       state: acquire
+      #id: 1
     register: __output
 ```
 
