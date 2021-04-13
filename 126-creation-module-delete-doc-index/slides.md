@@ -123,6 +123,7 @@ def delete_document(module):
         etc_hosts: "{{ __file_hosts.stdout_lines }}"
     delegate_to: localhost
 ```
+-----------------------------------------------------------------------
 
 # ANSIBLE : CREATION D'UN MODULE - DELETE DOCS / INDEX
 

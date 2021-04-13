@@ -125,13 +125,28 @@ def get_documents(module):
     module.exit_json(changed=get_docs,
                       index=index)
 
+def delete_document(module):
+    es_api = get_elasticsearch_connect(module)
+    index = module.params.get('index')
+
+    if module.params.get('id') is NOT_SET:
+      delete_result = es_api.indices.delete(index = index, ignore = [400, 404])
+
+    else:
+      id = module.params.get('id')
+      delete_result = es_api.delete(index = index, id = id, ignore = [400, 404])  
+
+    module.exit_json(changed = delete_result,
+                    index = index)
+
+
 def main():
     module = AnsibleModule(
         argument_spec = dict(
             host   = dict(type = "str", default = "localhost"),
             port   = dict(type = "int", default = 9200),
             body   = dict(type = "dict", default = {}),
-            id     = dict(type = "int"),
+            id     = dict(type = "str"),
             index  = dict(type = "str", default = "xavki"),
             scheme = dict(type = "str", default = "http"),
             state  = dict(type = "str", default = "present", choices = ["acquire", "present", "absent"])
