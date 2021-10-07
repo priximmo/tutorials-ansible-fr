@@ -243,7 +243,7 @@ date "+%s" -d "10/06/2040 10:00:00"
 
 
 ```
-  - name: création du user xavki
+  - name: Suppression du user xavki
     user:
       name: xavki
       state: absent
