@@ -1,5 +1,7 @@
 # Tutorials Ansible fr
 
+BLGO : https://xavki.blog/ansible-tutoriaux-francais/
+
 Playlist : https://www.youtube.com/playlist?list=PLn6POgpklwWoCpLKOSw3mXCqbRocnhrh-
 
 - 1. [ANSIBLE - 0. SOMMAIRE DE FORMATION](https://www.youtube.com/watch?v=kzmvwc2q_z0)
