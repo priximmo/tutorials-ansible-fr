@@ -74,6 +74,24 @@ stopContainers(){
   sudo podman ps -a --format {{.Names}} | awk -v user=$CONTAINER_USER '$1 ~ "^"user {system("sudo podman stop "$1)}'
 }
 
+createAnsible(){
+  CONTAINER_USER=$1
+	echo ""
+  	ANSIBLE_DIR="ansible_dir"
+  	mkdir -p $ANSIBLE_DIR
+  	echo "all:" > $ANSIBLE_DIR/00_inventory.yml
+	echo "  vars:" >> $ANSIBLE_DIR/00_inventory.yml
+    echo "    ansible_python_interpreter: /usr/bin/python3" >> $ANSIBLE_DIR/00_inventory.yml
+  echo "  hosts:" >> $ANSIBLE_DIR/00_inventory.yml
+  for conteneur in $(sudo podman ps -a | awk -v user=$CONTAINER_USER '$0 ~ "^"user {print $1}');do      
+    docker inspect -f '    {{.NetworkSettings.IPAddress }}:' $conteneur >> $ANSIBLE_DIR/00_inventory.yml
+  done
+  mkdir -p $ANSIBLE_DIR/host_vars
+  mkdir -p $ANSIBLE_DIR/group_vars
+	echo ""
+}
+
+
 # Let's Go !! #################################################
 
 
@@ -82,8 +100,11 @@ if [ $# == 0 ];then
 fi
 
 
-while getopts ":c:u:h:i:t:s:d:" options; do
+while getopts ":a:c:u:h:i:t:s:d:" options; do
   case "${options}" in 
+		a)
+			createAnsible ${OPTARG}
+			;;
     c)
 			ACTION="create"
       CONTAINER_NUMBER=${OPTARG}
