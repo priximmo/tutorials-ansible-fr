@@ -24,7 +24,6 @@ help(){
 }
 
 createContainers(){
-  echo "create $1 $2"
   CONTAINER_NUMBER=$1
   CONTAINER_USER=$2
   CONTAINER_HOME=/home/$2
@@ -52,7 +51,6 @@ createContainers(){
 }
 
 infosContainers(){
-  CONTAINER_USER=$1
 	echo ""
 	echo "Informations des conteneurs : "
 	echo ""
@@ -62,7 +60,18 @@ infosContainers(){
 }
 
 dropContainers(){
-  echo "create"
+  CONTAINER_USER=$1
+  sudo podman ps -a --format {{.Names}} | awk -v user=$CONTAINER_USER '$1 ~ "^"user {system("sudo podman rm -f "$1)}'
+}
+
+startContainers(){
+  CONTAINER_USER=$1
+  sudo podman ps -a --format {{.Names}} | awk -v user=$CONTAINER_USER '$1 ~ "^"user {system("sudo podman start "$1)}'
+}
+
+stopContainers(){
+  CONTAINER_USER=$1
+  sudo podman ps -a --format {{.Names}} | awk -v user=$CONTAINER_USER '$1 ~ "^"user {system("sudo podman stop "$1)}'
 }
 
 # Let's Go !! #################################################
@@ -73,7 +82,7 @@ if [ $# == 0 ];then
 fi
 
 
-while getopts ":c:u:h:i:" options; do
+while getopts ":c:u:h:i:t:s:d:" options; do
   case "${options}" in 
     c)
 			ACTION="create"
@@ -83,8 +92,16 @@ while getopts ":c:u:h:i:" options; do
       CONTAINER_USER=${OPTARG}
       ;;
 		i)
-			ACTION="infos"
-      CONTAINER_USER=${OPTARG}
+			infosContainers
+			;;
+		s)
+			startContainers ${OPTARG}
+			;;
+		t)
+			stopContainers ${OPTARG}
+			;;
+		d)
+			dropContainers ${OPTARG}
 			;;
     h)
       help
@@ -101,7 +118,4 @@ if [[ "$ACTION" == "create" ]];then
 	createContainers ${CONTAINER_NUMBER} ${CONTAINER_USER}
 fi
 
-if [[ "$ACTION" == "infos" ]];then
-	infosContainers ${CONTAINER_USER}
-fi
 help
