@@ -15,18 +15,18 @@ set -eo pipefail
 
 # Variables ###################################################
 
+CONTAINER_USER=$(sudo printenv SUDO_USER)
 
 # Functions ###################################################
 
 help(){
-  echo "Usage: $0 [ -c <number> ] [ -u <user> ] " 1>&2
+  echo "Usage: $0 [ -c <number> ]" 1>&2
   exit 1
 }
 
 createContainers(){
   CONTAINER_NUMBER=$1
-  CONTAINER_USER=$2
-  CONTAINER_HOME=/home/$2
+  CONTAINER_HOME=/home/${CONTAINER_USER}
   CONTAINER_CMD="sudo podman exec "
 
 	# Calcul du id à utiliser
@@ -39,7 +39,7 @@ createContainers(){
 		sudo podman run -d --systemd=true --publish-all=true -v /srv/data:/srv/html --name ${CONTAINER_USER}-debian-$i -h ${CONTAINER_USER}-debian-$i docker.io/priximmo/buster-systemd-ssh
 		${CONTAINER_CMD} ${CONTAINER_USER}-debian-$i /bin/sh -c "useradd -m -p sa3tHJ3/KuYvI ${CONTAINER_USER}"
 		${CONTAINER_CMD} ${CONTAINER_USER}-debian-$i /bin/sh -c "mkdir -m 0700 ${CONTAINER_HOME}/.ssh && chown ${CONTAINER_USER}:${CONTAINER_USER} ${CONTAINER_HOME}/.ssh"
-		sudo podman cp ${CONTAINER_HOME}/.ssh/id_rsa.pub ${CONTAINER_USER}-debian-$i:${CONTAINER_HOME}/.ssh/authorized_keys
+		sudo podman cp ${HOME}/.ssh/id_rsa.pub ${CONTAINER_USER}-debian-$i:${CONTAINER_HOME}/.ssh/authorized_keys
 		${CONTAINER_CMD} ${USERNAME}-debian-$i /bin/sh -c "chmod 600 ${CONTAINER_HOME}/.ssh/authorized_keys && chown ${CONTAINER_USER}:${CONTAINER_USER} ${CONTAINER_HOME}/.ssh/authorized_keys"
 		${CONTAINER_CMD} ${CONTAINER_USER}-debian-$i /bin/sh -c "echo '${CONTAINER_USER}   ALL=(ALL) NOPASSWD: ALL'>>/etc/sudoers"
 		${CONTAINER_CMD} ${CONTAINER_USER}-debian-$i /bin/sh -c "service ssh start"
@@ -60,34 +60,28 @@ infosContainers(){
 }
 
 dropContainers(){
-  CONTAINER_USER=$1
-  sudo podman ps -a --format {{.Names}} | awk -v user=$CONTAINER_USER '$1 ~ "^"user {system("sudo podman rm -f "$1)}'
+  sudo podman ps -a --format {{.Names}} | awk -v user=${CONTAINER_USER} '$1 ~ "^"user {system("sudo podman rm -f "$1)}'
 }
 
 startContainers(){
-  CONTAINER_USER=$1
-  sudo podman ps -a --format {{.Names}} | awk -v user=$CONTAINER_USER '$1 ~ "^"user {system("sudo podman start "$1)}'
+  sudo podman ps -a --format {{.Names}} | awk -v user=${CONTAINER_USER} '$1 ~ "^"user {system("sudo podman start "$1)}'
 }
 
 stopContainers(){
-  CONTAINER_USER=$1
-  sudo podman ps -a --format {{.Names}} | awk -v user=$CONTAINER_USER '$1 ~ "^"user {system("sudo podman stop "$1)}'
+  sudo podman ps -a --format {{.Names}} | awk -v user=${CONTAINER_USER} '$1 ~ "^"user {system("sudo podman stop "$1)}'
 }
 
 createAnsible(){
-  CONTAINER_USER=$1
 	echo ""
   	ANSIBLE_DIR="ansible_dir"
-  	mkdir -p $ANSIBLE_DIR
-  	echo "all:" > $ANSIBLE_DIR/00_inventory.yml
-	echo "  vars:" >> $ANSIBLE_DIR/00_inventory.yml
-    echo "    ansible_python_interpreter: /usr/bin/python3" >> $ANSIBLE_DIR/00_inventory.yml
-  echo "  hosts:" >> $ANSIBLE_DIR/00_inventory.yml
-  for conteneur in $(sudo podman ps -a | awk -v user=$CONTAINER_USER '$0 ~ "^"user {print $1}');do      
-    docker inspect -f '    {{.NetworkSettings.IPAddress }}:' $conteneur >> $ANSIBLE_DIR/00_inventory.yml
-  done
-  mkdir -p $ANSIBLE_DIR/host_vars
-  mkdir -p $ANSIBLE_DIR/group_vars
+  	mkdir -p ${ANSIBLE_DIR}
+  	echo "all:" > ${ANSIBLE_DIR}/00_inventory.yml
+	echo "  vars:" >> ${ANSIBLE_DIR}/00_inventory.yml
+    echo "    ansible_python_interpreter: /usr/bin/python3" >> ${ANSIBLE_DIR}/00_inventory.yml
+  echo "  hosts:" >> ${ANSIBLE_DIR}/00_inventory.yml
+  sudo podman ps -aq | awk '{system("sudo podman inspect -f \"    {{.NetworkSettings.IPAddress}}:\" "$1)}' >> ${ANSIBLE_DIR}/00_inventory.yml
+  mkdir -p ${ANSIBLE_DIR}/host_vars
+  mkdir -p ${ANSIBLE_DIR}/group_vars
 	echo ""
 }
 
@@ -95,34 +89,25 @@ createAnsible(){
 # Let's Go !! #################################################
 
 
-if [ $# == 0 ];then
-  help
-fi
-
-
-while getopts ":a:c:u:h:i:t:s:d:" options; do
+while getopts ":c:ahitsd" options; do
   case "${options}" in 
 		a)
-			createAnsible ${OPTARG}
+			createAnsible
 			;;
     c)
-			ACTION="create"
-      CONTAINER_NUMBER=${OPTARG}
-      ;;
-    u)
-      CONTAINER_USER=${OPTARG}
+			createContainers ${OPTARG}
       ;;
 		i)
 			infosContainers
 			;;
 		s)
-			startContainers ${OPTARG}
+			startContainers
 			;;
 		t)
-			stopContainers ${OPTARG}
+			stopContainers
 			;;
 		d)
-			dropContainers ${OPTARG}
+			dropContainers
 			;;
     h)
       help
@@ -134,9 +119,3 @@ while getopts ":a:c:u:h:i:t:s:d:" options; do
       ;;
   esac
 done
-
-if [[ "$ACTION" == "create" ]];then
-	createContainers ${CONTAINER_NUMBER} ${CONTAINER_USER}
-fi
-
-help
