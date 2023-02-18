@@ -68,17 +68,17 @@ infosContainers(){
 }
 
 dropContainers(){
-  sudo podman ps -a --format {{.Names}} | awk -v user=${CONTAINER_USER} '$1 ~ "^"user {system("sudo podman rm -f "$1)}'
+  sudo podman ps -a --format {{.Names}} | awk -v user=${CONTAINER_USER} '$1 ~ "^"user {print $1" - dropping...";system("sudo podman rm -f "$1)}'
   infosContainers
 }
 
 startContainers(){
-  sudo podman ps -a --format {{.Names}} | awk -v user=${CONTAINER_USER} '$1 ~ "^"user {system("sudo podman start "$1)}'
+  sudo podman ps -a --format {{.Names}} | awk -v user=${CONTAINER_USER} '$1 ~ "^"user {print $1" - starting...";system("sudo podman start "$1)}'
   infosContainers
 }
 
 stopContainers(){
-  sudo podman ps -a --format {{.Names}} | awk -v user=${CONTAINER_USER} '$1 ~ "^"user {system("sudo podman stop "$1)}'
+  sudo podman ps -a --format {{.Names}} | awk -v user=${CONTAINER_USER} '$1 ~ "^"user {system(print $1" - stopping...";"sudo podman stop "$1)}'
   infosContainers
 }
 
