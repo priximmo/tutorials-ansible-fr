@@ -20,7 +20,15 @@ CONTAINER_USER=$(sudo printenv SUDO_USER)
 # Functions ###################################################
 
 help(){
-  echo "Usage: $0 [ -c <number> ]" 1>&2
+  echo "
+Usage: $0 
+-c <number> : create container and add the number of containers
+-i : information (ip and name)
+-s : start all containers created by this script
+-t : same to stop all containers
+-d : same for drop all containers
+-a : create an inventory for ansible with all ips
+  " 1>&2
   exit 1
 }
 
@@ -61,14 +69,17 @@ infosContainers(){
 
 dropContainers(){
   sudo podman ps -a --format {{.Names}} | awk -v user=${CONTAINER_USER} '$1 ~ "^"user {system("sudo podman rm -f "$1)}'
+  infosContainers
 }
 
 startContainers(){
   sudo podman ps -a --format {{.Names}} | awk -v user=${CONTAINER_USER} '$1 ~ "^"user {system("sudo podman start "$1)}'
+  infosContainers
 }
 
 stopContainers(){
   sudo podman ps -a --format {{.Names}} | awk -v user=${CONTAINER_USER} '$1 ~ "^"user {system("sudo podman stop "$1)}'
+  infosContainers
 }
 
 createAnsible(){
@@ -88,6 +99,9 @@ createAnsible(){
 
 # Let's Go !! #################################################
 
+if [ "$#" -eq  0 ];then
+help
+fi
 
 while getopts ":c:ahitsd" options; do
   case "${options}" in 
