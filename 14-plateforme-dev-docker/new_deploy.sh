@@ -16,6 +16,7 @@ set -eo pipefail
 # Variables ###################################################
 
 CONTAINER_USER=$(sudo printenv SUDO_USER)
+ANSIBLE_DIR="ansible_dir"
 
 # Functions ###################################################
 
@@ -28,8 +29,7 @@ Usage: $0
 -t : same to stop all containers
 -d : same for drop all containers
 -a : create an inventory for ansible with all ips
-  " 1>&2
-  exit 1
+  "
 }
 
 createContainers(){
@@ -44,7 +44,7 @@ createContainers(){
   
 	# Création des conteneurs en boucle
 	for i in $(seq $id_min $id_max);do
-		sudo podman run -d --systemd=true --publish-all=true -v /srv/data:/srv/html --name ${CONTAINER_USER}-debian-$i -h ${CONTAINER_USER}-debian-$i docker.io/priximmo/buster-systemd-ssh
+		sudo podman run -d --systemd=true --publish-all=true -v /srv/data:/srv/data --name ${CONTAINER_USER}-debian-$i -h ${CONTAINER_USER}-debian-$i docker.io/priximmo/buster-systemd-ssh
 		${CONTAINER_CMD} ${CONTAINER_USER}-debian-$i /bin/sh -c "useradd -m -p sa3tHJ3/KuYvI ${CONTAINER_USER}"
 		${CONTAINER_CMD} ${CONTAINER_USER}-debian-$i /bin/sh -c "mkdir -m 0700 ${CONTAINER_HOME}/.ssh && chown ${CONTAINER_USER}:${CONTAINER_USER} ${CONTAINER_HOME}/.ssh"
 		sudo podman cp ${HOME}/.ssh/id_rsa.pub ${CONTAINER_USER}-debian-$i:${CONTAINER_HOME}/.ssh/authorized_keys
@@ -53,7 +53,7 @@ createContainers(){
 		${CONTAINER_CMD} ${CONTAINER_USER}-debian-$i /bin/sh -c "service ssh start"
 	done
 
-	infosContainers ${CONTAINER_USER}
+	infosContainers
 
   exit 0
 }
@@ -64,7 +64,7 @@ infosContainers(){
 	echo ""
   sudo podman ps -aq | awk '{system("sudo podman inspect -f \"{{.Name}} -- IP: {{.NetworkSettings.IPAddress}}\" "$1)}'
 	echo ""
-
+  exit 0
 }
 
 dropContainers(){
@@ -84,11 +84,10 @@ stopContainers(){
 
 createAnsible(){
 	echo ""
-  	ANSIBLE_DIR="ansible_dir"
-  	mkdir -p ${ANSIBLE_DIR}
-  	echo "all:" > ${ANSIBLE_DIR}/00_inventory.yml
-	echo "  vars:" >> ${ANSIBLE_DIR}/00_inventory.yml
-    echo "    ansible_python_interpreter: /usr/bin/python3" >> ${ANSIBLE_DIR}/00_inventory.yml
+  mkdir -p ${ANSIBLE_DIR}
+  echo "all:" > ${ANSIBLE_DIR}/00_inventory.yml
+  echo "  vars:" >> ${ANSIBLE_DIR}/00_inventory.yml
+  echo "    ansible_python_interpreter: /usr/bin/python3" >> ${ANSIBLE_DIR}/00_inventory.yml
   echo "  hosts:" >> ${ANSIBLE_DIR}/00_inventory.yml
   sudo podman ps -aq | awk '{system("sudo podman inspect -f \"    {{.NetworkSettings.IPAddress}}:\" "$1)}' >> ${ANSIBLE_DIR}/00_inventory.yml
   mkdir -p ${ANSIBLE_DIR}/host_vars
