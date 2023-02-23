@@ -15,7 +15,7 @@ set -eo pipefail
 
 # Variables ###################################################
 
-CONTAINER_USER=$(sudo printenv SUDO_USER)
+CONTAINER_USER=$USER
 ANSIBLE_DIR="ansible_dir"
 
 # Functions ###################################################
